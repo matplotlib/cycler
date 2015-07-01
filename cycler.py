@@ -166,12 +166,13 @@ class Cycler(object):
     def _repr_html_(self):
         # an table showing the value of each key through a full cycle
         output = "<table>"
-        for key in self.keys:
+        sorted_keys = sorted(self.keys)
+        for key in sorted_keys:
             output += "<th>{key!r}</th>".format(key=key)
         for d in iter(self):
             output += "<tr>"
-            for val in d.values():
-                output += "<td>{val!r}</td>".format(val=val)
+            for k in sorted_keys:
+                output += "<td>{val!r}</td>".format(val=d[k])
             output += "</tr>"
         output += "</table>"
         return output

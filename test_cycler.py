@@ -1,6 +1,6 @@
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
+from __future__ import (absolute_import, division, print_function)
 
+import six
 from six.moves import zip, range
 from cycler import cycler, Cycler
 from nose.tools import assert_equal, assert_raises
@@ -112,11 +112,12 @@ def test_mul_fails():
 
 def test_getitem():
     c1 = cycler('lw', range(15))
+    widths = list(range(15))
     for slc in (slice(None, None, None),
                 slice(None, None, -1),
                 slice(1, 5, None),
                 slice(0, 5, 2)):
-        yield _cycles_equal, c1[slc], cycler('lw', range(15)[slc])
+        yield _cycles_equal, c1[slc], cycler('lw', widths[slc])
 
 
 def test_fail_getime():
@@ -127,7 +128,9 @@ def test_fail_getime():
 
 def _repr_tester_helper(rpr_func, cyc, target_repr):
     test_repr = getattr(cyc, rpr_func)()
-    assert_equal(test_repr, target_repr)
+
+    assert_equal(six.text_type(test_repr),
+                 six.text_type(target_repr))
 
 
 def test_repr():
