@@ -110,7 +110,7 @@ unused_docs = []
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
 
-default_role = 'obj'
+default_role = 'any'
 
 # Plot directive configuration
 # ----------------------------

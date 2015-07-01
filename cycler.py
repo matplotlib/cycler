@@ -30,11 +30,23 @@ def _process_keys(left, right):
 
 class Cycler(object):
     """
-    A class to handle cycling multiple artist properties.
+    Composable cycles
 
-    This class has two compositions methods '+' for 'inner'
-    products of the cycles and '*' for outer products of the
-    cycles.
+    This class has compositions methods:
+
+    ``+``
+      for 'inner' products (zip)
+
+    ``+=``
+      in-place ``+``
+
+    ``*``
+      for outer products (itertools.product) and integer multiplication
+
+    ``*=``
+      in-place ``*``
+
+    and supports basic slicing via ``[]``
 
     Parameters
     ----------
@@ -49,6 +61,10 @@ class Cycler(object):
 
     """
     def __init__(self, left, right=None, op=None):
+        """Semi-private init
+
+        Do not use this directly, use `cycler` function instead.
+        """
         self._keys = _process_keys(left, right)
         self._left = copy.copy(left)
         self._right = copy.copy(right)
@@ -56,6 +72,9 @@ class Cycler(object):
 
     @property
     def keys(self):
+        """
+        The keys this Cycler knows about
+        """
         return set(self._keys)
 
     def _compose(self):
@@ -110,12 +129,29 @@ class Cycler(object):
         return self._compose()
 
     def __add__(self, other):
+        """
+        Pair-wise combine two equal length cycles (zip)
+
+        Parameters
+        ----------
+        other : Cycler
+           The second Cycler
+        """
         if len(self) != len(other):
             raise ValueError("Can only add equal length cycles, "
                              "not {0} and {1}".format(len(self), len(other)))
         return Cycler(self, other, zip)
 
     def __mul__(self, other):
+        """
+        Outer product of two cycles (`itertools.product`) or integer
+        multiplication.
+
+        Parameters
+        ----------
+        other : Cycler or int
+           The second Cycler or integer
+        """
         if isinstance(other, Cycler):
             return Cycler(self, other, product)
         elif isinstance(other, int):
@@ -137,6 +173,14 @@ class Cycler(object):
         return op_dict[self._op](l_len, r_len)
 
     def __iadd__(self, other):
+        """
+        In-place pair-wise combine two equal length cycles (zip)
+
+        Parameters
+        ----------
+        other : Cycler
+           The second Cycler
+        """
         old_self = copy.copy(self)
         self._keys = _process_keys(old_self, other)
         self._left = old_self
@@ -145,6 +189,15 @@ class Cycler(object):
         return self
 
     def __imul__(self, other):
+        """
+        In-place outer product of two cycles (`itertools.product`)
+
+        Parameters
+        ----------
+        other : Cycler
+           The second Cycler
+        """
+
         old_self = copy.copy(self)
         self._keys = _process_keys(old_self, other)
         self._left = old_self
@@ -203,15 +256,14 @@ class Cycler(object):
         return out
 
     def simplify(self):
-        """
-        Simplify the Cycler and return as a composition only
-        sums (no multiplications)
+        """Simplify the Cycler
+
+        Returned as a composition using only sums (no multiplications)
 
         Returns
         -------
         simple : Cycler
-            An equivalent cycler using only summation
-        """
+            An equivalent cycler using only summation"""
         # TODO: sort out if it is worth the effort to make sure this is
         # balanced.  Currently it is is
         # (((a + b) + c) + d) vs

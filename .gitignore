@@ -54,6 +54,7 @@ cover/
 
 # Sphinx documentation
 docs/_build/
+doc/source/generated/
 
 #mac
 .DS_Store
