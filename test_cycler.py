@@ -123,3 +123,25 @@ def test_fail_getime():
     c1 = cycler('lw', range(15))
     assert_raises(ValueError, Cycler.__getitem__, c1, 0)
     assert_raises(ValueError, Cycler.__getitem__, c1, [0, 1])
+
+
+def _repr_tester_helper(rpr_func, cyc, target_repr):
+    test_repr = getattr(cyc, rpr_func)()
+    assert_equal(test_repr, target_repr)
+
+
+def test_repr():
+    c = cycler('c', 'rgb')
+    c2 = cycler('lw', range(3))
+
+    c_sum_rpr = "(cycler('c', ['r', 'g', 'b']) + cycler('lw', [0, 1, 2]))"
+    c_prod_rpr = "(cycler('c', ['r', 'g', 'b']) * cycler('lw', [0, 1, 2]))"
+
+    yield _repr_tester_helper, '__repr__', c + c2, c_sum_rpr
+    yield _repr_tester_helper, '__repr__', c * c2, c_prod_rpr
+
+    sum_html = "<table><th>'c'</th><th>'lw'</th><tr><td>'r'</td><td>0</td></tr><tr><td>'g'</td><td>1</td></tr><tr><td>'b'</td><td>2</td></tr></table>"
+    prod_html = "<table><th>'c'</th><th>'lw'</th><tr><td>'r'</td><td>0</td></tr><tr><td>'r'</td><td>1</td></tr><tr><td>'r'</td><td>2</td></tr><tr><td>'g'</td><td>0</td></tr><tr><td>'g'</td><td>1</td></tr><tr><td>'g'</td><td>2</td></tr><tr><td>'b'</td><td>0</td></tr><tr><td>'b'</td><td>1</td></tr><tr><td>'b'</td><td>2</td></tr></table>"
+
+    yield _repr_tester_helper, '_repr_html_', c + c2, sum_html
+    yield _repr_tester_helper, '_repr_html_', c * c2, prod_html
