@@ -1,0 +1,31 @@
+cycler.Cycler
+=============
+
+.. currentmodule:: cycler
+
+.. autoclass:: Cycler
+
+   
+   .. automethod:: __init__
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+   
+      ~Cycler.__init__
+      ~Cycler.change_key
+      ~Cycler.concat
+      ~Cycler.simplify
+   
+   
+
+   
+   
+   .. rubric:: Attributes
+
+   .. autosummary::
+   
+      ~Cycler.keys
+   
+   

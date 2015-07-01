@@ -1,0 +1,6 @@
+cycler.concat
+=============
+
+.. currentmodule:: cycler
+
+.. autofunction:: concat

@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>cycler.Cycler &mdash; cycler 0.10.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.10.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="cycler 0.10.0 documentation" href="../index.html" />
+    <link rel="prev" title="cycler.cycler" href="cycler.cycler.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="cycler-cycler">
+<h1>cycler.Cycler<a class="headerlink" href="#cycler-cycler" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="cycler.Cycler">
+<em class="property">class </em><code class="descclassname">cycler.</code><code class="descname">Cycler</code><span class="sig-paren">(</span><em>left</em>, <em>right=None</em>, <em>op=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Composable cycles</p>
+<p>This class has compositions methods:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">+</span></code></dt>
+<dd>for &#8216;inner&#8217; products (zip)</dd>
+<dt><code class="docutils literal"><span class="pre">+=</span></code></dt>
+<dd>in-place <code class="docutils literal"><span class="pre">+</span></code></dd>
+<dt><code class="docutils literal"><span class="pre">*</span></code></dt>
+<dd>for outer products (itertools.product) and integer multiplication</dd>
+<dt><code class="docutils literal"><span class="pre">*=</span></code></dt>
+<dd>in-place <code class="docutils literal"><span class="pre">*</span></code></dd>
+</dl>
+<p>and supports basic slicing via <code class="docutils literal"><span class="pre">[]</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>left</strong> : Cycler or None</p>
+<blockquote>
+<div><p>The &#8216;left&#8217; cycler</p>
+</div></blockquote>
+<p><strong>right</strong> : Cycler or None</p>
+<blockquote>
+<div><p>The &#8216;right&#8217; cycler</p>
+</div></blockquote>
+<p><strong>op</strong> : func or None</p>
+<blockquote class="last">
+<div><p>Function which composes the &#8216;left&#8217; and &#8216;right&#8217; cyclers.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="cycler.Cycler.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>left</em>, <em>right=None</em>, <em>op=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Semi-private init</p>
+<p>Do not use this directly, use <a class="reference internal" href="cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-obj docutils literal"><span class="pre">cycler</span></code></a> function instead.</p>
+</dd></dl>
+
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#cycler.Cycler.__init__" title="cycler.Cycler.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>(left[,&nbsp;right,&nbsp;op])</td>
+<td>Semi-private init</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#cycler.Cycler.change_key" title="cycler.Cycler.change_key"><code class="xref py py-obj docutils literal"><span class="pre">change_key</span></code></a>(old,&nbsp;new)</td>
+<td>Change a key in this cycler to a new name.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#cycler.Cycler.concat" title="cycler.Cycler.concat"><code class="xref py py-obj docutils literal"><span class="pre">concat</span></code></a>(other)</td>
+<td>Concatenate this cycler and an other.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#cycler.Cycler.simplify" title="cycler.Cycler.simplify"><code class="xref py py-obj docutils literal"><span class="pre">simplify</span></code></a>()</td>
+<td>Simplify the Cycler</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#cycler.Cycler.keys" title="cycler.Cycler.keys"><code class="xref py py-obj docutils literal"><span class="pre">keys</span></code></a></td>
+<td>The keys this Cycler knows about</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="cycler.Cycler.by_key">
+<code class="descname">by_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.by_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler.by_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Values by key</p>
+<p>This returns the transposed values of the cycler.  Iterating
+over a <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> yields dicts with a single value for each key,
+this method returns a <a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#dict" title="(in Python v3.4)"><code class="xref py py-obj docutils literal"><span class="pre">dict</span></code></a> of <a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#list" title="(in Python v3.4)"><code class="xref py py-obj docutils literal"><span class="pre">list</span></code></a> which are the values
+for the given key.</p>
+<p>The returned value can be used to create an equivalent <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a>
+using only <code class="xref py py-obj docutils literal"><span class="pre">+</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>transpose</strong> : dict</p>
+<blockquote class="last">
+<div><p>dict of lists of the values for each key.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycler.Cycler.change_key">
+<code class="descname">change_key</code><span class="sig-paren">(</span><em>old</em>, <em>new</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.change_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler.change_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change a key in this cycler to a new name.
+Modification is performed in-place.</p>
+<p>Does nothing if the old key is the same as the new key.
+Raises a ValueError if the new key is already a key.
+Raises a KeyError if the old key isn&#8217;t a key.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycler.Cycler.concat">
+<code class="descname">concat</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.concat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler.concat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenate this cycler and an other.</p>
+<p>The keys must match exactly.</p>
+<p>This returns a single Cycler which is equivalent to
+<code class="xref py py-obj docutils literal"><span class="pre">itertools.chain(self,</span> <span class="pre">other)</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>other</strong> : <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a></p>
+<blockquote>
+<div><p>The <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> to concatenate to this one.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ret</strong> : <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a></p>
+<blockquote class="last">
+<div><p>The concatenated <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">num</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">let</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;abc&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">num</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">let</span><span class="p">)</span>
+<span class="go">cycler(&#39;a&#39;, [0, 1, 2, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cycler.Cycler.keys">
+<code class="descname">keys</code><a class="headerlink" href="#cycler.Cycler.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>The keys this Cycler knows about</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cycler.Cycler.simplify">
+<code class="descname">simplify</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.simplify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler.simplify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simplify the Cycler</p>
+<p>Returned as a composition using only sums (no multiplications)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>simple</strong> : Cycler</p>
+<blockquote class="last">
+<div><p>An equivalent cycler using only summation</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="cycler.cycler.html" title="previous chapter">cycler.cycler</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/generated/cycler.Cycler.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2015, Matplotlib Developers.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/generated/cycler.Cycler.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

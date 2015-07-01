@@ -1,0 +1,6 @@
+cycler.cycler
+=============
+
+.. currentmodule:: cycler
+
+.. autofunction:: cycler
