@@ -194,7 +194,8 @@ class Cycler(object):
         # and if we care.
 
         keys = self.keys
-        out = {k: list() for k in keys}
+        # change this to dict comprehension when drop 2.6
+        out = dict((k,  list()) for k in keys)
 
         for d in self:
             for k in keys:
