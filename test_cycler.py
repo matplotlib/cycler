@@ -1,9 +1,8 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
-import six
-from six.moves import zip
-from matplotlib.cycler import cycler, Cycler
+from six.moves import zip, range
+from cycler import cycler, Cycler
 from nose.tools import assert_equal, assert_raises
 from itertools import product
 from operator import add, iadd, mul, imul
