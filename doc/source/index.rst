@@ -1,8 +1,8 @@
 .. currentmodule:: cycler
 
-==========================
- Style/kwarg cycler Guide
-==========================
+====================
+ Style/kwarg cycler
+====================
 
 .. htmlonly::
 
@@ -10,7 +10,7 @@
     :Date: |today|
 
 :py:mod:`cycler` API
-===============================
+====================
 
 .. autosummary::
    :toctree: generated/
@@ -107,8 +107,11 @@ As with arithmetic, addition is commutative
 
 .. ipython:: python
 
-   for a, b in zip(lw_cycle + color_cycle, color_cycle + lw_cycle):
-      print(a == b)
+   lw_c = lw_cycle + color_cycle
+   c_lw = color_cycle + lw_cycle
+
+   for j, (a, b) in enumerate(zip(lw_c, c_lw)):
+      print('({j}) A: {A!r} B: {B!r}'.format(j=j, A=a, B=b))
 
 
 Multiplication
@@ -138,8 +141,9 @@ matrices)
 .. ipython:: python
 
    c_m = color_cycle * m_cycle
-   for a, b in zip(c_m, m_c):
-      print(a, b)
+
+   for j, (a, b) in enumerate(zip(c_m, m_c)):
+      print('({j}) A: {A!r} B: {B!r}'.format(j=j, A=a, B=b))
 
 
 
@@ -159,7 +163,7 @@ Integer Multiplication
 Slicing
 -------
 
-Cycles can be sliced with :obj:`silce` objects
+Cycles can be sliced with :obj:`slice` objects
 
 .. ipython:: python
 
@@ -179,7 +183,8 @@ Examples
    from cycler import cycler
    from itertools import cycle
 
-   fig, (ax1, ax2) = plt.subplots(1, 2, tight_layout=True, figsize=(8, 4))
+   fig, (ax1, ax2) = plt.subplots(1, 2, tight_layout=True,
+                                  figsize=(8, 4))
    x = np.arange(10)
 
    color_cycle = cycler('c', ['r', 'g', 'b'])
@@ -198,7 +203,8 @@ Examples
    from cycler import cycler
    from itertools import cycle
 
-   fig, (ax1, ax2) = plt.subplots(1, 2, tight_layout=True, figsize=(8, 4))
+   fig, (ax1, ax2) = plt.subplots(1, 2, tight_layout=True,
+                                  figsize=(8, 4))
    x = np.arange(10)
 
    color_cycle = cycler('c', ['r', 'g', 'b'])
@@ -225,15 +231,16 @@ A :obj:`ValueError` is raised if unequal length `Cycler` s are added together
 .. ipython:: python
    :okexcept:
 
-   color_cycle + ls_cycle
+   cycler('c', ['r', 'g', 'b']) + cycler('ls', ['-', '--'])
 
 or if two cycles which have overlapping keys are composed
 
 .. ipython:: python
    :okexcept:
 
+   color_cycle = cycler('c', ['r', 'g', 'b'])
+
    color_cycle + color_cycle
-   color_cycle * color_cycle
 
 
 Motivation
