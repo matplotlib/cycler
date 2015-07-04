@@ -176,6 +176,8 @@ to return a sub-set of the cycle as a new `Cycler`.
 Examples
 --------
 
+We can use `Cycler` instances to cycle over one or more ``kwarg`` to
+`~matplotlib.axes.Axes.plot` :
 
 .. plot::
    :include-source:
