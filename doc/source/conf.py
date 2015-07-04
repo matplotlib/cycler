@@ -44,6 +44,8 @@ extensions = [
 ]
 
 
+autosummary_generate = True
+
 numpydoc_show_class_members = False
 autodoc_default_flags = ['members']
 
@@ -275,7 +277,8 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
 
-intersphinx_mapping = {'python': ('https://docs.python.org/3.4', None)}
+intersphinx_mapping = {'python': ('https://docs.python.org/3.4', None),
+                       'matplotlb': ('http://matplotlib.org', None)}
 
 ################# numpydoc config ####################
 numpydoc_show_class_members = False
