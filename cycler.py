@@ -2,7 +2,7 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import six
-from itertools import product
+from itertools import product, cycle
 from six.moves import zip, reduce
 from operator import mul, add
 import copy
@@ -62,6 +62,9 @@ class Cycler(object):
         Function which composes the 'left' and 'right' cyclers.
 
     """
+    def __call__(self):
+        return cycle(self)
+
     def __init__(self, left, right=None, op=None):
         """Semi-private init
 

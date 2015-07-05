@@ -3,8 +3,8 @@ from __future__ import (absolute_import, division, print_function)
 import six
 from six.moves import zip, range
 from cycler import cycler, Cycler
-from nose.tools import assert_equal, assert_raises
-from itertools import product
+from nose.tools import assert_equal, assert_raises, assert_true
+from itertools import product, cycle
 from operator import add, iadd, mul, imul
 
 
@@ -148,3 +148,15 @@ def test_repr():
 
     yield _repr_tester_helper, '_repr_html_', c + c2, sum_html
     yield _repr_tester_helper, '_repr_html_', c * c2, prod_html
+
+
+def test_call():
+    c = cycler('c', 'rgb')
+    c_cycle = c()
+    assert_true(isinstance(c_cycle, cycle))
+    j = 0
+    for a, b in zip(2*c, c_cycle):
+        j += 1
+        assert_equal(a, b)
+
+    assert_equal(j, len(c) * 2)
