@@ -69,6 +69,16 @@ which returns a new  `Cycler` with a new label, but the same values.
    cycler('ec', color_cycle)
 
 
+Iterating over a `Cycler` results in the finite list of entries, to
+get an infinite cycle, call the `Cycler` object (a-la a generator)
+
+.. ipython:: python
+
+   cc = color_cycle()
+   for j, c in zip(range(5),  cc):
+       print(j, c)
+
+
 Composition
 -----------
 
