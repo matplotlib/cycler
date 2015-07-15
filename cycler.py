@@ -129,7 +129,7 @@ class Cycler(object):
 
     def __iter__(self):
         if self._right is None:
-            return iter(self._left)
+            return iter(dict(l) for l in self._left)
 
         return self._compose()
 
