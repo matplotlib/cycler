@@ -1,3 +1,45 @@
+"""
+Cycler
+======
+
+Cycling through combinations of values, producing dictionaries.
+
+You can add cyclers::
+
+    from cycler import cycler
+    cc = (cycler('color', list('rgb')) +
+          cycler('linestyle', ['-', '--', '-.']))
+    for d in cc:
+        print(d)
+
+Results in::
+
+    {'color': 'r', 'linestyle': '-'}
+    {'color': 'g', 'linestyle': '--'}
+    {'color': 'b', 'linestyle': '-.'}
+
+
+You can multiply cyclers::
+
+    from cycler import cycler
+    cc = (cycler('color', list('rgb')) *
+          cycler('linestyle', ['-', '--', '-.']))
+    for d in cc:
+        print(d)
+
+Results in::
+
+    {'color': 'r', 'linestyle': '-'}
+    {'color': 'r', 'linestyle': '--'}
+    {'color': 'r', 'linestyle': '-.'}
+    {'color': 'g', 'linestyle': '-'}
+    {'color': 'g', 'linestyle': '--'}
+    {'color': 'g', 'linestyle': '-.'}
+    {'color': 'b', 'linestyle': '-'}
+    {'color': 'b', 'linestyle': '--'}
+    {'color': 'b', 'linestyle': '-.'}
+"""
+
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
