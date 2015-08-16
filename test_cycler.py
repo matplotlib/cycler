@@ -3,7 +3,8 @@ from __future__ import (absolute_import, division, print_function)
 import six
 from six.moves import zip, range
 from cycler import cycler, Cycler
-from nose.tools import assert_equal, assert_raises, assert_true
+from nose.tools import (assert_equal, assert_not_equal,
+                        assert_raises, assert_true)
 from itertools import product, cycle
 from operator import add, iadd, mul, imul
 
@@ -160,3 +161,24 @@ def test_call():
         assert_equal(a, b)
 
     assert_equal(j, len(c) * 2)
+
+
+def _eq_test_helper(a, b, res):
+    if res:
+        assert_equal(a, b)
+    else:
+        assert_not_equal(a, b)
+
+
+def test_eq():
+    a = cycler('c', 'rgb')
+    b = cycler('c', 'rgb')
+    yield _eq_test_helper, a, b, True
+    yield _eq_test_helper, a, b[::-1], False
+    c = cycler('lw', range(3))
+    yield _eq_test_helper, a+c, c+a, True
+    yield _eq_test_helper, a+c, c+b, True
+    yield _eq_test_helper, a*c, c*a, False
+    yield _eq_test_helper, a, c, False
+    d = cycler('c', 'ymk')
+    yield _eq_test_helper, b, d, False
