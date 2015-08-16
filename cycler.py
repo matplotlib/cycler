@@ -252,6 +252,17 @@ class Cycler(object):
         self._right = copy.copy(other)
         return self
 
+    def __eq__(self, other):
+        """
+        Check equality
+        """
+        if len(self) != len(other):
+            return False
+        if self.keys ^ other.keys:
+            return False
+
+        return all(a == b for a, b in zip(self, other))
+
     def __repr__(self):
         op_map = {zip: '+', product: '*'}
         if self._right is None:
