@@ -216,6 +216,32 @@ def test_copying():
     assert_equal(c3, cycler('foo', [['y', 'g', 'blue'], ['b', 'k']]))
 
 
+def test_keychange():
+    c1 = cycler('c', 'rgb')
+    c2 = cycler('lw', [1, 2, 3])
+    c3 = cycler('ec', 'yk')
+
+    c3.key_change('ec', 'edgecolor')
+    assert_equal(c3, cycler('edgecolor', c3))
+
+    c = c1 + c2
+    c.key_change('lw', 'linewidth')
+    assert_equal(c, c1 + cycler('linewidth', c2))
+
+    c = (c1 + c2) * c3
+    c.key_change('c', 'color')
+    assert_equal(c, (cycler('color', c1) + c2) * c3)
+
+    # Perfectly fine, it is a no-op
+    c.key_change('color', 'color')
+    assert_equal(c, (cycler('color', c1) + c2) * c3)
+
+    # Can't change a key to one that is already in there
+    assert_raises(ValueError, Cycler.key_change, c, 'color', 'linewidth')
+    # Can't change a key you don't have
+    assert_raises(KeyError, Cycler.key_change, c, 'c', 'foobar')
+
+
 def _eq_test_helper(a, b, res):
     if res:
         assert_equal(a, b)

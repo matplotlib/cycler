@@ -138,6 +138,46 @@ class Cycler(object):
         """
         return set(self._keys)
 
+    def key_change(self, old, new):
+        """
+        Change a key in this cycler to a new name.
+        Modification is performed in-place.
+
+        Does nothing if the old key is the same as the new key.
+        Raises a ValueError if the new key is already a key.
+        Raises a KeyError if the old key isn't a key.
+
+        """
+        if old == new:
+            return
+        if new in self._keys:
+            raise ValueError("Can't replace %s with %s, %s is already a key" %
+                             (old, new, new))
+        if old not in self._keys:
+            raise KeyError("Can't replace %s with %s, %s is not a key" %
+                           (old, new, old))
+
+        self._keys.remove(old)
+        self._keys.add(new)
+
+        if self._right is not None and old in self._right.keys:
+            self._right.key_change(old, new)
+        elif self._left is not None:
+            if isinstance(self._left, Cycler):
+                self._left.key_change(old, new)
+            else:
+                Cycler._key_change(iter(self._left), old, new)
+
+    @staticmethod
+    def _key_change(itr, old, new):
+        entry = six.next(itr)
+        if old in entry:
+            entry[new] = entry[old]
+            del entry[old]
+            for entry in itr:
+                entry[new] = entry[old]
+                del entry[old]
+
     def _compose(self):
         """
         Compose the 'left' and 'right' components of this cycle
