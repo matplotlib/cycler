@@ -7,8 +7,8 @@ Cycling through combinations of values, producing dictionaries.
 You can add cyclers::
 
     from cycler import cycler
-    cc = (cycler('color', list('rgb')) +
-          cycler('linestyle', ['-', '--', '-.']))
+    cc = (cycler(color=list('rgb')) +
+          cycler(linestyle=['-', '--', '-.']))
     for d in cc:
         print(d)
 
@@ -22,8 +22,8 @@ Results in::
 You can multiply cyclers::
 
     from cycler import cycler
-    cc = (cycler('color', list('rgb')) *
-          cycler('linestyle', ['-', '--', '-.']))
+    cc = (cycler(color=list('rgb')) *
+          cycler(linestyle=['-', '--', '-.']))
     for d in cc:
         print(d)
 
@@ -164,8 +164,8 @@ class Cycler(object):
         # TODO : maybe add numpy style fancy slicing
         if isinstance(key, slice):
             trans = self._transpose()
-            return reduce(add, (cycler(k, v[key])
-                                for k, v in six.iteritems(trans)))
+            return cycler(**dict((k, v[key])
+                                 for k, v in six.iteritems(trans)))
         else:
             raise ValueError("Can only use slices with Cycler.__getitem__")
 
@@ -203,8 +203,8 @@ class Cycler(object):
             return Cycler(self, other, product)
         elif isinstance(other, int):
             trans = self._transpose()
-            return reduce(add, (cycler(k, v*other)
-                                for k, v in six.iteritems(trans)))
+            return cycler(**dict((k, v*other)
+                                 for k, v in six.iteritems(trans)))
         else:
             return NotImplemented
 
@@ -268,7 +268,7 @@ class Cycler(object):
         if self._right is None:
             lab = self.keys.pop()
             itr = list(v[lab] for v in self)
-            return "cycler({lab!r}, {itr!r})".format(lab=lab, itr=itr)
+            return "cycler({lab}={itr!r})".format(lab=lab, itr=itr)
         else:
             op = op_map.get(self._op, '?')
             msg = "({left!r} {op} {right!r})"
@@ -329,7 +329,7 @@ class Cycler(object):
         # I would believe that there is some performance implications
 
         trans = self._transpose()
-        return reduce(add, (cycler(k, v) for k, v in six.iteritems(trans)))
+        return cycler(**dict((k, v) for k, v in six.iteritems(trans)))
 
 
 def cycler(*args, **kwargs):
@@ -338,13 +338,10 @@ def cycler(*args, **kwargs):
     positional arguments or keyword arguments.
 
     cycler(arg)
-    cycler(label1, itr1[, label2, iter2[, ...]])
     cycler(label1=itr1[, label2=iter2[, ...]])
 
     Form 1 simply copies a given `Cycler` object.
-    Form 2 composes a `Cycler` as an outer product of the
-    pairs of label/iter.
-    Form 3 composes a `Cycler` as an inner product of the
+    Form 2 composes a `Cycler` as an inner product of the
     pairs of keyword arguments.
 
     Parameters
@@ -359,13 +356,11 @@ def cycler(*args, **kwargs):
     -------
     cycler : Cycler
         New `Cycler` for the given property
-    """
 
+    """
     if args and kwargs:
         raise TypeError("cyl() can only accept positional OR keyword "
                         "arguments -- not both.")
-    elif not args and not kwargs:
-        raise TypeError("cyl() must have positional OR keyword arguments")
 
     if len(args) == 1:
         if not isinstance(args[0], Cycler):
@@ -373,17 +368,13 @@ def cycler(*args, **kwargs):
                             " be a Cycler instance.")
         return copy.copy(args[0])
     elif len(args) > 1:
-        if (len(args) % 2) == 1:
-            raise TypeError("Positional arguments must be in pairs. Odd "
-                            " number of arguments found: %d" % len(args))
-        pairs = [(args[i], args[i+1]) for i in range(0, len(args), 2)]
-        op = mul
+        raise TypeError("Only a single Cycler can be accepted as the lone "
+                        "positional argument. Use keyword arguments instead.")
 
     if kwargs:
-        pairs = six.iteritems(kwargs)
-        op = add
+        return reduce(add, (_cycler(k, v) for k, v in six.iteritems(kwargs)))
 
-    return reduce(op, (_cycler(k, v) for k, v in pairs))
+    raise TypeError("Must have at least a positional OR keyword arguments")
 
 
 def _cycler(label, itr):

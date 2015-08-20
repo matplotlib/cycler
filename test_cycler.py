@@ -24,20 +24,18 @@ def _cycles_equal(c1, c2):
 
 
 def test_creation():
-    c = cycler('c', 'rgb')
-    yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
-    c = cycler('c', list('rgb'))
-    yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
     c = cycler(c='rgb')
     yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
-    c = cycler(cycler('c', 'rgb'))
+    c = cycler(c=list('rgb'))
+    yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
+    c = cycler(cycler(c='rgb'))
     yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
 
 
 def test_compose():
-    c1 = cycler('c', 'rgb')
-    c2 = cycler('lw', range(3))
-    c3 = cycler('lw', range(15))
+    c1 = cycler(c='rgb')
+    c2 = cycler(lw=range(3))
+    c3 = cycler(lw=range(15))
     # addition
     yield _cycler_helper, c1+c2, 3, ['c', 'lw'], [list('rgb'), range(3)]
     yield _cycler_helper, c2+c1, 3, ['c', 'lw'], [list('rgb'), range(3)]
@@ -58,23 +56,23 @@ def test_compose():
 
 
 def test_inplace():
-    c1 = cycler('c', 'rgb')
-    c2 = cycler('lw', range(3))
+    c1 = cycler(c='rgb')
+    c2 = cycler(lw=range(3))
     c2 += c1
     yield _cycler_helper, c2, 3, ['c', 'lw'], [list('rgb'), range(3)]
 
-    c3 = cycler('c', 'rgb')
-    c4 = cycler('lw', range(3))
+    c3 = cycler(c='rgb')
+    c4 = cycler(lw=range(3))
     c3 *= c4
     target = zip(*product(list('rgb'), range(3)))
     yield (_cycler_helper, c3, 9, ['c', 'lw'], target)
 
 
 def test_constructor():
-    c1 = cycler('c', 'rgb')
-    c2 = cycler('ec', c1)
+    c1 = cycler(c='rgb')
+    c2 = cycler(ec=c1)
     yield _cycler_helper, c1+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2
-    c3 = cycler('c', c1)
+    c3 = cycler(c=c1)
     yield _cycler_helper, c3+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2
 
     # addition using cycler()
@@ -86,74 +84,56 @@ def test_constructor():
     yield (_cycler_helper, cycler(c=range(3), lw=c1),
             3, ['c', 'lw'], [range(3), list('rgb')])
 
-    # multiplication with cycler()
-    target = zip(*product(list('rgb'), range(3)))
-    yield (_cycler_helper, cycler('c', 'rgb', 'lw', range(3)),
-            9, ['c', 'lw'], target)
-
-    target = zip(*product(range(3), list('rgb')))
-    yield (_cycler_helper, cycler('lw', range(3), 'c', 'rgb'),
-            9, ['lw', 'c'], target)
-
-    target = zip(*product(range(15), list('rgb')))
-    yield (_cycler_helper, cycler('lw', range(15), 'c', 'rgb'),
-            45, ['lw', 'c'], target)
-
-    # Purposely mixing them
-    target = zip(*product(list('rgb'), range(15)))
-    yield (_cycler_helper, cycler('lw', c1, 'c', range(15)),
-            45, ['lw', 'c'], target)
-
 
 def test_failures():
-    c1 = cycler('c', 'rgb')
-    c2 = cycler('c', c1)
+    c1 = cycler(c='rgb')
+    c2 = cycler(c=c1)
     assert_raises(ValueError, add, c1, c2)
     assert_raises(ValueError, iadd, c1, c2)
     assert_raises(ValueError, mul, c1, c2)
     assert_raises(ValueError, imul, c1, c2)
 
-    c3 = cycler('ec', c1)
+    c3 = cycler(ec=c1)
 
-    assert_raises(ValueError, cycler, 'c', c2 + c3)
+    assert_raises(ValueError, cycler, c=c2+c3)
 
 
 def test_simplify():
-    c1 = cycler('c', 'rgb')
-    c2 = cycler('ec', c1)
+    c1 = cycler(c='rgb')
+    c2 = cycler(ec=c1)
     for c in [c1 * c2, c2 * c1, c1 + c2]:
         yield _cycles_equal, c, c.simplify()
 
 
 def test_multiply():
-    c1 = cycler('c', 'rgb')
+    c1 = cycler(c='rgb')
     yield _cycler_helper, 2*c1, 6, ['c'], ['rgb'*2]
 
-    c2 = cycler('ec', c1)
+    c2 = cycler(ec=c1)
     c3 = c1 * c2
 
     yield _cycles_equal, 2*c3, c3*2
 
 
 def test_mul_fails():
-    c1 = cycler('c', 'rgb')
+    c1 = cycler(c='rgb')
     assert_raises(TypeError, mul, c1,  2.0)
     assert_raises(TypeError, mul, c1,  'a')
     assert_raises(TypeError, mul, c1,  [])
 
 
 def test_getitem():
-    c1 = cycler('lw', range(15))
+    c1 = cycler(lw=range(15))
     widths = list(range(15))
     for slc in (slice(None, None, None),
                 slice(None, None, -1),
                 slice(1, 5, None),
                 slice(0, 5, 2)):
-        yield _cycles_equal, c1[slc], cycler('lw', widths[slc])
+        yield _cycles_equal, c1[slc], cycler(lw=widths[slc])
 
 
 def test_fail_getime():
-    c1 = cycler('lw', range(15))
+    c1 = cycler(lw=range(15))
     assert_raises(ValueError, Cycler.__getitem__, c1, 0)
     assert_raises(ValueError, Cycler.__getitem__, c1, [0, 1])
 
@@ -166,11 +146,11 @@ def _repr_tester_helper(rpr_func, cyc, target_repr):
 
 
 def test_repr():
-    c = cycler('c', 'rgb')
-    c2 = cycler('lw', range(3))
+    c = cycler(c='rgb')
+    c2 = cycler(lw=range(3))
 
-    c_sum_rpr = "(cycler('c', ['r', 'g', 'b']) + cycler('lw', [0, 1, 2]))"
-    c_prod_rpr = "(cycler('c', ['r', 'g', 'b']) * cycler('lw', [0, 1, 2]))"
+    c_sum_rpr = "(cycler(c=['r', 'g', 'b']) + cycler(lw=[0, 1, 2]))"
+    c_prod_rpr = "(cycler(c=['r', 'g', 'b']) * cycler(lw=[0, 1, 2]))"
 
     yield _repr_tester_helper, '__repr__', c + c2, c_sum_rpr
     yield _repr_tester_helper, '__repr__', c * c2, c_prod_rpr
@@ -183,7 +163,7 @@ def test_repr():
 
 
 def test_call():
-    c = cycler('c', 'rgb')
+    c = cycler(c='rgb')
     c_cycle = c()
     assert_true(isinstance(c_cycle, cycle))
     j = 0
@@ -202,14 +182,14 @@ def _eq_test_helper(a, b, res):
 
 
 def test_eq():
-    a = cycler('c', 'rgb')
-    b = cycler('c', 'rgb')
+    a = cycler(c='rgb')
+    b = cycler(c='rgb')
     yield _eq_test_helper, a, b, True
     yield _eq_test_helper, a, b[::-1], False
-    c = cycler('lw', range(3))
+    c = cycler(lw=range(3))
     yield _eq_test_helper, a+c, c+a, True
     yield _eq_test_helper, a+c, c+b, True
     yield _eq_test_helper, a*c, c*a, False
     yield _eq_test_helper, a, c, False
-    d = cycler('c', 'ymk')
+    d = cycler(c='ymk')
     yield _eq_test_helper, b, d, False
