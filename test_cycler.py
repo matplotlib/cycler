@@ -28,6 +28,10 @@ def test_creation():
     yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
     c = cycler('c', list('rgb'))
     yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
+    c = cycler(c='rgb')
+    yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
+    c = cycler(cycler('c', 'rgb'))
+    yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
 
 
 def test_compose():
@@ -72,6 +76,33 @@ def test_constructor():
     yield _cycler_helper, c1+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2
     c3 = cycler('c', c1)
     yield _cycler_helper, c3+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2
+
+    # addition using cycler()
+    yield (_cycler_helper, cycler(c='rgb', lw=range(3)),
+            3, ['c', 'lw'], [list('rgb'), range(3)])
+    yield (_cycler_helper, cycler(lw=range(3), c='rgb'),
+            3, ['c', 'lw'], [list('rgb'), range(3)])
+    # Purposely mixing them
+    yield (_cycler_helper, cycler(c=range(3), lw=c1),
+            3, ['c', 'lw'], [range(3), list('rgb')])
+
+    # multiplication with cycler()
+    target = zip(*product(list('rgb'), range(3)))
+    yield (_cycler_helper, cycler('c', 'rgb', 'lw', range(3)),
+            9, ['c', 'lw'], target)
+
+    target = zip(*product(range(3), list('rgb')))
+    yield (_cycler_helper, cycler('lw', range(3), 'c', 'rgb'),
+            9, ['lw', 'c'], target)
+
+    target = zip(*product(range(15), list('rgb')))
+    yield (_cycler_helper, cycler('lw', range(15), 'c', 'rgb'),
+            45, ['lw', 'c'], target)
+
+    # Purposely mixing them
+    target = zip(*product(list('rgb'), range(15)))
+    yield (_cycler_helper, cycler('lw', c1, 'c', range(15)),
+            45, ['lw', 'c'], target)
 
 
 def test_failures():

@@ -332,7 +332,61 @@ class Cycler(object):
         return reduce(add, (cycler(k, v) for k, v in six.iteritems(trans)))
 
 
-def cycler(label, itr):
+def cycler(*args, **kwargs):
+    """
+    Create a new `Cycler` object from the combination of
+    positional arguments or keyword arguments.
+
+    cycler(arg)
+    cycler(label1, itr1[, label2, iter2[, ...]])
+    cycler(label1=itr1[, label2=iter2[, ...]])
+
+    Form 1 simply copies a given `Cycler` object.
+    Form 2 composes a `Cycler` as an outer product of the
+    pairs of label/iter.
+    Form 3 composes a `Cycler` as an inner product of the
+    pairs of keyword arguments.
+
+    Parameters
+    ----------
+    label : str
+        The property key.
+
+    itr : iterable
+        Finite length iterable of the property values.
+
+    Returns
+    -------
+    cycler : Cycler
+        New `Cycler` for the given property
+    """
+
+    if args and kwargs:
+        raise TypeError("cyl() can only accept positional OR keyword "
+                        "arguments -- not both.")
+    elif not args and not kwargs:
+        raise TypeError("cyl() must have positional OR keyword arguments")
+
+    if len(args) == 1:
+        if not isinstance(args[0], Cycler):
+            raise TypeError("If only one positional argument given, it must "
+                            " be a Cycler instance.")
+        return copy.copy(args[0])
+    elif len(args) > 1:
+        if (len(args) % 2) == 1:
+            raise TypeError("Positional arguments must be in pairs. Odd "
+                            " number of arguments found: %d" % len(args))
+        pairs = [(args[i], args[i+1]) for i in range(0, len(args), 2)]
+        op = mul
+
+    if kwargs:
+        pairs = six.iteritems(kwargs)
+        op = add
+
+    return reduce(op, (_cycler(k, v) for k, v in pairs))
+
+
+def _cycler(label, itr):
     """
     Create a new `Cycler` object from a property name and
     iterable of values.
