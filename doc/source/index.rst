@@ -42,7 +42,7 @@ hashable (as it will eventually be used as the key in a :obj:`dict`).
    from cycler import cycler
 
 
-   color_cycle = cycler('color', ['r', 'g', 'b'])
+   color_cycle = cycler(color=['r', 'g', 'b'])
    color_cycle
 
 The `Cycler` knows it's length and keys:
@@ -61,12 +61,12 @@ the label
    for v in color_cycle:
        print(v)
 
-`Cycler` objects can be passed as the second argument to :func:`cycler`
+`Cycler` objects can be passed as the argument to :func:`cycler`
 which returns a new  `Cycler` with a new label, but the same values.
 
 .. ipython:: python
 
-   cycler('ec', color_cycle)
+   cycler(ec=color_cycle)
 
 
 Iterating over a `Cycler` results in the finite list of entries, to
@@ -94,12 +94,12 @@ Equal length `Cycler` s with different keys can be added to get the
 
 .. ipython:: python
 
-   lw_cycle = cycler('lw', range(1, 4))
+   lw_cycle = cycler(lw=range(1, 4))
 
    wc = lw_cycle + color_cycle
 
 The result has the same length and has keys which are the union of the
-two input `Cycler` s.
+two input `Cycler`'s.
 
 .. ipython:: python
 
@@ -123,6 +123,17 @@ As with arithmetic, addition is commutative
    for j, (a, b) in enumerate(zip(lw_c, c_lw)):
       print('({j}) A: {A!r} B: {B!r}'.format(j=j, A=a, B=b))
 
+For convenience, the :func:`cycler` function can have multiple
+key-value pairs and will automatically compose them into a single
+`Cycler` via addition
+
+.. ipython:: python
+
+    wc = cycler(c=['r', 'g', 'b'], lw=range(3))
+
+    for s in wc:
+        print(s)
+
 
 Multiplication
 ~~~~~~~~~~~~~~
@@ -131,7 +142,7 @@ Any pair of `Cycler` can be multiplied
 
 .. ipython:: python
 
-   m_cycle = cycler('marker', ['s', 'o'])
+   m_cycle = cycler(marker=['s', 'o'])
 
    m_c = m_cycle * color_cycle
 
@@ -199,7 +210,7 @@ We can use `Cycler` instances to cycle over one or more ``kwarg`` to
                                   figsize=(8, 4))
    x = np.arange(10)
 
-   color_cycle = cycler('c', ['r', 'g', 'b'])
+   color_cycle = cycler(c=['r', 'g', 'b'])
 
    for i, sty in enumerate(color_cycle):
       ax1.plot(x, x*(i+1), **sty)
@@ -219,7 +230,7 @@ We can use `Cycler` instances to cycle over one or more ``kwarg`` to
                                   figsize=(8, 4))
    x = np.arange(10)
 
-   color_cycle = cycler('c', ['r', 'g', 'b'])
+   color_cycle = cycler(c=['r', 'g', 'b'])
    ls_cycle = cycler('ls', ['-', '--'])
    lw_cycle = cycler('lw', range(1, 4))
 
@@ -243,14 +254,14 @@ A :obj:`ValueError` is raised if unequal length `Cycler` s are added together
 .. ipython:: python
    :okexcept:
 
-   cycler('c', ['r', 'g', 'b']) + cycler('ls', ['-', '--'])
+   cycler(c=['r', 'g', 'b']) + cycler(ls=['-', '--'])
 
 or if two cycles which have overlapping keys are composed
 
 .. ipython:: python
    :okexcept:
 
-   color_cycle = cycler('c', ['r', 'g', 'b'])
+   color_cycle = cycler(c=['r', 'g', 'b'])
 
    color_cycle + color_cycle
 

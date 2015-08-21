@@ -7,8 +7,8 @@ Cycling through combinations of values, producing dictionaries.
 You can add cyclers::
 
     from cycler import cycler
-    cc = (cycler('color', list('rgb')) +
-          cycler('linestyle', ['-', '--', '-.']))
+    cc = (cycler(color=list('rgb')) +
+          cycler(linestyle=['-', '--', '-.']))
     for d in cc:
         print(d)
 
@@ -22,8 +22,8 @@ Results in::
 You can multiply cyclers::
 
     from cycler import cycler
-    cc = (cycler('color', list('rgb')) *
-          cycler('linestyle', ['-', '--', '-.']))
+    cc = (cycler(color=list('rgb')) *
+          cycler(linestyle=['-', '--', '-.']))
     for d in cc:
         print(d)
 
@@ -113,8 +113,8 @@ class Cycler(object):
         Do not use this directly, use `cycler` function instead.
         """
         self._keys = _process_keys(left, right)
-        self._left = copy.copy(left)
-        self._right = copy.copy(right)
+        self._left = copy.deepcopy(left)
+        self._right = copy.deepcopy(right)
         self._op = op
 
     @property
@@ -164,7 +164,7 @@ class Cycler(object):
         # TODO : maybe add numpy style fancy slicing
         if isinstance(key, slice):
             trans = self._transpose()
-            return reduce(add, (cycler(k, v[key])
+            return reduce(add, (_cycler(k, v[key])
                                 for k, v in six.iteritems(trans)))
         else:
             raise ValueError("Can only use slices with Cycler.__getitem__")
@@ -203,7 +203,7 @@ class Cycler(object):
             return Cycler(self, other, product)
         elif isinstance(other, int):
             trans = self._transpose()
-            return reduce(add, (cycler(k, v*other)
+            return reduce(add, (_cycler(k, v*other)
                                 for k, v in six.iteritems(trans)))
         else:
             return NotImplemented
@@ -228,11 +228,11 @@ class Cycler(object):
         other : Cycler
            The second Cycler
         """
-        old_self = copy.copy(self)
+        old_self = copy.deepcopy(self)
         self._keys = _process_keys(old_self, other)
         self._left = old_self
         self._op = zip
-        self._right = copy.copy(other)
+        self._right = copy.deepcopy(other)
         return self
 
     def __imul__(self, other):
@@ -245,11 +245,11 @@ class Cycler(object):
            The second Cycler
         """
 
-        old_self = copy.copy(self)
+        old_self = copy.deepcopy(self)
         self._keys = _process_keys(old_self, other)
         self._left = old_self
         self._op = product
-        self._right = copy.copy(other)
+        self._right = copy.deepcopy(other)
         return self
 
     def __eq__(self, other):
@@ -329,17 +329,76 @@ class Cycler(object):
         # I would believe that there is some performance implications
 
         trans = self._transpose()
-        return reduce(add, (cycler(k, v) for k, v in six.iteritems(trans)))
+        return reduce(add, (_cycler(k, v) for k, v in six.iteritems(trans)))
 
 
-def cycler(label, itr):
+def cycler(*args, **kwargs):
+    """
+    Create a new `Cycler` object from a single positional argument,
+    a pair of positional arguments, or the combination of keyword arguments.
+
+    cycler(arg)
+    cycler(label1=itr1[, label2=iter2[, ...]])
+    cycler(label, itr)
+
+    Form 1 simply copies a given `Cycler` object.
+
+    Form 2 composes a `Cycler` as an inner product of the
+    pairs of keyword arguments. In other words, all of the
+    iterables are cycled simultaneously, as if through zip().
+
+    Form 3 creates a `Cycler` from a label and an iterable.
+    This is useful for when the label cannot be a keyword argument
+    (e.g., an integer or a name that has a space in it).
+
+    Parameters
+    ----------
+    arg : Cycler
+        Copy constructor for Cycler.
+
+    label : name
+        The property key. In the 2-arg form of the function,
+        the label can be any hashable object. In the keyword argument
+        form of the function, it must be a valid python identifier.
+
+    itr : iterable
+        Finite length iterable of the property values.
+
+    Returns
+    -------
+    cycler : Cycler
+        New `Cycler` for the given property
+
+    """
+    if args and kwargs:
+        raise TypeError("cyl() can only accept positional OR keyword "
+                        "arguments -- not both.")
+
+    if len(args) == 1:
+        if not isinstance(args[0], Cycler):
+            raise TypeError("If only one positional argument given, it must "
+                            " be a Cycler instance.")
+        return copy.deepcopy(args[0])
+    elif len(args) == 2:
+        return _cycler(*args)
+    elif len(args) > 2:
+        raise TypeError("Only a single Cycler can be accepted as the lone "
+                        "positional argument. Use keyword arguments instead.")
+
+    if kwargs:
+        return reduce(add, (_cycler(k, v) for k, v in six.iteritems(kwargs)))
+
+    raise TypeError("Must have at least a positional OR keyword arguments")
+
+
+def _cycler(label, itr):
     """
     Create a new `Cycler` object from a property name and
     iterable of values.
 
     Parameters
     ----------
-    label : str
+    label : hashable
         The property key.
 
     itr : iterable
@@ -357,7 +416,7 @@ def cycler(label, itr):
             raise ValueError(msg)
 
         if label in keys:
-            return copy.copy(itr)
+            return copy.deepcopy(itr)
         else:
             lab = keys.pop()
             itr = list(v[lab] for v in itr)
