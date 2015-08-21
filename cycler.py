@@ -164,8 +164,8 @@ class Cycler(object):
         # TODO : maybe add numpy style fancy slicing
         if isinstance(key, slice):
             trans = self._transpose()
-            return cycler(**dict((k, v[key])
-                                 for k, v in six.iteritems(trans)))
+            return reduce(add, (_cycler(k, v[key])
+                                for k, v in six.iteritems(trans)))
         else:
             raise ValueError("Can only use slices with Cycler.__getitem__")
 
@@ -203,8 +203,8 @@ class Cycler(object):
             return Cycler(self, other, product)
         elif isinstance(other, int):
             trans = self._transpose()
-            return cycler(**dict((k, v*other)
-                                 for k, v in six.iteritems(trans)))
+            return reduce(add, (_cycler(k, v*other)
+                                for k, v in six.iteritems(trans)))
         else:
             return NotImplemented
 
@@ -268,7 +268,7 @@ class Cycler(object):
         if self._right is None:
             lab = self.keys.pop()
             itr = list(v[lab] for v in self)
-            return "cycler({lab}={itr!r})".format(lab=lab, itr=itr)
+            return "cycler({lab!r}, {itr!r})".format(lab=lab, itr=itr)
         else:
             op = op_map.get(self._op, '?')
             msg = "({left!r} {op} {right!r})"
@@ -329,7 +329,7 @@ class Cycler(object):
         # I would believe that there is some performance implications
 
         trans = self._transpose()
-        return cycler(**dict((k, v) for k, v in six.iteritems(trans)))
+        return reduce(add, (_cycler(k, v) for k, v in six.iteritems(trans)))
 
 
 def cycler(*args, **kwargs):
@@ -339,15 +339,19 @@ def cycler(*args, **kwargs):
 
     cycler(arg)
     cycler(label1=itr1[, label2=iter2[, ...]])
+    cycler(label, itr)
 
     Form 1 simply copies a given `Cycler` object.
     Form 2 composes a `Cycler` as an inner product of the
     pairs of keyword arguments.
+    Form 3 creates a `Cycler` from a label and an iterable.
+    This is useful for when the label cannot be a keyword argument.
 
     Parameters
     ----------
-    label : str
-        The property key.
+    label : name
+        The property key. In the 2-arg form of the function,
+        the label can be any hashable object.
 
     itr : iterable
         Finite length iterable of the property values.
@@ -367,7 +371,9 @@ def cycler(*args, **kwargs):
             raise TypeError("If only one positional argument given, it must "
                             " be a Cycler instance.")
         return copy.copy(args[0])
-    elif len(args) > 1:
+    elif len(args) == 2:
+        return _cycler(*args)
+    elif len(args) > 2:
         raise TypeError("Only a single Cycler can be accepted as the lone "
                         "positional argument. Use keyword arguments instead.")
 

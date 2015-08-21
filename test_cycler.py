@@ -74,6 +74,9 @@ def test_constructor():
     yield _cycler_helper, c1+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2
     c3 = cycler(c=c1)
     yield _cycler_helper, c3+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2
+    # Using a non-string hashable
+    c4 = cycler(1, range(3))
+    yield _cycler_helper, c4+c1, 3, [1, 'c'], [range(3), ['r', 'g', 'b']]
 
     # addition using cycler()
     yield (_cycler_helper, cycler(c='rgb', lw=range(3)),
@@ -123,13 +126,13 @@ def test_mul_fails():
 
 
 def test_getitem():
-    c1 = cycler(lw=range(15))
+    c1 = cycler(3, range(15))
     widths = list(range(15))
     for slc in (slice(None, None, None),
                 slice(None, None, -1),
                 slice(1, 5, None),
                 slice(0, 5, 2)):
-        yield _cycles_equal, c1[slc], cycler(lw=widths[slc])
+        yield _cycles_equal, c1[slc], cycler(3, widths[slc])
 
 
 def test_fail_getime():
@@ -147,16 +150,17 @@ def _repr_tester_helper(rpr_func, cyc, target_repr):
 
 def test_repr():
     c = cycler(c='rgb')
-    c2 = cycler(lw=range(3))
+    # Using an identifier that would be not valid as a kwarg
+    c2 = cycler('3rd', range(3))
 
-    c_sum_rpr = "(cycler(c=['r', 'g', 'b']) + cycler(lw=[0, 1, 2]))"
-    c_prod_rpr = "(cycler(c=['r', 'g', 'b']) * cycler(lw=[0, 1, 2]))"
+    c_sum_rpr = "(cycler('c', ['r', 'g', 'b']) + cycler('3rd', [0, 1, 2]))"
+    c_prod_rpr = "(cycler('c', ['r', 'g', 'b']) * cycler('3rd', [0, 1, 2]))"
 
     yield _repr_tester_helper, '__repr__', c + c2, c_sum_rpr
     yield _repr_tester_helper, '__repr__', c * c2, c_prod_rpr
 
-    sum_html = "<table><th>'c'</th><th>'lw'</th><tr><td>'r'</td><td>0</td></tr><tr><td>'g'</td><td>1</td></tr><tr><td>'b'</td><td>2</td></tr></table>"
-    prod_html = "<table><th>'c'</th><th>'lw'</th><tr><td>'r'</td><td>0</td></tr><tr><td>'r'</td><td>1</td></tr><tr><td>'r'</td><td>2</td></tr><tr><td>'g'</td><td>0</td></tr><tr><td>'g'</td><td>1</td></tr><tr><td>'g'</td><td>2</td></tr><tr><td>'b'</td><td>0</td></tr><tr><td>'b'</td><td>1</td></tr><tr><td>'b'</td><td>2</td></tr></table>"
+    sum_html = "<table><th>'3rd'</th><th>'c'</th><tr><td>0</td><td>'r'</td></tr><tr><td>1</td><td>'g'</td></tr><tr><td>2</td><td>'b'</td></tr></table>"
+    prod_html = "<table><th>'3rd'</th><th>'c'</th><tr><td>0</td><td>'r'</td></tr><tr><td>1</td><td>'r'</td></tr><tr><td>2</td><td>'r'</td></tr><tr><td>0</td><td>'g'</td></tr><tr><td>1</td><td>'g'</td></tr><tr><td>2</td><td>'g'</td></tr><tr><td>0</td><td>'b'</td></tr><tr><td>1</td><td>'b'</td></tr><tr><td>2</td><td>'b'</td></tr></table>"
 
     yield _repr_tester_helper, '_repr_html_', c + c2, sum_html
     yield _repr_tester_helper, '_repr_html_', c * c2, prod_html
