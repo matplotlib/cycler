@@ -178,6 +178,44 @@ def test_call():
     assert_equal(j, len(c) * 2)
 
 
+def test_copying():
+    # Just about everything results in copying the cycler and
+    # its contents (shallow). This set of tests is intended to make sure
+    # of that. Our iterables will be mutable for extra fun!
+    i1 = [1, 2, 3]
+    i2 = ['r', 'g', 'b']
+    # For more mutation fun!
+    i3 = [['y', 'g'], ['b', 'k']]
+    
+    c1 = cycler('c', i1)
+    c2 = cycler('lw', i2)
+    c3 = cycler('foo', i3)
+
+    c_before = (c1 + c2) * c3
+
+    i1.pop()
+    i2.append('cyan')
+    i3[0].append('blue')
+
+    c_after = (c1 + c2) * c3
+
+    assert_equal(c1, cycler('c', [1, 2, 3]))
+    assert_equal(c2, cycler('lw', ['r', 'g', 'b']))
+    assert_equal(c3, cycler('foo', [['y', 'g', 'blue'], ['b', 'k']]))
+    assert_equal(c_before, (cycler(c=[1, 2, 3], lw=['r', 'g', 'b']) *
+                            cycler('foo', [['y', 'g', 'blue'], ['b', 'k']])))
+    assert_equal(c_after, (cycler(c=[1, 2, 3], lw=['r', 'g', 'b']) *
+                           cycler('foo', [['y', 'g', 'blue'], ['b', 'k']])))
+
+    # Make sure that changing the key for a specific cycler
+    # doesn't break things for a composed cycler
+    c = (c1 + c2) * c3
+    c4 = cycler('bar', c3)
+    assert_equal(c, (cycler(c=[1, 2, 3], lw=['r', 'g', 'b']) *
+                     cycler('foo', [['y', 'g', 'blue'], ['b', 'k']])))
+    assert_equal(c3, cycler('foo', [['y', 'g', 'blue'], ['b', 'k']]))
+
+
 def _eq_test_helper(a, b, res):
     if res:
         assert_equal(a, b)
