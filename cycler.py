@@ -113,8 +113,8 @@ class Cycler(object):
         Do not use this directly, use `cycler` function instead.
         """
         self._keys = _process_keys(left, right)
-        self._left = copy.copy(left)
-        self._right = copy.copy(right)
+        self._left = copy.deepcopy(left)
+        self._right = copy.deepcopy(right)
         self._op = op
 
     @property
@@ -228,11 +228,11 @@ class Cycler(object):
         other : Cycler
            The second Cycler
         """
-        old_self = copy.copy(self)
+        old_self = copy.deepcopy(self)
         self._keys = _process_keys(old_self, other)
         self._left = old_self
         self._op = zip
-        self._right = copy.copy(other)
+        self._right = copy.deepcopy(other)
         return self
 
     def __imul__(self, other):
@@ -245,11 +245,11 @@ class Cycler(object):
            The second Cycler
         """
 
-        old_self = copy.copy(self)
+        old_self = copy.deepcopy(self)
         self._keys = _process_keys(old_self, other)
         self._left = old_self
         self._op = product
-        self._right = copy.copy(other)
+        self._right = copy.deepcopy(other)
         return self
 
     def __eq__(self, other):
@@ -334,24 +334,32 @@ class Cycler(object):
 
 def cycler(*args, **kwargs):
     """
-    Create a new `Cycler` object from the combination of
-    positional arguments or keyword arguments.
+    Create a new `Cycler` object from a single positional argument,
+    a pair of positional arguments, or the combination of keyword arguments.
 
     cycler(arg)
     cycler(label1=itr1[, label2=iter2[, ...]])
     cycler(label, itr)
 
     Form 1 simply copies a given `Cycler` object.
+
     Form 2 composes a `Cycler` as an inner product of the
-    pairs of keyword arguments.
+    pairs of keyword arguments. In other words, all of the
+    iterables are cycled simultaneously, as if through zip().
+
     Form 3 creates a `Cycler` from a label and an iterable.
-    This is useful for when the label cannot be a keyword argument.
+    This is useful for when the label cannot be a keyword argument
+    (e.g., an integer or a name that has a space in it).
 
     Parameters
     ----------
+    arg : Cycler
+        Copy constructor for Cycler.
+
     label : name
         The property key. In the 2-arg form of the function,
-        the label can be any hashable object.
+        the label can be any hashable object. In the keyword argument
+        form of the function, it must be a valid python identifier.
 
     itr : iterable
         Finite length iterable of the property values.
@@ -370,7 +378,7 @@ def cycler(*args, **kwargs):
         if not isinstance(args[0], Cycler):
             raise TypeError("If only one positional argument given, it must "
                             " be a Cycler instance.")
-        return copy.copy(args[0])
+        return copy.deepcopy(args[0])
     elif len(args) == 2:
         return _cycler(*args)
     elif len(args) > 2:
@@ -390,7 +398,7 @@ def _cycler(label, itr):
 
     Parameters
     ----------
-    label : str
+    label : hashable
         The property key.
 
     itr : iterable
@@ -408,7 +416,7 @@ def _cycler(label, itr):
             raise ValueError(msg)
 
         if label in keys:
-            return copy.copy(itr)
+            return copy.deepcopy(itr)
         else:
             lab = keys.pop()
             itr = list(v[lab] for v in itr)
