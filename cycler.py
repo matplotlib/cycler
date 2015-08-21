@@ -138,7 +138,7 @@ class Cycler(object):
         """
         return set(self._keys)
 
-    def key_change(self, old, new):
+    def change_key(self, old, new):
         """
         Change a key in this cycler to a new name.
         Modification is performed in-place.
@@ -161,20 +161,17 @@ class Cycler(object):
         self._keys.add(new)
 
         if self._right is not None and old in self._right.keys:
-            self._right.key_change(old, new)
-        elif self._left is not None:
-            if isinstance(self._left, Cycler):
-                self._left.key_change(old, new)
-            else:
-                Cycler._key_change(iter(self._left), old, new)
+            self._right.change_key(old, new)
 
-    @staticmethod
-    def _key_change(itr, old, new):
-        entry = six.next(itr)
-        if old in entry:
-            entry[new] = entry[old]
-            del entry[old]
-            for entry in itr:
+        # self._left should always be non-None
+        # if self._keys is non-empty.
+        elif isinstance(self._left, Cycler):
+            self._left.change_key(old, new)
+        else:
+            # It should be completely safe at this point to
+            # assume that the old key can be found in each
+            # iteration.
+            for entry in self._left:
                 entry[new] = entry[old]
                 del entry[old]
 
