@@ -58,15 +58,17 @@ def _process_keys(left, right):
 
     Parameters
     ----------
-    left, right : Cycler or None
+    left, right : iterable of dictionaries or None
         The cyclers to be composed
     Returns
     -------
     keys : set
         The keys in the composition of the two cyclers
     """
-    l_key = left.keys if left is not None else set()
-    r_key = right.keys if right is not None else set()
+    l_peek = next(iter(left)) if left is not None else {}
+    r_peek = next(iter(right)) if right is not None else {}
+    l_key = set(l_peek.keys())
+    r_key = set(r_peek.keys())
     if l_key & r_key:
         raise ValueError("Can not compose overlapping cycles")
     return l_key | r_key
@@ -112,26 +114,22 @@ class Cycler(object):
 
         Do not use this directly, use `cycler` function instead.
         """
-        self._keys = _process_keys(left, right)
         if isinstance(left, Cycler):
-            self._left = left._shallow_copy()
+            self._left = Cycler(left._left, left._right, left._op)
+        elif left is not None:
+            self._left = list(left)
         else:
-            self._left = copy.copy(left)
+            self._left = None
 
         if isinstance(right, Cycler):
-            self._right = right._shallow_copy()
+            self._right = Cycler(right._left, right._right, right._op)
+        elif right is not None:
+            self._right = list(right)
         else:
-            self._right = copy.copy(right)
+            self._right = None
 
+        self._keys = _process_keys(self._left, self._right)
         self._op = op
-
-    def _shallow_copy(self):
-        ret = Cycler(None)
-        ret._keys = self.keys
-        ret._left = copy.copy(self._left)
-        ret._right = copy.copy(self._right)
-        ret._op = copy.copy(self._op)
-        return ret
 
     @property
     def keys(self):
@@ -251,7 +249,7 @@ class Cycler(object):
         self._keys = _process_keys(old_self, other)
         self._left = old_self
         self._op = zip
-        self._right = other._shallow_copy()
+        self._right = Cycler(other._left, other._right, other._op)
         return self
 
     def __imul__(self, other):
@@ -270,7 +268,7 @@ class Cycler(object):
         self._keys = _process_keys(old_self, other)
         self._left = old_self
         self._op = product
-        self._right = other._shallow_copy()
+        self._right = Cycler(other._left, other._right, other._op)
         return self
 
     def __eq__(self, other):
