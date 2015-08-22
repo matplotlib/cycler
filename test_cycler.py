@@ -326,3 +326,17 @@ def test_RTS_pre_cache():
         assert_equal(len(test_keys) + 2, len(rts))
         assert_equal(testing_cache[key], rts[key])
         assert_equal(len(test_keys) + 2, len(rts))
+
+
+def test_cycler_exceptions():
+    assert_raises(TypeError, cycler)
+    assert_raises(TypeError, cycler, 'c', 'rgb', lw=range(3))
+    assert_raises(TypeError, cycler, 'c')
+    assert_raises(TypeError, cycler, 'c', 'rgb', 'lw', range(3))
+
+
+def test_starange_init():
+    c = cycler('r', 'rgb')
+    c2 = cycler('lw', range(3))
+    cy = Cycler(list(c), list(c2), zip)
+    assert_equal(cy, c + c2)
