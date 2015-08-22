@@ -58,15 +58,17 @@ def _process_keys(left, right):
 
     Parameters
     ----------
-    left, right : Cycler or None
+    left, right : iterable of dictionaries or None
         The cyclers to be composed
     Returns
     -------
     keys : set
         The keys in the composition of the two cyclers
     """
-    l_key = left.keys if left is not None else set()
-    r_key = right.keys if right is not None else set()
+    l_peek = next(iter(left)) if left is not None else {}
+    r_peek = next(iter(right)) if right is not None else {}
+    l_key = set(l_peek.keys())
+    r_key = set(r_peek.keys())
     if l_key & r_key:
         raise ValueError("Can not compose overlapping cycles")
     return l_key | r_key
@@ -112,9 +114,21 @@ class Cycler(object):
 
         Do not use this directly, use `cycler` function instead.
         """
-        self._keys = _process_keys(left, right)
-        self._left = copy.deepcopy(left)
-        self._right = copy.deepcopy(right)
+        if isinstance(left, Cycler):
+            self._left = Cycler(left._left, left._right, left._op)
+        elif left is not None:
+            self._left = list(left)
+        else:
+            self._left = None
+
+        if isinstance(right, Cycler):
+            self._right = Cycler(right._left, right._right, right._op)
+        elif right is not None:
+            self._right = list(right)
+        else:
+            self._right = None
+
+        self._keys = _process_keys(self._left, self._right)
         self._op = op
 
     @property
@@ -228,11 +242,14 @@ class Cycler(object):
         other : Cycler
            The second Cycler
         """
-        old_self = copy.deepcopy(self)
+        if not isinstance(other, Cycler):
+            raise TypeError("Cannot += with a non-Cycler object")
+        # True shallow copy of self is fine since this is in-place
+        old_self = copy.copy(self)
         self._keys = _process_keys(old_self, other)
         self._left = old_self
         self._op = zip
-        self._right = copy.deepcopy(other)
+        self._right = Cycler(other._left, other._right, other._op)
         return self
 
     def __imul__(self, other):
@@ -244,12 +261,14 @@ class Cycler(object):
         other : Cycler
            The second Cycler
         """
-
-        old_self = copy.deepcopy(self)
+        if not isinstance(other, Cycler):
+            raise TypeError("Cannot *= with a non-Cycler object")
+        # True shallow copy of self is fine since this is in-place
+        old_self = copy.copy(self)
         self._keys = _process_keys(old_self, other)
         self._left = old_self
         self._op = product
-        self._right = copy.deepcopy(other)
+        self._right = Cycler(other._left, other._right, other._op)
         return self
 
     def __eq__(self, other):
@@ -354,7 +373,7 @@ def cycler(*args, **kwargs):
     Parameters
     ----------
     arg : Cycler
-        Copy constructor for Cycler.
+        Copy constructor for Cycler (does a shallow copy of iterables).
 
     label : name
         The property key. In the 2-arg form of the function,
@@ -363,6 +382,8 @@ def cycler(*args, **kwargs):
 
     itr : iterable
         Finite length iterable of the property values.
+        Can be a single-property `Cycler` that would
+        be like a key change, but as a shallow copy.
 
     Returns
     -------
@@ -378,7 +399,7 @@ def cycler(*args, **kwargs):
         if not isinstance(args[0], Cycler):
             raise TypeError("If only one positional argument given, it must "
                             " be a Cycler instance.")
-        return copy.deepcopy(args[0])
+        return Cycler(args[0])
     elif len(args) == 2:
         return _cycler(*args)
     elif len(args) > 2:
@@ -415,10 +436,9 @@ def _cycler(label, itr):
             msg = "Can not create Cycler from a multi-property Cycler"
             raise ValueError(msg)
 
-        if label in keys:
-            return copy.deepcopy(itr)
-        else:
-            lab = keys.pop()
-            itr = list(v[lab] for v in itr)
+        lab = keys.pop()
+        # Doesn't need to be a new list because
+        # _from_iter() will be creating that new list anyway.
+        itr = (v[lab] for v in itr)
 
     return Cycler._from_iter(label, itr)
