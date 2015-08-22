@@ -186,7 +186,7 @@ def test_copying():
     i2 = ['r', 'g', 'b']
     # For more mutation fun!
     i3 = [['y', 'g'], ['b', 'k']]
-    
+
     c1 = cycler('c', i1)
     c2 = cycler('lw', i2)
     c3 = cycler('foo', i3)
@@ -265,3 +265,17 @@ def test_eq():
     yield _eq_test_helper, a, c, False
     d = cycler(c='ymk')
     yield _eq_test_helper, b, d, False
+
+
+def test_cycler_exceptions():
+    assert_raises(TypeError, cycler)
+    assert_raises(TypeError, cycler, 'c', 'rgb', lw=range(3))
+    assert_raises(TypeError, cycler, 'c')
+    assert_raises(TypeError, cycler, 'c', 'rgb', 'lw', range(3))
+
+
+def test_starange_init():
+    c = cycler('r', 'rgb')
+    c2 = cycler('lw', range(3))
+    cy = Cycler(list(c), list(c2), zip)
+    assert_equal(cy, c + c2)
