@@ -119,6 +119,8 @@ class Cycler(object):
 
     and supports basic slicing via ``[]``
 
+    Calling a `Cycler` instance returns an infinite repeating cycle.
+
     Parameters
     ----------
     left : Cycler or None
@@ -132,6 +134,8 @@ class Cycler(object):
 
     """
     def __call__(self):
+        """Infinitely loop through contents of Cycler
+        """
         return cycle(self)
 
     def __init__(self, left, right=None, op=None):
