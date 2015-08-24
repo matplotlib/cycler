@@ -226,10 +226,14 @@ def test_keychange():
 
     c = c1 + c2
     c.change_key('lw', 'linewidth')
+    # Changing a key in one cycler should have no
+    # impact in the original cycler.
+    assert_equal(c2, cycler('lw', [1, 2, 3]))
     assert_equal(c, c1 + cycler('linewidth', c2))
 
     c = (c1 + c2) * c3
     c.change_key('c', 'color')
+    assert_equal(c1, cycler('c', 'rgb'))
     assert_equal(c, (cycler('color', c1) + c2) * c3)
 
     # Perfectly fine, it is a no-op
@@ -237,7 +241,7 @@ def test_keychange():
     assert_equal(c, (cycler('color', c1) + c2) * c3)
 
     # Can't change a key to one that is already in there
-    assert_raises(ValueError, Cycler.change_key, c, 'color', 'linewidth')
+    assert_raises(ValueError, Cycler.change_key, c, 'color', 'lw')
     # Can't change a key you don't have
     assert_raises(KeyError, Cycler.change_key, c, 'c', 'foobar')
 

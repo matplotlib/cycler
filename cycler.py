@@ -117,14 +117,18 @@ class Cycler(object):
         if isinstance(left, Cycler):
             self._left = Cycler(left._left, left._right, left._op)
         elif left is not None:
-            self._left = list(left)
+            # Need to copy the dictionary or else that will be a residual
+            # mutable that could lead to strange errors
+            self._left = [copy.copy(v) for v in left]
         else:
             self._left = None
 
         if isinstance(right, Cycler):
             self._right = Cycler(right._left, right._right, right._op)
         elif right is not None:
-            self._right = list(right)
+            # Need to copy the dictionary or else that will be a residual
+            # mutable that could lead to strange errors
+            self._right = [copy.copy(v) for v in right]
         else:
             self._right = None
 
@@ -171,9 +175,7 @@ class Cycler(object):
             # It should be completely safe at this point to
             # assume that the old key can be found in each
             # iteration.
-            for entry in self._left:
-                entry[new] = entry[old]
-                del entry[old]
+            self._left = [{new: entry[old]} for entry in self._left]
 
     def _compose(self):
         """
