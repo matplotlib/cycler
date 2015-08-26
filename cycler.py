@@ -545,3 +545,6 @@ class RememberTheStyle(Mapping):
 
     def __len__(self):
         return len(self.style_cache)
+
+    def named(self, val):
+        return self[val]
