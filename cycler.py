@@ -117,14 +117,18 @@ class Cycler(object):
         if isinstance(left, Cycler):
             self._left = Cycler(left._left, left._right, left._op)
         elif left is not None:
-            self._left = list(left)
+            # Need to copy the dictionary or else that will be a residual
+            # mutable that could lead to strange errors
+            self._left = [copy.copy(v) for v in left]
         else:
             self._left = None
 
         if isinstance(right, Cycler):
             self._right = Cycler(right._left, right._right, right._op)
         elif right is not None:
-            self._right = list(right)
+            # Need to copy the dictionary or else that will be a residual
+            # mutable that could lead to strange errors
+            self._right = [copy.copy(v) for v in right]
         else:
             self._right = None
 
@@ -137,6 +141,41 @@ class Cycler(object):
         The keys this Cycler knows about
         """
         return set(self._keys)
+
+    def change_key(self, old, new):
+        """
+        Change a key in this cycler to a new name.
+        Modification is performed in-place.
+
+        Does nothing if the old key is the same as the new key.
+        Raises a ValueError if the new key is already a key.
+        Raises a KeyError if the old key isn't a key.
+
+        """
+        if old == new:
+            return
+        if new in self._keys:
+            raise ValueError("Can't replace %s with %s, %s is already a key" %
+                             (old, new, new))
+        if old not in self._keys:
+            raise KeyError("Can't replace %s with %s, %s is not a key" %
+                           (old, new, old))
+
+        self._keys.remove(old)
+        self._keys.add(new)
+
+        if self._right is not None and old in self._right.keys:
+            self._right.change_key(old, new)
+
+        # self._left should always be non-None
+        # if self._keys is non-empty.
+        elif isinstance(self._left, Cycler):
+            self._left.change_key(old, new)
+        else:
+            # It should be completely safe at this point to
+            # assume that the old key can be found in each
+            # iteration.
+            self._left = [{new: entry[old]} for entry in self._left]
 
     def _compose(self):
         """
