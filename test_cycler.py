@@ -2,7 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 
 import six
 from six.moves import zip, range
-from cycler import cycler, Cycler
+from cycler import cycler, Cycler, RememberTheStyle as RTS
 from nose.tools import (assert_equal, assert_not_equal,
                         assert_raises, assert_true)
 from itertools import product, cycle
@@ -186,7 +186,7 @@ def test_copying():
     i2 = ['r', 'g', 'b']
     # For more mutation fun!
     i3 = [['y', 'g'], ['b', 'k']]
-    
+
     c1 = cycler('c', i1)
     c2 = cycler('lw', i2)
     c3 = cycler('foo', i3)
@@ -265,3 +265,108 @@ def test_eq():
     yield _eq_test_helper, a, c, False
     d = cycler(c='ymk')
     yield _eq_test_helper, b, d, False
+
+
+def test_RTS():
+    cy = cycler
+    testing_cache = {}
+    rts = RTS(cy('c', 'rgb') + cy('lw', range(3)))
+    test_keys = ['cat', 'dog', 'aardvark']
+
+    assert_equal(0, len(rts))
+    assert_equal(set(), set(rts))
+    assert_equal(testing_cache, dict(rts))
+
+    for j, key in enumerate(test_keys):
+        testing_cache[key] = rts[key]
+
+        assert_equal(j + 1, len(rts))
+        assert_equal(set(test_keys[:j+1]), set(rts))
+        assert_equal(testing_cache, dict(rts))
+
+    assert_raises(RuntimeError, RTS.__getitem__, rts, 'ant')
+
+    for key in test_keys:
+        assert_equal(len(test_keys), len(rts))
+        assert_equal(testing_cache[key], rts[key])
+        assert_equal(len(test_keys), len(rts))
+
+
+def test_RTS_loop():
+    cy = cycler
+    testing_cache = {}
+    rts = RTS(cy('c', 'rgb') + cy('lw', range(3)), loop=True)
+    test_keys = ['cat', 'dog', 'aardvark']
+    test_keys2 = ['mouse', 'duck', 'python']
+
+    assert_equal(0, len(rts))
+    assert_equal(set(), set(rts))
+    assert_equal(testing_cache, dict(rts))
+
+    all_keys = test_keys + test_keys2
+
+    for j, key in enumerate(all_keys):
+        testing_cache[key] = rts[key]
+
+        assert_equal(j + 1, len(rts))
+        assert_equal(set(all_keys[:j+1]), set(rts))
+        assert_equal(testing_cache, dict(rts))
+
+    for key in all_keys:
+        assert_equal(len(all_keys), len(rts))
+        assert_equal(testing_cache[key], rts[key])
+        assert_equal(len(all_keys), len(rts))
+
+    for k1, k2 in zip(test_keys, test_keys2):
+        assert_equal(rts[k1], rts[k2])
+
+
+def test_RTS_pre_cache():
+    cy = cycler
+    testing_cache = {}
+    existing_cache = {'ant': {'c': 'k', 'lw': .5},
+                      'duck': {'c': 'gray', 'lw': 3}}
+    orig = dict(existing_cache)
+    rts = RTS(cy('c', 'rgb') + cy('lw', range(3)),
+              cache=existing_cache)
+    assert_true(existing_cache is rts.style_cache)
+    test_keys = ['cat', 'dog', 'aardvark']
+
+    assert_equal(2, len(rts))
+    assert_equal(set(['ant', 'duck']), set(rts))
+    assert_equal(existing_cache, dict(rts))
+
+    for j, key in enumerate(test_keys):
+        testing_cache[key] = rts[key]
+        rts['ant']
+        rts['duck']
+        assert_equal(j + 1 + 2, len(rts))
+        assert_equal(set(test_keys[:j+1]) | set(['ant', 'duck']),
+                     set(rts))
+        res = dict(rts)
+        for k in list(testing_cache):
+            assert_equal(testing_cache[k], res[k])
+
+        for k in ['ant', 'duck']:
+            assert_equal(orig[k], res[k])
+
+    assert_raises(RuntimeError, RTS.__getitem__, rts, 'hippo')
+
+    for key in test_keys:
+        assert_equal(len(test_keys) + 2, len(rts))
+        assert_equal(testing_cache[key], rts[key])
+        assert_equal(len(test_keys) + 2, len(rts))
+
+
+def test_cycler_exceptions():
+    assert_raises(TypeError, cycler)
+    assert_raises(TypeError, cycler, 'c', 'rgb', lw=range(3))
+    assert_raises(TypeError, cycler, 'c')
+    assert_raises(TypeError, cycler, 'c', 'rgb', 'lw', range(3))
+
+
+def test_starange_init():
+    c = cycler('r', 'rgb')
+    c2 = cycler('lw', range(3))
+    cy = Cycler(list(c), list(c2), zip)
+    assert_equal(cy, c + c2)

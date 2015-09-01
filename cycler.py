@@ -38,6 +38,30 @@ Results in::
     {'color': 'b', 'linestyle': '-'}
     {'color': 'b', 'linestyle': '--'}
     {'color': 'b', 'linestyle': '-.'}
+
+RememberTheStyle
+================
+
+Helper class for mapping keys -> styles::
+
+   from cycler import RememberTheStyle, cycler
+
+   rts = RememberTheStyle((cycler('c', 'rgb') +
+                           cycler('ls', ['-', '--', ':']))
+
+   rts['cat']
+   rts['aardvark']
+   rts['aardvark']
+   rts['dog']
+
+Results in ::
+
+   {'c': 'r', 'ls': '-'}
+   {'c': 'g', 'ls': '--'}
+   {'c': 'g', 'ls': '--'}
+   {'c': 'b', 'ls': ':'}
+
+
 """
 
 from __future__ import (absolute_import, division, print_function,
@@ -47,6 +71,7 @@ import six
 from itertools import product, cycle
 from six.moves import zip, reduce
 from operator import mul, add
+from collections import Mapping
 import copy
 
 __version__ = '0.9.0.post1'
@@ -94,6 +119,8 @@ class Cycler(object):
 
     and supports basic slicing via ``[]``
 
+    Calling a `Cycler` instance returns an infinite repeating cycle.
+
     Parameters
     ----------
     left : Cycler or None
@@ -107,6 +134,8 @@ class Cycler(object):
 
     """
     def __call__(self):
+        """Infinitely loop through contents of Cycler
+        """
         return cycle(self)
 
     def __init__(self, left, right=None, op=None):
@@ -391,7 +420,8 @@ class Cycler(object):
 
 
 def cycler(*args, **kwargs):
-    """
+    """Public constructor function for Cycler objects
+
     Create a new `Cycler` object from a single positional argument,
     a pair of positional arguments, or the combination of keyword arguments.
 
@@ -481,3 +511,79 @@ def _cycler(label, itr):
         itr = (v[lab] for v in itr)
 
     return Cycler._from_iter(label, itr)
+
+
+class RememberTheStyle(Mapping):
+    """Persistent style by key
+
+    This is a class for easily managing consistent style across for
+    classes of data across many plots.
+
+    The first time you use `rts[key]` it gets the next style
+    dictionary from it's internal `Cycler`.  Subsequent calls to
+    `rts[key]` will return an identical dictionary.
+
+    Parameters
+    ----------
+    sty_cylr : Cycler
+        Anything that yields dictionaries when iterated over
+
+    loop : bool, optional
+        Defaults to `False`.  If True, loop over the input `sty_cylr`
+        when more keys are requested that the length of `sty_cyclr`.
+        If `False` will raise `RuntimeError` if available styles are
+        exhausted.
+
+
+    cache : dict-like or None, optional
+        MuttableMapping instance to use as the internal key -> style cache.
+
+        The purpose of this is provide a pre-populated cache or
+        to share a cache between multiple `RememberTheStyle` instances.
+
+        Use this at your own risk.
+    """
+    def __init__(self, sty_cylr, loop=False, cache=None):
+        if cache is None:
+            cache = {}
+
+        self._cache = cache
+        # make a shallow copy of the style cycle just to be safe
+        sty_cylr = Cycler(sty_cylr)
+        if loop:
+            self._style_cycler = sty_cylr()
+        else:
+            self._style_cycler = iter(sty_cylr)
+
+    @property
+    def style_cache(self):
+        """Access to style cache instance
+
+        This is a reference to the underlying object, mutate
+        this with caution.
+        """
+        return self._cache
+
+    def __getitem__(self, key):
+        try:
+            return dict(self.style_cache[key])
+        except KeyError:
+            # pass instead of handling in here to make stack trace
+            # nicer
+            pass
+        try:
+            new_style = next(self._style_cycler)
+        except StopIteration:
+            raise RuntimeError("Asked for more style than we have")
+
+        self.style_cache[key] = dict(new_style)
+        return dict(new_style)
+
+    def __iter__(self):
+        return iter(self.style_cache)
+
+    def __len__(self):
+        return len(self.style_cache)
+
+    def named(self, val):
+        return self[val]

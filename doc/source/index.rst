@@ -17,12 +17,20 @@
 
    cycler
    Cycler
-
+   RememberTheStyle
 
 The public API of :py:mod:`cycler` consists of a class `Cycler` and a
-factory function :func:`cycler`.  The function provides a simple interface for
-creating 'base' `Cycler` objects while the class takes care of the composition
-and iteration logic.
+factory function :func:`cycler` pair a helper class
+`RememberTheStyle`.  The function :func:`cycler` provides a simple
+interface for creating 'base' `Cycler` objects while the `Cycler`
+class takes care of the composition and iteration logic.
+
+The `RememberTheStyle` class is a helper class to map keys to a style
+dictionary.  It wraps a `Cycler` instance under a
+`~collections.abc.Mapping` (read-only dict-like) interface.  Using
+`[]` with a new key will yield the next dict in the `Cycler` and using
+`[]` with an existing key will yield the same result as the first
+time.
 
 
 `Cycler` Usage
@@ -39,7 +47,7 @@ hashable (as it will eventually be used as the key in a :obj:`dict`).
 .. ipython:: python
 
    from __future__ import print_function
-   from cycler import cycler
+   from cycler import cycler, RememberTheStyle
 
 
    color_cycle = cycler(color=['r', 'g', 'b'])
@@ -204,7 +212,6 @@ We can use `Cycler` instances to cycle over one or more ``kwarg`` to
    :include-source:
 
    from cycler import cycler
-   from itertools import cycle
 
    fig, (ax1, ax2) = plt.subplots(1, 2, tight_layout=True,
                                   figsize=(8, 4))
@@ -216,7 +223,7 @@ We can use `Cycler` instances to cycle over one or more ``kwarg`` to
       ax1.plot(x, x*(i+1), **sty)
 
 
-   for i, sty in zip(range(1, 5), cycle(color_cycle)):
+   for i, sty in zip(range(1, 5), color_cycle()):
       ax2.plot(x, x*i, **sty)
 
 
@@ -224,7 +231,6 @@ We can use `Cycler` instances to cycle over one or more ``kwarg`` to
    :include-source:
 
    from cycler import cycler
-   from itertools import cycle
 
    fig, (ax1, ax2) = plt.subplots(1, 2, tight_layout=True,
                                   figsize=(8, 4))
@@ -265,6 +271,132 @@ or if two cycles which have overlapping keys are composed
 
    color_cycle + color_cycle
 
+
+`RememberTheStyle` Usage
+========================
+
+Base
+----
+Basic usage is very simple:
+
+.. ipython:: python
+
+
+   cy = cycler('c', 'rgb') + cycler('ls', ['-', '--', ':'])
+
+   rts = RememberTheStyle(cy)
+
+   rts['cat']
+
+   rts['aardvark']
+
+   rts['aardvark']
+
+   rts['dog']
+
+If you ask for more unique keys than the underlying `Cycler` has
+you will get a `RuntimeError`.
+
+.. ipython:: python
+   :okexcept:
+
+   rts['hippo']
+
+The `loop` kwarg will repeat the underlying `Cycler` when it is exhausted
+
+
+.. ipython:: python
+
+
+   cy = cycler('c', 'rgb') + cycler('ls', ['-', '--', ':'])
+
+   rts_loop = RememberTheStyle(cy, loop=True)
+
+   rts_loop['cat']
+
+   rts_loop['aardvark']
+
+   rts_loop['dog']
+
+   rts_loop['mouse']
+
+   rts_loop['duck']
+
+   rts_loop['hippo']
+
+The `RememberTheStyle` implements the `~collections.abc.Mapping` ABC
+so the expected dict-like interfaces work
+
+.. ipython:: python
+
+   list(rts)
+
+   len(rts)
+
+   list(rts.items())
+
+
+Example
+-------
+
+.. plot::
+   :include-source:
+
+   import matplotlib.pyplot as plt
+   import matplotlib.lines as mlines
+   import numpy as np
+
+   from cycler import cycler, RememberTheStyle
+
+   # set up data -> class mapping
+   a_mapping = {'aardvark': 'mammal',
+                'mouse': 'mammal',
+                'python': 'reptile',
+                'newt': 'amphibian',
+                'African swallow': 'bird',
+                'European swallow': 'bird',
+                'African swallow (unladdened)': 'bird'}
+
+   # set up the cycler and RememberTheStyle
+   cy = cycler('c', 'rgbkm') * cycler('lw', [3])
+   rts = RememberTheStyle(cy)
+
+   # x data we will use
+   th = np.linspace(0, 2*np.pi, 256)
+   # house keeping
+   arts = {}
+   fig, ax = plt.subplots()
+
+   # loop over the animals and draw lines
+   for k in sorted(a_mapping):
+       # get the style based on the class
+       sty = rts[a_mapping[k]]
+       # some synthetic data
+       y = len(k) * np.sin(th + (len(k) / 5))
+       # plot the line
+       ln, = ax.plot(th, y, label=k, **sty)
+       arts[k] = ln
+
+   # create proxy artists for the legend
+   handles = [mlines.Line2D([], [], label=k, **sty)
+              for k, sty in sorted(rts.items(), key=lambda x: x[0])]
+   ax.legend(handles=handles, ncol=2)
+
+   # set the x limit
+   ax.set_xlim(0, 2*np.pi)
+   # and axis labels
+   ax.set_xlabel(r'$\theta$')
+   ax.set_ylabel('arb')
+
+Advanced
+--------
+
+The `cache` kwarg allows you to pass in a
+`~collections.abc.MuttableMapping` instance to use as the style cache.
+This is useful if you want to use a non-`dict` instance to back the
+`RememberTheStyle` instance or to share a single cache between multiple
+`RememberTheStyle` instances.  This involves sharing mutable state, use
+at your own risk.
 
 Motivation
 ==========
