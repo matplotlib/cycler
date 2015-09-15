@@ -273,6 +273,17 @@ or repeating
    loop_cy_iter = cyl()
    dd_loop = defaultdict(lambda : next(loop_cy_iter))
 
+This can be helpful when plotting complex data which has both a classification
+and a label ::
+
+  finite_cy_iter = iter(cyl)
+  styles = defaultdict(lambda : next(finite_cy_iter))
+  for group, label, data in DataSet:
+      ax.plot(data, label=label, **styles[group])
+
+which will result in every ``data`` with the same ``group`` being plotted with
+the same style.
+
 Exceptions
 ----------
 
