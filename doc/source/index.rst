@@ -245,6 +245,34 @@ We can use `Cycler` instances to cycle over one or more ``kwarg`` to
       ax2.plot(x, x*(i+1), **sty)
 
 
+Persistent Cycles
+-----------------
+
+It can be useful to associate a given label with a style via
+dictionary lookup and to dynamically generate that mapping.  This
+can easily be accomplished using a `~collections.defaultdict`
+
+.. ipython:: python
+
+   from cycler import cycler as cy
+   from collections import defaultdict
+
+   cyl = cy('c', 'rgb') + cy('lw', range(1, 4))
+
+To get a finite set of styles
+
+.. ipython:: python
+
+   finite_cy_iter = iter(cyl)
+   dd_finite = defaultdict(lambda : next(finite_cy_iter))
+
+or repeating
+
+.. ipython:: python
+
+   loop_cy_iter = cyl()
+   dd_loop = defaultdict(lambda : next(loop_cy_iter))
+
 Exceptions
 ----------
 
