@@ -9,22 +9,29 @@ environment:
     CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\ci\\appveyor\\run_with_env.cmd"
 
   matrix:
-    # - PYTHON: "C:\\Python27_32"
-    #  PYTHON_VERSION: "2.7"
-    #  PYTHON_ARCH: "32"
+     - PYTHON: "C:\\Python27_32"
+       PYTHON_VERSION: "2.7"
+       PYTHON_ARCH: "32"
 
-   # disable other builds until they can be run in parallel
-    #- PYTHON: "C:\\Python27_64"
-    #  PYTHON_VERSION: "2.7"
-    #  PYTHON_ARCH: "64"
+     - PYTHON: "C:\\Python27_64"
+       PYTHON_VERSION: "2.7"
+       PYTHON_ARCH: "64"
 
-    #- PYTHON: "C:\\Python34_32"
-    #  PYTHON_VERSION: "3.4.2"
-    #  PYTHON_ARCH: "32"
+     - PYTHON: "C:\\Python34_32"
+       PYTHON_VERSION: "3.4.3"
+       PYTHON_ARCH: "32"
 
-    - PYTHON: "C:\\Python34_64"
-      PYTHON_VERSION: "3.4.2"
-      PYTHON_ARCH: "64"
+     - PYTHON: "C:\\Python34_64"
+       PYTHON_VERSION: "3.4.3"
+       PYTHON_ARCH: "64"
+
+     - PYTHON: "C:\\Python35"
+       PYTHON_VERSION: "3.5.0"
+       PYTHON_ARCH: "32"
+
+     - PYTHON: "C:\\Python35-x64"
+       PYTHON_VERSION: "3.5.0"
+       PYTHON_ARCH: "64"
 
 install:
   # Install Python (from the official .msi of http://python.org) and pip when
