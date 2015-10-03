@@ -390,6 +390,20 @@ class Cycler(object):
         return reduce(add, (_cycler(k, v) for k, v in six.iteritems(trans)))
 
     def concat(self, other):
+        """Concatenate two cyclers.
+
+        The keys must match exactly.
+
+        Parameters
+        ----------
+        other : `Cycler`
+            The `Cycler` instances to concatenate to this one
+
+        Returns
+        -------
+        ret : `Cycler`
+            The concatenated `Cycler`
+        """
         return concat(self, other)
 
 
