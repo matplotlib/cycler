@@ -415,6 +415,14 @@ def concat(left, right):
     This returns a single Cycler which is equivalent to
     `itertools.chain(left, right)`
 
+    Examples
+    --------
+
+    >>> num = cycler('a', range(3))
+    >>> let = cycler('a', 'abc')
+    >>> num.concat(let)
+    cycler('a', [0, 1, 2, 'a', 'b', 'c'])
+
     Parameters
     ----------
     left, right : `Cycler`
