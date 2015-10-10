@@ -283,10 +283,11 @@ def test_starange_init():
 
 def test_concat():
     a = cycler('a', range(3))
-    for con, chn in zip(a.concat(a), chain(a, a)):
+    b = cycler('a', 'abc')
+    for con, chn in zip(a.concat(b), chain(a, b)):
         assert_equal(con, chn)
 
-    for con, chn in zip(concat(a, a), chain(a, a)):
+    for con, chn in zip(concat(a, b), chain(a, b)):
         assert_equal(con, chn)
 
 
