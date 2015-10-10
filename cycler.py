@@ -390,14 +390,25 @@ class Cycler(object):
         return reduce(add, (_cycler(k, v) for k, v in six.iteritems(trans)))
 
     def concat(self, other):
-        """Concatenate two cyclers.
+        """Concatenate this cycler and an other.
 
         The keys must match exactly.
+
+        This returns a single Cycler which is equivalent to
+        `itertools.chain(self, other)`
+
+        Examples
+        --------
+
+        >>> num = cycler('a', range(3))
+        >>> let = cycler('a', 'abc')
+        >>> num.concat(let)
+        cycler('a', [0, 1, 2, 'a', 'b', 'c'])
 
         Parameters
         ----------
         other : `Cycler`
-            The `Cycler` instances to concatenate to this one
+            The `Cycler` to concatenate to this one.
 
         Returns
         -------
