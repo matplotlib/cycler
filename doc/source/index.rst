@@ -180,6 +180,22 @@ Integer Multiplication
    2 * color_cycle
 
 
+Concatenation
+~~~~~~~~~~~~~
+
+`Cycler` objects can be concatenated either via the :py:meth:`Cycler.concat` method
+
+.. ipython:: python
+
+   color_cycle.concat(color_cycle)
+
+or the top-level :py:func:`concat` function
+
+.. ipython:: python
+
+   from cycler import concat
+   concat(color_cycle, color_cycle)
+
 
 Slicing
 -------

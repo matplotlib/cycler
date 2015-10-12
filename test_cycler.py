@@ -2,10 +2,10 @@ from __future__ import (absolute_import, division, print_function)
 
 import six
 from six.moves import zip, range
-from cycler import cycler, Cycler
+from cycler import cycler, Cycler, concat
 from nose.tools import (assert_equal, assert_not_equal,
                         assert_raises, assert_true)
-from itertools import product, cycle
+from itertools import product, cycle, chain
 from operator import add, iadd, mul, imul
 
 
@@ -279,3 +279,20 @@ def test_starange_init():
     c2 = cycler('lw', range(3))
     cy = Cycler(list(c), list(c2), zip)
     assert_equal(cy, c + c2)
+
+
+def test_concat():
+    a = cycler('a', range(3))
+    b = cycler('a', 'abc')
+    for con, chn in zip(a.concat(b), chain(a, b)):
+        assert_equal(con, chn)
+
+    for con, chn in zip(concat(a, b), chain(a, b)):
+        assert_equal(con, chn)
+
+
+def test_concat_fail():
+    a = cycler('a', range(3))
+    b = cycler('b', range(3))
+    assert_raises(ValueError, concat, a, b)
+    assert_raises(ValueError, a.concat, b)
