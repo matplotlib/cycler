@@ -1,0 +1,4 @@
+include run_tests.py
+include LICENSE
+recursive-include conda-recipe *
+recursive-include doc Makefile make.bat *.rst *.py
