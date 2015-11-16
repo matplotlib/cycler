@@ -446,17 +446,17 @@ def concat(left, right):
     """
     if left.keys != right.keys:
         msg = '\n\t'.join(["Keys do not match:",
-                            "Intersection: {both!r}",
-                            "Disjoint: {just_one!r}"
-                            ]).format(
-                                both=left.keys&right.keys,
-                                just_one=left.keys^right.keys)
+                           "Intersection: {both!r}",
+                           "Disjoint: {just_one!r}"]).format(
+                               both=left.keys & right.keys,
+                               just_one=left.keys ^ right.keys)
 
         raise ValueError(msg)
 
     _l = left._transpose()
     _r = right._transpose()
     return reduce(add, (_cycler(k, _l[k] + _r[k]) for k in left.keys))
+
 
 def cycler(*args, **kwargs):
     """
