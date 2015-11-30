@@ -375,6 +375,9 @@ class Cycler(object):
                 out[k].append(d[k])
         return out
 
+    # for back compatibility
+    _transpose = by_key
+
     def simplify(self):
         """Simplify the Cycler
 
