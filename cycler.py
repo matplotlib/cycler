@@ -216,7 +216,7 @@ class Cycler(object):
     def __getitem__(self, key):
         # TODO : maybe add numpy style fancy slicing
         if isinstance(key, slice):
-            trans = self._transpose()
+            trans = self.by_key()
             return reduce(add, (_cycler(k, v[key])
                                 for k, v in six.iteritems(trans)))
         else:
@@ -255,7 +255,7 @@ class Cycler(object):
         if isinstance(other, Cycler):
             return Cycler(self, other, product)
         elif isinstance(other, int):
-            trans = self._transpose()
+            trans = self.by_key()
             return reduce(add, (_cycler(k, v*other)
                                 for k, v in six.iteritems(trans)))
         else:
@@ -346,17 +346,21 @@ class Cycler(object):
         output += "</table>"
         return output
 
-    def _transpose(self):
-        """
-        Internal helper function which iterates through the
-        styles and returns a dict of lists instead of a list of
-        dicts.  This is needed for multiplying by integers and
-        for __getitem__
+    def by_key(self):
+        """Values by key
+
+        This returns the transposed values of the cycler.  Iterating
+        over a `Cycler` yields dicts with a single value for each key,
+        this method returns a `dict` of `list` which are the values
+        for the given key.
+
+        The returned value can be used to create an equivalent `Cycler`
+        using only `+`.
 
         Returns
         -------
-        trans : dict
-            dict of lists for the styles
+        transpose : dict
+            dict of lists of the values for each key.
         """
 
         # TODO : sort out if this is a bottle neck, if there is a better way
@@ -386,7 +390,7 @@ class Cycler(object):
         # ((a + b) + (c + d))
         # I would believe that there is some performance implications
 
-        trans = self._transpose()
+        trans = self.by_key()
         return reduce(add, (_cycler(k, v) for k, v in six.iteritems(trans)))
 
     def concat(self, other):
@@ -453,8 +457,8 @@ def concat(left, right):
 
         raise ValueError(msg)
 
-    _l = left._transpose()
-    _r = right._transpose()
+    _l = left.by_key()
+    _r = right.by_key()
     return reduce(add, (_cycler(k, _l[k] + _r[k]) for k in left.keys))
 
 
