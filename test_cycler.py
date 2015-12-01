@@ -95,6 +95,8 @@ def test_failures():
     assert_raises(ValueError, iadd, c1, c2)
     assert_raises(ValueError, mul, c1, c2)
     assert_raises(ValueError, imul, c1, c2)
+    assert_raises(TypeError, iadd, c2, 'aardvark')
+    assert_raises(TypeError, imul, c2, 'aardvark')
 
     c3 = cycler(ec=c1)
 
@@ -265,6 +267,8 @@ def test_eq():
     yield _eq_test_helper, a, c, False
     d = cycler(c='ymk')
     yield _eq_test_helper, b, d, False
+    e = cycler(c='orange')
+    yield _eq_test_helper, b, e, False
 
 
 def test_cycler_exceptions():
