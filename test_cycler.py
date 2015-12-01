@@ -7,6 +7,7 @@ from nose.tools import (assert_equal, assert_not_equal,
                         assert_raises, assert_true)
 from itertools import product, cycle, chain
 from operator import add, iadd, mul, imul
+from collections import defaultdict
 
 
 def _cycler_helper(c, length, keys, values):
@@ -300,3 +301,30 @@ def test_concat_fail():
     b = cycler('b', range(3))
     assert_raises(ValueError, concat, a, b)
     assert_raises(ValueError, a.concat, b)
+
+
+def _by_key_helper(cy):
+    res = cy.by_key()
+    target = defaultdict(list)
+    for sty in cy:
+        for k, v in sty.items():
+            target[k].append(v)
+
+    assert_equal(res, target)
+
+
+def test_by_key_add():
+    input_dict = dict(c=list('rgb'), lw=[1, 2, 3])
+    cy = cycler(c=input_dict['c']) + cycler(lw=input_dict['lw'])
+    res = cy.by_key()
+    assert_equal(res, input_dict)
+    yield _by_key_helper, cy
+
+
+def test_by_key_mul():
+    input_dict = dict(c=list('rg'), lw=[1, 2, 3])
+    cy = cycler(c=input_dict['c']) * cycler(lw=input_dict['lw'])
+    res = cy.by_key()
+    assert_equal(input_dict['lw'] * len(input_dict['c']),
+                 res['lw'])
+    yield _by_key_helper, cy
