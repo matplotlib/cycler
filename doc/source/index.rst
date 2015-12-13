@@ -210,6 +210,26 @@ Cycles can be sliced with :obj:`slice` objects
 
 to return a sub-set of the cycle as a new `Cycler`.
 
+Inspecting the `Cycler`
+-----------------------
+
+To inspect the values of the transposed `Cycler` use
+the `Cycler.by_key` method:
+
+.. ipython:: python
+
+   c_m.by_key()
+
+This `dict` can be mutated and used to create a new `Cycler` with
+the updated values
+
+.. ipython:: python
+
+   bk = c_m.by_key()
+   bk['color'] = ['green'] * len(c_m)
+   cycler(**bk)
+
+
 Examples
 --------
 
