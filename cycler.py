@@ -335,7 +335,7 @@ class Cycler(object):
     def _repr_html_(self):
         # an table showing the value of each key through a full cycle
         output = "<table>"
-        sorted_keys = sorted(self.keys)
+        sorted_keys = sorted(self.keys, key=repr)
         for key in sorted_keys:
             output += "<th>{key!r}</th>".format(key=key)
         for d in iter(self):
