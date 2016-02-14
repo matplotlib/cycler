@@ -49,7 +49,7 @@ from six.moves import zip, reduce
 from operator import mul, add
 import copy
 
-__version__ = '0.9.0.post1'
+__version__ = '0.10.0'
 
 
 def _process_keys(left, right):

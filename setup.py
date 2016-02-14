@@ -1,9 +1,9 @@
 from setuptools import setup
 
 setup(name='cycler',
-      version='0.9.0.post1',
+      version='0.10.0',
       author='Thomas A Caswell',
-      author_email='tcaswell@gmail.com',
+      author_email='matplotlib-users@python.org',
       py_modules=['cycler'],
       description='Composable style cycles',
       url='http://github.com/matplotlib/cycler',
