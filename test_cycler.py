@@ -328,3 +328,18 @@ def test_by_key_mul():
     assert_equal(input_dict['lw'] * len(input_dict['c']),
                  res['lw'])
     yield _by_key_helper, cy
+
+
+def test_contains():
+    a = cycler('a', range(3))
+    b = cycler('b', range(3))
+
+    assert 'a' in a
+    assert 'b' in b
+    assert 'a' not in b
+    assert 'b' not in a
+
+    ab = a+b
+
+    assert 'a' in ab
+    assert 'b' in ab
