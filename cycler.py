@@ -135,6 +135,9 @@ class Cycler(object):
         self._keys = _process_keys(self._left, self._right)
         self._op = op
 
+    def __contains__(self, k):
+        return k in self._keys
+
     @property
     def keys(self):
         """
