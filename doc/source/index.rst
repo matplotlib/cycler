@@ -156,7 +156,7 @@ Any pair of `Cycler` can be multiplied
    m_c = m_cycle * color_cycle
 
 which gives the 'outer product' of the two cycles (same as
-:func:`itertools.prod` )
+:func:`itertools.product` )
 
 .. ipython:: python
 
