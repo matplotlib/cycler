@@ -87,7 +87,7 @@ class Cycler(object):
       in-place ``+``
 
     ``*``
-      for outer products (itertools.product) and integer multiplication
+      for outer products (`itertools.product`) and integer multiplication
 
     ``*=``
       in-place ``*``
