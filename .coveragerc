@@ -1,0 +1,6 @@
+[run]
+source=cycler
+branch=True
+[report]
+omit =
+    *test*
