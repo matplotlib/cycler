@@ -558,3 +558,32 @@ def _cycler(label, itr):
         itr = (v[lab] for v in itr)
 
     return Cycler._from_iter(label, itr)
+
+
+def cycler_with_tail(cyl, tail):
+    '''After the cycle is exhausted continue to yield tail
+
+
+    Parameters
+    ----------
+    cyl : Cycler
+       The cycler to iterate through
+
+    tail : dict
+        The dictionary to yield.  Must have the same keys as ``cyl``.
+
+    Yields
+    ------
+    sty : dict
+    '''
+    tk = set(tail.keys())
+    if cyl.keys != tk:
+        raise RuntimeError('The cycler has keys {} and the tail {}.  The '
+                           'different keys are {}'.format(cyl.keys,
+                                                          tk, tk ^ cyl.keys))
+
+    for sty in cyl:
+        yield sty
+
+    while True:
+        yield tail

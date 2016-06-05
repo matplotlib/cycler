@@ -2,7 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 
 import six
 from six.moves import zip, range
-from cycler import cycler, Cycler, concat
+from cycler import cycler, Cycler, concat, cycler_with_tail
 import pytest
 from itertools import product, cycle, chain
 from operator import add, iadd, mul, imul
@@ -341,3 +341,18 @@ def test_contains():
 
     assert 'a' in ab
     assert 'b' in ab
+
+
+def test_tail():
+    a = cycler('a', range(3))
+    tail = {'a': 4}
+
+    cy_with_tail = cycler_with_tail(a, tail)
+    for j in range(3):
+        next(cy_with_tail)
+
+    for j in range(5):
+        assert {'a': 4} == next(cy_with_tail)
+
+    with pytest.raises(RuntimeError):
+        next(cycler_with_tail(a, {'b': 1}))
