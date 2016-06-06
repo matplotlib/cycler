@@ -12,10 +12,11 @@ matrix:
 
 install:
   - python setup.py install
-  - pip install coveralls six
+  - pip install pytest pytest-cov coverage six
 
 script:
-  - python run_tests.py
+  - coverage run run_tests.py
+  - coverage report -m
 
 after_success:
-  coveralls
+  - bash <(curl -s https://codecov.io/bash)
