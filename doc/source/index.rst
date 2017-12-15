@@ -11,7 +11,7 @@
 
 
 ====== ====================================
-docs   http://matplotlib.org/cycler
+docs   https://matplotlib.org/cycler
 pypi   https://pypi.python.org/pypi/Cycler
 github https://github.com/matplotlib/cycler
 ====== ====================================

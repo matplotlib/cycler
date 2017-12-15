@@ -5,5 +5,5 @@ $PYTHON setup.py install
 # Add more build steps here, if they are necessary.
 
 # See
-# http://docs.continuum.io/conda/build.html
+# https://conda.io/docs/user-guide/tasks/build-packages/index.html
 # for a list of environment variables that are set during the build process.
