@@ -54,10 +54,10 @@ test:
     # - nose
 
 about:
-  home: http://github.com/matplotlib/cycler
+  home: https://github.com/matplotlib/cycler
   license: BSD
   summary: 'Composable style cycles'
 
 # See
-# http://docs.continuum.io/conda/build.html for
+# https://conda.io/docs/building/build.html for
 # more information about meta.yaml

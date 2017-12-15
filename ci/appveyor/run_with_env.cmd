@@ -13,7 +13,7 @@
 ::
 :: More details at:
 :: https://github.com/cython/cython/wiki/64BitCythonExtensionsOnWindows
-:: http://stackoverflow.com/a/13751649/163740
+:: https://stackoverflow.com/a/13751649/163740
 ::
 :: Author: Olivier Grisel
 :: License: BSD 3 clause

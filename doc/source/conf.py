@@ -278,7 +278,7 @@ texinfo_documents = [
 #texinfo_no_detailmenu = False
 
 intersphinx_mapping = {'python': ('https://docs.python.org/3.4', None),
-                       'matplotlb': ('http://matplotlib.org', None)}
+                       'matplotlb': ('https://matplotlib.org', None)}
 
 ################# numpydoc config ####################
 numpydoc_show_class_members = False

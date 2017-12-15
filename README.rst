@@ -1,4 +1,4 @@
 cycler: composable cycles
 =========================
 
-Docs: http://matplotlib.org/cycler/
+Docs: https://matplotlib.org/cycler/
