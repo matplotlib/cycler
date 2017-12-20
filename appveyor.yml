@@ -38,7 +38,7 @@ install:
   - "%CMD_IN_ENV% pip install six nose pytest pytest-cov coverage setuptools"
 
   # Install the generated wheel package to test it
-  - "pip install -v ."
+  - "%CMD_IN_ENV% pip install -v ."
 
 
 # Not a .NET project, we build scikit-image in the install step instead
@@ -47,7 +47,7 @@ build: false
 test_script:
 
   # Run unit tests with nose
-  - "python run_tests.py"
+  - "%CMD_IN_ENV% python run_tests.py"
 
 artifacts:
   # Archive the generated wheel package in the ci.appveyor.com build report.
