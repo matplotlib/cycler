@@ -9,29 +9,21 @@ environment:
     CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\ci\\appveyor\\run_with_env.cmd"
 
   matrix:
-     - PYTHON: "C:\\Python27_32"
-       PYTHON_VERSION: "2.7"
-       PYTHON_ARCH: "32"
-
      - PYTHON: "C:\\Python27_64"
        PYTHON_VERSION: "2.7"
        PYTHON_ARCH: "64"
-
-     - PYTHON: "C:\\Python34_32"
-       PYTHON_VERSION: "3.4.3"
-       PYTHON_ARCH: "32"
 
      - PYTHON: "C:\\Python34_64"
        PYTHON_VERSION: "3.4.3"
        PYTHON_ARCH: "64"
 
-     - PYTHON: "C:\\Python35"
-       PYTHON_VERSION: "3.5.0"
-       PYTHON_ARCH: "32"
-
      - PYTHON: "C:\\Python35-x64"
        PYTHON_VERSION: "3.5.0"
        PYTHON_ARCH: "64"
+
+     - PYTHON: "C:\\Python36-x64"
+       PYTHON_ARCH: "64"
+       PYTHON_VERSION: "3.6"
 
 install:
   # Install Python (from the official .msi of https://python.org) and pip when
@@ -44,10 +36,10 @@ install:
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
 
   # Install the build and runtime dependencies of the project.
-  - "%CMD_IN_ENV% pip install -v six nose pytest pytest-cov coverage"
+  - "%CMD_IN_ENV% pip install six nose pytest pytest-cov coverage setuptools"
 
   # Install the generated wheel package to test it
-  - "python setup.py install"
+  - "%CMD_IN_ENV% pip install -v ."
 
 
 # Not a .NET project, we build scikit-image in the install step instead
@@ -56,7 +48,7 @@ build: false
 test_script:
 
   # Run unit tests with nose
-  - "python run_tests.py"
+  - "%CMD_IN_ENV% python run_tests.py"
 
 artifacts:
   # Archive the generated wheel package in the ci.appveyor.com build report.
