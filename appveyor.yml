@@ -44,10 +44,10 @@ install:
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
 
   # Install the build and runtime dependencies of the project.
-  - "%CMD_IN_ENV% pip install -v six nose pytest pytest-cov coverage setuptools"
+  - "%CMD_IN_ENV% pip install six nose pytest pytest-cov coverage setuptools"
 
   # Install the generated wheel package to test it
-  - "python setup.py install"
+  - "pip install -v ."
 
 
 # Not a .NET project, we build scikit-image in the install step instead
