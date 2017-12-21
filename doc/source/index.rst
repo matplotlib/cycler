@@ -26,12 +26,13 @@ github https://github.com/matplotlib/cycler
    cycler
    Cycler
    concat
+   cycler_with_tail
 
 The public API of :py:mod:`cycler` consists of a class `Cycler`, a
-factory function :func:`cycler`, and a concatenation function
-:func:`concat`.  The factory function provides a simple interface for
-creating 'base' `Cycler` objects while the class takes care of the
-composition and iteration logic.
+factory function :func:`cycler`, a concatenation function
+:func:`concat`, and a few helper functions.  The factory function
+provides a simple interface for creating 'base' `Cycler` objects while
+the class takes care of the composition and iteration logic.
 
 
 `Cycler` Usage
