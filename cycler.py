@@ -47,6 +47,7 @@ import six
 from itertools import product, cycle
 from six.moves import zip, reduce
 from operator import mul, add
+from collections import defaultdict
 import copy
 
 __version__ = '0.10.0'
@@ -558,3 +559,29 @@ def _cycler(label, itr):
         itr = (v[lab] for v in itr)
 
     return Cycler._from_iter(label, itr)
+
+
+class OutOfStyles(StopIteration):
+    pass
+
+
+def persistent_style(cyl, repeat=False):
+    '''Create a defaultdict mapping keys -> styles
+
+    Parameters
+    ----------
+    cyl : Cycler
+        The c
+    '''
+    def next_style():
+        try:
+            next(cy_iter)
+        except StopIteration:
+            raise OutOfStyles()
+
+    if repeat:
+        cy_iter = cyl()
+        return defaultdict(lambda: next(cy_iter))
+    else:
+        cy_iter = iter(cyl)
+        return defaultdict(next_style)

@@ -2,7 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 
 import six
 from six.moves import zip, range
-from cycler import cycler, Cycler, concat
+from cycler import cycler, Cycler, concat, persistent_style, OutOfStyles
 import pytest
 from itertools import product, cycle, chain
 from operator import add, iadd, mul, imul
@@ -341,3 +341,24 @@ def test_contains():
 
     assert 'a' in ab
     assert 'b' in ab
+
+
+@pytest.mark.parametrize('repeat', [True, False])
+def test_persistent(repeat):
+    a = cycler('a', range(3)) + cycler('b', range(3))
+    dd = persistent_style(a, repeat=repeat)
+    one = dd['one']
+    two = dd['two']
+    three = dd['three']
+
+    assert one == dd['one']
+    assert two == dd['two']
+    assert three == dd['three']
+    if not repeat:
+        with pytest.raises(OutOfStyles):
+            dd['four']
+    else:
+        assert one == dd['four']
+        assert one == dd['four']
+        assert two == dd['five']
+        assert three == dd['six']
