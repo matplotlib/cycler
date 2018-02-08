@@ -44,7 +44,7 @@ from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
 import six
-from itertools import product, cycle
+from itertools import product, cycle, chain as itertools_chain
 from six.moves import zip, reduce
 from operator import mul, add
 import copy
@@ -558,3 +558,28 @@ def _cycler(label, itr):
         itr = (v[lab] for v in itr)
 
     return Cycler._from_iter(label, itr)
+
+
+def chain(*args):
+    """
+    Concatenate cyclers.
+
+    This is identical to `itertools.chain`, but it will raise if any arguments
+    do not have a `keys` attribute with the same contents.
+
+    Parameters
+    ----------
+    *args : one or more Cycler objects
+
+    Returns
+    -------
+    cycler : Cycler
+        New `Cycler`, concanetating input `Cycler` objects
+    """
+    _args = iter(args)
+    expected_keys = next(_args.keys)
+    for arg in _args:
+        if arg.keys != expected_keys:
+            raise ValueError("Keys of input cyclers must match. {} does not "
+                             "match {}".format(arg.keys, expected_keys))
+    return itertools_chain(*args)
