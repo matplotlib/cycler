@@ -563,3 +563,59 @@ def _cycler(label, itr):
         itr = (v[lab] for v in itr)
 
     return Cycler._from_iter(label, itr)
+
+
+def from_iter_of_dicts(inp):
+    """Construct a summation-only cycler from a list of dicts
+
+    Given an iterable of dictionaries (such as you would get from
+    iterating over a `Cycler`) and constructs a new `Cycler`.
+
+    The following are equivalent ::
+
+        from_iter_of_dicts(list(c)) == c.simplify()
+
+    Parameters
+    ----------
+    inp : Iterable[Mapping[Any, Any]]
+        An iterable of dictionaries.  All must have the same keys.
+
+    Returns
+    -------
+    ret : Cycler
+    """
+    # TODO better validation that all keys match, not just using
+    # the keys from the first entry
+    # TODO deal with empty list correctly
+    inp = list(inp)
+    return reduce(add, (cycler(k, [_[k] for _ in inp]) for k in inp[0]))
+
+
+def merge_suplemental(source, indx_key, sumplemental_data):
+    """Update a cycler with some supplemental data
+
+    Given a cycler, add extra keys to each entry based
+    on the value of ``index_key`` in that entry.
+
+    Parameters
+    ----------
+    source : Cycler
+        The cycler to augment.
+
+    indx_key : Any
+        Must be one of the keys in ``source``
+
+    sumplemental_data : Mapping[Any, Any]
+        A mapping between the values of ``index_key`` in ``source``
+        and mappings of additional keys and values.
+
+        Each mapping must have the same set of keys.
+
+    Returns
+    -------
+    ret : Cycler
+
+    """
+    return (source +
+            from_iter_of_dicts(sumplemental_data[v[indx_key]]
+                               for v in source))
