@@ -20,7 +20,7 @@ install:
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
 
   # Install the build and runtime dependencies of the project.
-  - "pip install -v six nose pytest pytest-cov coverage"
+  - "pip install -v nose pytest pytest-cov coverage"
 
   # Install the generated wheel package to test it
   - "python setup.py install"

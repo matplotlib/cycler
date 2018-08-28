@@ -43,11 +43,14 @@ Results in::
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
-import six
-from itertools import product, cycle
-from six.moves import zip, reduce
-from operator import mul, add
 import copy
+from functools import reduce
+from itertools import product, cycle
+from operator import mul, add
+import sys
+
+if sys.version_info < (3,):
+    from itertools import izip as zip
 
 __version__ = '0.10.0'
 
@@ -183,7 +186,6 @@ class Cycler(object):
     def _compose(self):
         """
         Compose the 'left' and 'right' components of this cycle
-        with the proper operation (zip or product as of now)
         """
         for a, b in self._op(self._left, self._right):
             out = dict()
@@ -220,8 +222,7 @@ class Cycler(object):
         # TODO : maybe add numpy style fancy slicing
         if isinstance(key, slice):
             trans = self.by_key()
-            return reduce(add, (_cycler(k, v[key])
-                                for k, v in six.iteritems(trans)))
+            return reduce(add, (_cycler(k, v[key]) for k, v in trans.items()))
         else:
             raise ValueError("Can only use slices with Cycler.__getitem__")
 
@@ -259,8 +260,7 @@ class Cycler(object):
             return Cycler(self, other, product)
         elif isinstance(other, int):
             trans = self.by_key()
-            return reduce(add, (_cycler(k, v*other)
-                                for k, v in six.iteritems(trans)))
+            return reduce(add, (_cycler(k, v*other) for k, v in trans.items()))
         else:
             return NotImplemented
 
@@ -396,7 +396,7 @@ class Cycler(object):
         # I would believe that there is some performance implications
 
         trans = self.by_key()
-        return reduce(add, (_cycler(k, v) for k, v in six.iteritems(trans)))
+        return reduce(add, (_cycler(k, v) for k, v in trans.items()))
 
     def concat(self, other):
         """Concatenate this cycler and an other.
@@ -523,7 +523,7 @@ def cycler(*args, **kwargs):
                         "positional argument. Use keyword arguments instead.")
 
     if kwargs:
-        return reduce(add, (_cycler(k, v) for k, v in six.iteritems(kwargs)))
+        return reduce(add, (_cycler(k, v) for k, v in kwargs.items()))
 
     raise TypeError("Must have at least a positional OR keyword arguments")
 
