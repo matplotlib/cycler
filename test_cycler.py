@@ -1,12 +1,18 @@
 from __future__ import (absolute_import, division, print_function)
 
-import six
-from six.moves import zip, range
-from cycler import cycler, Cycler, concat
-import pytest
-from itertools import product, cycle, chain
-from operator import add, iadd, mul, imul
 from collections import defaultdict
+from operator import add, iadd, mul, imul
+from itertools import product, cycle, chain
+import sys
+
+import pytest
+
+from cycler import cycler, Cycler, concat
+
+if sys.version_info < (3,):
+    from itertools import izip as zip
+    range = xrange
+    str = unicode
 
 
 def _cycler_helper(c, length, keys, values):
@@ -147,7 +153,7 @@ def test_fail_getime():
 def _repr_tester_helper(rpr_func, cyc, target_repr):
     test_repr = getattr(cyc, rpr_func)()
 
-    assert six.text_type(test_repr) == six.text_type(target_repr)
+    assert str(test_repr) == str(target_repr)
 
 
 def test_repr():

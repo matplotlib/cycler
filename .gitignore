@@ -33,6 +33,7 @@ htmlcov/
 cover/
 .coverage
 .cache
+.pytest_cache
 nosetests.xml
 coverage.xml
 cover/

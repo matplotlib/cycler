@@ -13,7 +13,7 @@ matrix:
 
 install:
   - python setup.py install
-  - pip install pytest pytest-cov coverage six
+  - pip install pytest pytest-cov coverage
 
 script:
   - coverage run run_tests.py
