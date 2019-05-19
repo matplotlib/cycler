@@ -26,6 +26,7 @@ def _cycler_helper(c, length, keys, values):
 
 def _cycles_equal(c1, c2):
     assert list(c1) == list(c2)
+    assert c1 == c2
 
 
 @pytest.mark.parametrize('c', [cycler(c='rgb'),
