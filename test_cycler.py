@@ -28,13 +28,14 @@ def _cycles_equal(c1, c2):
     assert list(c1) == list(c2)
 
 
-def test_creation():
-    c = cycler(c='rgb')
-    yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
-    c = cycler(c=list('rgb'))
-    yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
-    c = cycler(cycler(c='rgb'))
-    yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
+@pytest.mark.parametrize('c', [cycler(c='rgb'),
+                               cycler(c=list('rgb')),
+                               cycler(cycler(c='rgb'))],
+                         ids=['from string',
+                              'from list',
+                              'from cycler'])
+def test_creation(c):
+    _cycler_helper(c, 3, ['c'], [['r', 'g', 'b']])
 
 
 def test_compose():
