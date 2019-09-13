@@ -14,7 +14,7 @@ matrix:
 
 install:
   - pip install --upgrade pip
-  - python setup.py install
+  - pip install -v .
   - pip install $PRE --upgrade pytest pytest-cov coverage
 
 script:
