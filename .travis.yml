@@ -6,14 +6,16 @@ matrix:
     - python: 3.4
     - python: 3.5
     - python: 3.6
+    - python: 3.7
     - python: "nightly"
       env: PRE=--pre
   allow_failures:
     - python : "nightly"
 
 install:
-  - python setup.py install
-  - pip install pytest pytest-cov coverage
+  - python -m pip install --upgrade pip
+  - python -m pip install -v .
+  - python -m pip install $PRE --upgrade pytest pytest-cov coverage
 
 script:
   - coverage run run_tests.py

@@ -26,73 +26,84 @@ def _cycler_helper(c, length, keys, values):
 
 def _cycles_equal(c1, c2):
     assert list(c1) == list(c2)
+    assert c1 == c2
 
 
-def test_creation():
-    c = cycler(c='rgb')
-    yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
-    c = cycler(c=list('rgb'))
-    yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
-    c = cycler(cycler(c='rgb'))
-    yield _cycler_helper, c, 3, ['c'], [['r', 'g', 'b']]
+@pytest.mark.parametrize('c', [cycler(c='rgb'),
+                               cycler(c=list('rgb')),
+                               cycler(cycler(c='rgb'))],
+                         ids=['from string',
+                              'from list',
+                              'from cycler'])
+def test_creation(c):
+    _cycler_helper(c, 3, ['c'], [['r', 'g', 'b']])
 
 
-def test_compose():
+def test_add():
     c1 = cycler(c='rgb')
     c2 = cycler(lw=range(3))
-    c3 = cycler(lw=range(15))
     # addition
-    yield _cycler_helper, c1+c2, 3, ['c', 'lw'], [list('rgb'), range(3)]
-    yield _cycler_helper, c2+c1, 3, ['c', 'lw'], [list('rgb'), range(3)]
-    yield _cycles_equal, c2+c1, c1+c2
+    _cycler_helper(c1+c2, 3, ['c', 'lw'], [list('rgb'), range(3)])
+    _cycler_helper(c2+c1, 3, ['c', 'lw'], [list('rgb'), range(3)])
+    _cycles_equal(c2+c1, c1+c2)
+
+
+def test_add_len_mismatch():
     # miss-matched add lengths
+    c1 = cycler(c='rgb')
+    c3 = cycler(lw=range(15))
     with pytest.raises(ValueError):
         c1 + c3
     with pytest.raises(ValueError):
         c3 + c1
 
+
+def test_prod():
+    c1 = cycler(c='rgb')
+    c2 = cycler(lw=range(3))
+    c3 = cycler(lw=range(15))
     # multiplication
     target = zip(*product(list('rgb'), range(3)))
-    yield (_cycler_helper, c1 * c2, 9, ['c', 'lw'], target)
+    _cycler_helper(c1 * c2, 9, ['c', 'lw'], target)
 
     target = zip(*product(range(3), list('rgb')))
-    yield (_cycler_helper, c2 * c1, 9, ['lw', 'c'], target)
+    _cycler_helper(c2 * c1, 9, ['lw', 'c'], target)
 
     target = zip(*product(range(15), list('rgb')))
-    yield (_cycler_helper, c3 * c1, 45, ['lw', 'c'], target)
+    _cycler_helper(c3 * c1, 45, ['lw', 'c'], target)
 
 
 def test_inplace():
     c1 = cycler(c='rgb')
     c2 = cycler(lw=range(3))
     c2 += c1
-    yield _cycler_helper, c2, 3, ['c', 'lw'], [list('rgb'), range(3)]
+    _cycler_helper(c2, 3, ['c', 'lw'], [list('rgb'), range(3)])
 
     c3 = cycler(c='rgb')
     c4 = cycler(lw=range(3))
     c3 *= c4
     target = zip(*product(list('rgb'), range(3)))
-    yield (_cycler_helper, c3, 9, ['c', 'lw'], target)
+    _cycler_helper(c3, 9, ['c', 'lw'], target)
 
 
 def test_constructor():
     c1 = cycler(c='rgb')
     c2 = cycler(ec=c1)
-    yield _cycler_helper, c1+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2
+    _cycler_helper(c1+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2)
     c3 = cycler(c=c1)
-    yield _cycler_helper, c3+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2
+    _cycler_helper(c3+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2)
     # Using a non-string hashable
     c4 = cycler(1, range(3))
-    yield _cycler_helper, c4+c1, 3, [1, 'c'], [range(3), ['r', 'g', 'b']]
+    _cycler_helper(c4+c1, 3, [1, 'c'], [range(3), ['r', 'g', 'b']])
 
     # addition using cycler()
-    yield (_cycler_helper, cycler(c='rgb', lw=range(3)),
-            3, ['c', 'lw'], [list('rgb'), range(3)])
-    yield (_cycler_helper, cycler(lw=range(3), c='rgb'),
-            3, ['c', 'lw'], [list('rgb'), range(3)])
+    _cycler_helper(cycler(c='rgb', lw=range(3)),
+                   3, ['c', 'lw'], [list('rgb'), range(3)])
+    _cycler_helper(cycler(lw=range(3), c='rgb'),
+                   3, ['c', 'lw'], [list('rgb'), range(3)])
     # Purposely mixing them
-    yield (_cycler_helper, cycler(c=range(3), lw=c1),
-            3, ['c', 'lw'], [range(3), list('rgb')])
+    _cycler_helper(cycler(c=range(3), lw=c1),
+                   3, ['c', 'lw'], [range(3), list('rgb')])
 
 
 def test_failures():
@@ -114,24 +125,24 @@ def test_simplify():
     c1 = cycler(c='rgb')
     c2 = cycler(ec=c1)
     for c in [c1 * c2, c2 * c1, c1 + c2]:
-        yield _cycles_equal, c, c.simplify()
+        _cycles_equal(c, c.simplify())
 
 
 def test_multiply():
     c1 = cycler(c='rgb')
-    yield _cycler_helper, 2*c1, 6, ['c'], ['rgb'*2]
+    _cycler_helper(2*c1, 6, ['c'], ['rgb'*2])
 
     c2 = cycler(ec=c1)
     c3 = c1 * c2
 
-    yield _cycles_equal, 2*c3, c3*2
+    _cycles_equal(2*c3, c3*2)
 
 
 def test_mul_fails():
     c1 = cycler(c='rgb')
-    pytest.raises(TypeError, mul, c1,  2.0)
-    pytest.raises(TypeError, mul, c1,  'a')
-    pytest.raises(TypeError, mul, c1,  [])
+    pytest.raises(TypeError, mul, c1, 2.0)
+    pytest.raises(TypeError, mul, c1, 'a')
+    pytest.raises(TypeError, mul, c1, [])
 
 
 def test_getitem():
@@ -141,7 +152,7 @@ def test_getitem():
                 slice(None, None, -1),
                 slice(1, 5, None),
                 slice(0, 5, 2)):
-        yield _cycles_equal, c1[slc], cycler(3, widths[slc])
+        _cycles_equal(c1[slc], cycler(3, widths[slc]))
 
 
 def test_fail_getime():
@@ -164,14 +175,14 @@ def test_repr():
     c_sum_rpr = "(cycler('c', ['r', 'g', 'b']) + cycler('3rd', [0, 1, 2]))"
     c_prod_rpr = "(cycler('c', ['r', 'g', 'b']) * cycler('3rd', [0, 1, 2]))"
 
-    yield _repr_tester_helper, '__repr__', c + c2, c_sum_rpr
-    yield _repr_tester_helper, '__repr__', c * c2, c_prod_rpr
+    _repr_tester_helper('__repr__', c + c2, c_sum_rpr)
+    _repr_tester_helper('__repr__', c * c2, c_prod_rpr)
 
     sum_html = "<table><th>'3rd'</th><th>'c'</th><tr><td>0</td><td>'r'</td></tr><tr><td>1</td><td>'g'</td></tr><tr><td>2</td><td>'b'</td></tr></table>"
     prod_html = "<table><th>'3rd'</th><th>'c'</th><tr><td>0</td><td>'r'</td></tr><tr><td>1</td><td>'r'</td></tr><tr><td>2</td><td>'r'</td></tr><tr><td>0</td><td>'g'</td></tr><tr><td>1</td><td>'g'</td></tr><tr><td>2</td><td>'g'</td></tr><tr><td>0</td><td>'b'</td></tr><tr><td>1</td><td>'b'</td></tr><tr><td>2</td><td>'b'</td></tr></table>"
 
-    yield _repr_tester_helper, '_repr_html_', c + c2, sum_html
-    yield _repr_tester_helper, '_repr_html_', c * c2, prod_html
+    _repr_tester_helper('_repr_html_', c + c2, sum_html)
+    _repr_tester_helper('_repr_html_', c * c2, prod_html)
 
 
 def test_call():
@@ -264,17 +275,17 @@ def _eq_test_helper(a, b, res):
 def test_eq():
     a = cycler(c='rgb')
     b = cycler(c='rgb')
-    yield _eq_test_helper, a, b, True
-    yield _eq_test_helper, a, b[::-1], False
+    _eq_test_helper(a, b, True)
+    _eq_test_helper(a, b[::-1], False)
     c = cycler(lw=range(3))
-    yield _eq_test_helper, a+c, c+a, True
-    yield _eq_test_helper, a+c, c+b, True
-    yield _eq_test_helper, a*c, c*a, False
-    yield _eq_test_helper, a, c, False
+    _eq_test_helper(a+c, c+a, True)
+    _eq_test_helper(a+c, c+b, True)
+    _eq_test_helper(a*c, c*a, False)
+    _eq_test_helper(a, c, False)
     d = cycler(c='ymk')
-    yield _eq_test_helper, b, d, False
+    _eq_test_helper(b, d, False)
     e = cycler(c='orange')
-    yield _eq_test_helper, b, e, False
+    _eq_test_helper(b, e, False)
 
 
 def test_cycler_exceptions():
@@ -323,7 +334,7 @@ def test_by_key_add():
     cy = cycler(c=input_dict['c']) + cycler(lw=input_dict['lw'])
     res = cy.by_key()
     assert res == input_dict
-    yield _by_key_helper, cy
+    _by_key_helper(cy)
 
 
 def test_by_key_mul():
@@ -331,7 +342,7 @@ def test_by_key_mul():
     cy = cycler(c=input_dict['c']) * cycler(lw=input_dict['lw'])
     res = cy.by_key()
     assert input_dict['lw'] * len(input_dict['c']) == res['lw']
-    yield _by_key_helper, cy
+    _by_key_helper(cy)
 
 
 def test_contains():
