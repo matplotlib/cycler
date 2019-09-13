@@ -13,9 +13,9 @@ matrix:
     - python : "nightly"
 
 install:
-  - pip install --upgrade pip
-  - pip install -v .
-  - pip install $PRE --upgrade pytest pytest-cov coverage
+  - python -m pip install --upgrade pip
+  - python -m pip install -v .
+  - python -m pip install $PRE --upgrade pytest pytest-cov coverage
 
 script:
   - coverage run run_tests.py
