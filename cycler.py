@@ -591,7 +591,7 @@ def from_iter_of_dicts(inp):
     return reduce(add, (cycler(k, [_[k] for _ in inp]) for k in inp[0]))
 
 
-def merge_suplemental(source, indx_key, sumplemental_data):
+def merge_supplemental(source, indx_key, supplemental_data):
     """Update a cycler with some supplemental data
 
     Given a cycler, add extra keys to each entry based
@@ -605,7 +605,7 @@ def merge_suplemental(source, indx_key, sumplemental_data):
     indx_key : Any
         Must be one of the keys in ``source``
 
-    sumplemental_data : Mapping[Any, Any]
+    supplemental_data : Mapping[Any, Any]
         A mapping between the values of ``index_key`` in ``source``
         and mappings of additional keys and values.
 
@@ -617,5 +617,5 @@ def merge_suplemental(source, indx_key, sumplemental_data):
 
     """
     return (source +
-            from_iter_of_dicts(sumplemental_data[v[indx_key]]
+            from_iter_of_dicts(supplemental_data[v[indx_key]]
                                for v in source))
