@@ -2,12 +2,32 @@ language: python
 
 matrix:
   include:
-    - python: 2.7
-    - python: 3.4
-    - python: 3.5
-    - python: 3.6
-    - python: 3.7
-    - python: "nightly"
+    - arch: arm64
+      python: 2.7
+    - arch: amd64
+      python: 2.7
+    - arch: arm64
+      python: 3.4
+    - arch: amd64
+      python: 3.4
+    - arch: arm64
+      python: 3.5
+    - arch: amd64
+      python: 3.5
+    - arch: arm64
+      python: 3.6
+    - arch: amd64
+      python: 3.6
+    - arch: arm64
+      python: 3.7
+    - arch: amd64
+      python: 3.7
+    - arch: arm64
+      dist: bionic
+      python: "nightly"
+      env: PRE=--pre
+    - arch: amd64
+      python: "nightly"
       env: PRE=--pre
   allow_failures:
     - python : "nightly"
