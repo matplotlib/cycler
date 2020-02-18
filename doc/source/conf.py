@@ -36,7 +36,6 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.autosummary',
-    'matplotlib.sphinxext.only_directives',
     'matplotlib.sphinxext.plot_directive',
     'IPython.sphinxext.ipython_directive',
     'IPython.sphinxext.ipython_console_highlighting',
@@ -47,7 +46,7 @@ extensions = [
 autosummary_generate = True
 
 numpydoc_show_class_members = False
-autodoc_default_flags = ['members']
+autodoc_default_options = {'members': True}
 
 
 # Add any paths that contain templates here, relative to this directory.
