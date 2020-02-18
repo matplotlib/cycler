@@ -50,7 +50,6 @@ hashable (as it will eventually be used as the key in a :obj:`dict`).
    from __future__ import print_function
    from cycler import cycler
 
-
    color_cycle = cycler(color=['r', 'g', 'b'])
    color_cycle
 
