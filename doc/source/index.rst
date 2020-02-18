@@ -4,7 +4,7 @@
  Composable cycles
 ===================
 
-.. htmlonly::
+.. only:: html
 
     :Version: |version|
     :Date: |today|
