@@ -12,7 +12,7 @@
 .. |Codecov| image:: https://codecov.io/github/matplotlib/cycler/badge.svg?branch=master&service=github
 .. _Codecov: https://codecov.io/github/matplotlib/cycler?branch=master
 
-cycler: composable cycles
+cycler: composable   a  cycles
 =========================
 
 Docs: https://matplotlib.org/cycler/
