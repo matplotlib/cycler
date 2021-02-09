@@ -77,6 +77,41 @@ def _process_keys(left, right):
     return l_key | r_key
 
 
+def concat(left, right):
+    """
+    Concatenate two cyclers, as if chained using `itertools.chain`.
+
+    The keys must match exactly.
+
+    Examples
+    --------
+
+    >>> num = cycler('a', range(3))
+    >>> let = cycler('a', 'abc')
+    >>> num.concat(let)
+    cycler('a', [0, 1, 2, 'a', 'b', 'c'])
+
+    Parameters
+    ----------
+    left, right : `Cycler`
+        The two `Cycler` instances to concatenate
+
+    Returns
+    -------
+    ret : `Cycler`
+        The concatenated `Cycler`
+    """
+    if left.keys != right.keys:
+        raise ValueError("Keys do not match:\n"
+                         "\tIntersection: {both!r}\n"
+                         "\tDisjoint: {just_one!r}".format(
+                             both=left.keys & right.keys,
+                             just_one=left.keys ^ right.keys))
+    _l = left.by_key()
+    _r = right.by_key()
+    return reduce(add, (_cycler(k, _l[k] + _r[k]) for k in left.keys))
+
+
 class Cycler(object):
     """
     Composable cycles
@@ -183,16 +218,6 @@ class Cycler(object):
             # iteration.
             self._left = [{new: entry[old]} for entry in self._left]
 
-    def _compose(self):
-        """
-        Compose the 'left' and 'right' components of this cycle
-        """
-        for a, b in self._op(self._left, self._right):
-            out = dict()
-            out.update(a)
-            out.update(b)
-            yield out
-
     @classmethod
     def _from_iter(cls, label, itr):
         """
@@ -228,9 +253,14 @@ class Cycler(object):
 
     def __iter__(self):
         if self._right is None:
-            return iter(dict(l) for l in self._left)
-
-        return self._compose()
+            for l in self._left:
+                yield dict(l)
+        else:
+            for a, b in self._op(self._left, self._right):
+                out = dict()
+                out.update(a)
+                out.update(b)
+                yield out
 
     def __add__(self, other):
         """
@@ -403,73 +433,7 @@ class Cycler(object):
         trans = self.by_key()
         return reduce(add, (_cycler(k, v) for k, v in trans.items()))
 
-    def concat(self, other):
-        """Concatenate this cycler and an other.
-
-        The keys must match exactly.
-
-        This returns a single Cycler which is equivalent to
-        `itertools.chain(self, other)`
-
-        Examples
-        --------
-
-        >>> num = cycler('a', range(3))
-        >>> let = cycler('a', 'abc')
-        >>> num.concat(let)
-        cycler('a', [0, 1, 2, 'a', 'b', 'c'])
-
-        Parameters
-        ----------
-        other : `Cycler`
-            The `Cycler` to concatenate to this one.
-
-        Returns
-        -------
-        ret : `Cycler`
-            The concatenated `Cycler`
-        """
-        return concat(self, other)
-
-
-def concat(left, right):
-    """Concatenate two cyclers.
-
-    The keys must match exactly.
-
-    This returns a single Cycler which is equivalent to
-    `itertools.chain(left, right)`
-
-    Examples
-    --------
-
-    >>> num = cycler('a', range(3))
-    >>> let = cycler('a', 'abc')
-    >>> num.concat(let)
-    cycler('a', [0, 1, 2, 'a', 'b', 'c'])
-
-    Parameters
-    ----------
-    left, right : `Cycler`
-        The two `Cycler` instances to concatenate
-
-    Returns
-    -------
-    ret : `Cycler`
-        The concatenated `Cycler`
-    """
-    if left.keys != right.keys:
-        msg = '\n\t'.join(["Keys do not match:",
-                           "Intersection: {both!r}",
-                           "Disjoint: {just_one!r}"]).format(
-                               both=left.keys & right.keys,
-                               just_one=left.keys ^ right.keys)
-
-        raise ValueError(msg)
-
-    _l = left.by_key()
-    _r = right.by_key()
-    return reduce(add, (_cycler(k, _l[k] + _r[k]) for k in left.keys))
+    concat = concat
 
 
 def cycler(*args, **kwargs):
