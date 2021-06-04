@@ -242,8 +242,8 @@ class Cycler(object):
 
     def __iter__(self):
         if self._right is None:
-            for l in self._left:
-                yield dict(l)
+            for left in self._left:
+                yield dict(left)
         else:
             for a, b in self._op(self._left, self._right):
                 out = dict()
