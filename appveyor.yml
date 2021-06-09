@@ -20,7 +20,7 @@ install:
   - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
 
   # Install the build and runtime dependencies of the project.
-  - "pip install -v nose pytest pytest-cov coverage"
+  - "pip install -v pytest pytest-cov pytest-xdist"
 
   # Install the generated wheel package to test it
   - "python setup.py install"
@@ -31,8 +31,8 @@ build: false
 
 test_script:
 
-  # Run unit tests with nose
-  - "python run_tests.py"
+  # Run unit tests with pytest
+  - "python -m pytest -raR -n auto"
 
 artifacts:
   # Archive the generated wheel package in the ci.appveyor.com build report.

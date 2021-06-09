@@ -178,8 +178,26 @@ def test_repr():
     _repr_tester_helper('__repr__', c + c2, c_sum_rpr)
     _repr_tester_helper('__repr__', c * c2, c_prod_rpr)
 
-    sum_html = "<table><th>'3rd'</th><th>'c'</th><tr><td>0</td><td>'r'</td></tr><tr><td>1</td><td>'g'</td></tr><tr><td>2</td><td>'b'</td></tr></table>"
-    prod_html = "<table><th>'3rd'</th><th>'c'</th><tr><td>0</td><td>'r'</td></tr><tr><td>1</td><td>'r'</td></tr><tr><td>2</td><td>'r'</td></tr><tr><td>0</td><td>'g'</td></tr><tr><td>1</td><td>'g'</td></tr><tr><td>2</td><td>'g'</td></tr><tr><td>0</td><td>'b'</td></tr><tr><td>1</td><td>'b'</td></tr><tr><td>2</td><td>'b'</td></tr></table>"
+    sum_html = (
+        "<table>"
+        "<th>'3rd'</th><th>'c'</th>"
+        "<tr><td>0</td><td>'r'</td></tr>"
+        "<tr><td>1</td><td>'g'</td></tr>"
+        "<tr><td>2</td><td>'b'</td></tr>"
+        "</table>")
+    prod_html = (
+        "<table>"
+        "<th>'3rd'</th><th>'c'</th>"
+        "<tr><td>0</td><td>'r'</td></tr>"
+        "<tr><td>1</td><td>'r'</td></tr>"
+        "<tr><td>2</td><td>'r'</td></tr>"
+        "<tr><td>0</td><td>'g'</td></tr>"
+        "<tr><td>1</td><td>'g'</td></tr>"
+        "<tr><td>2</td><td>'g'</td></tr>"
+        "<tr><td>0</td><td>'b'</td></tr>"
+        "<tr><td>1</td><td>'b'</td></tr>"
+        "<tr><td>2</td><td>'b'</td></tr>"
+        "</table>")
 
     _repr_tester_helper('_repr_html_', c + c2, sum_html)
     _repr_tester_helper('_repr_html_', c * c2, prod_html)
@@ -233,6 +251,7 @@ def test_copying():
     assert c == (cycler(c=[1, 2, 3], lw=['r', 'g', 'b']) *
                  cycler('foo', [['y', 'g', 'blue'], ['b', 'k']]))
     assert c3 == cycler('foo', [['y', 'g', 'blue'], ['b', 'k']])
+    assert c4 == cycler('bar', [['y', 'g', 'blue'], ['b', 'k']])
 
 
 def test_keychange():
