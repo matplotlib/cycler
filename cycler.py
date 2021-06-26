@@ -246,7 +246,7 @@ class Cycler(object):
                 yield dict(left)
         else:
             for a, b in self._op(self._left, self._right):
-                out = dict()
+                out = {}
                 out.update(a)
                 out.update(b)
                 yield out
