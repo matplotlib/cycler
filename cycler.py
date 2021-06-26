@@ -185,11 +185,11 @@ class Cycler(object):
         if old == new:
             return
         if new in self._keys:
-            raise ValueError("Can't replace %s with %s, %s is already a key" %
-                             (old, new, new))
+            raise ValueError("Can't replace {} with {}, {} is already a key"
+                             .format(old, new, new))
         if old not in self._keys:
-            raise KeyError("Can't replace %s with %s, %s is not a key" %
-                           (old, new, old))
+            raise KeyError("Can't replace {} with {}, {} is not a key"
+                           .format(old, new, old))
 
         self._keys.remove(old)
         self._keys.add(new)
