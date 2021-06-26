@@ -43,9 +43,9 @@ def test_add():
     c1 = cycler(c='rgb')
     c2 = cycler(lw=range(3))
     # addition
-    _cycler_helper(c1+c2, 3, ['c', 'lw'], [list('rgb'), range(3)])
-    _cycler_helper(c2+c1, 3, ['c', 'lw'], [list('rgb'), range(3)])
-    _cycles_equal(c2+c1, c1+c2)
+    _cycler_helper(c1 + c2, 3, ['c', 'lw'], [list('rgb'), range(3)])
+    _cycler_helper(c2 + c1, 3, ['c', 'lw'], [list('rgb'), range(3)])
+    _cycles_equal(c2 + c1, c1 + c2)
 
 
 def test_add_len_mismatch():
@@ -89,12 +89,12 @@ def test_inplace():
 def test_constructor():
     c1 = cycler(c='rgb')
     c2 = cycler(ec=c1)
-    _cycler_helper(c1+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2)
+    _cycler_helper(c1 + c2, 3, ['c', 'ec'], [['r', 'g', 'b']] * 2)
     c3 = cycler(c=c1)
-    _cycler_helper(c3+c2, 3, ['c', 'ec'], [['r', 'g', 'b']]*2)
+    _cycler_helper(c3 + c2, 3, ['c', 'ec'], [['r', 'g', 'b']] * 2)
     # Using a non-string hashable
     c4 = cycler(1, range(3))
-    _cycler_helper(c4+c1, 3, [1, 'c'], [range(3), ['r', 'g', 'b']])
+    _cycler_helper(c4 + c1, 3, [1, 'c'], [range(3), ['r', 'g', 'b']])
 
     # addition using cycler()
     _cycler_helper(cycler(c='rgb', lw=range(3)),
@@ -118,7 +118,7 @@ def test_failures():
 
     c3 = cycler(ec=c1)
 
-    pytest.raises(ValueError, cycler, c=c2+c3)
+    pytest.raises(ValueError, cycler, c=c2 + c3)
 
 
 def test_simplify():
@@ -130,12 +130,12 @@ def test_simplify():
 
 def test_multiply():
     c1 = cycler(c='rgb')
-    _cycler_helper(2*c1, 6, ['c'], ['rgb'*2])
+    _cycler_helper(2 * c1, 6, ['c'], ['rgb' * 2])
 
     c2 = cycler(ec=c1)
     c3 = c1 * c2
 
-    _cycles_equal(2*c3, c3*2)
+    _cycles_equal(2 * c3, c3 * 2)
 
 
 def test_mul_fails():
@@ -208,7 +208,7 @@ def test_call():
     c_cycle = c()
     assert isinstance(c_cycle, cycle)
     j = 0
-    for a, b in zip(2*c, c_cycle):
+    for a, b in zip(2 * c, c_cycle):
         j += 1
         assert a == b
 
@@ -373,7 +373,7 @@ def test_contains():
     assert 'a' not in b
     assert 'b' not in a
 
-    ab = a+b
+    ab = a + b
 
     assert 'a' in ab
     assert 'b' in ab
