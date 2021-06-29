@@ -11,8 +11,8 @@ from cycler import cycler, Cycler, concat
 
 if sys.version_info < (3,):
     from itertools import izip as zip
-    range = xrange
-    str = unicode
+    range = xrange  # noqa
+    str = unicode  # noqa
 
 
 def _cycler_helper(c, length, keys, values):
