@@ -185,11 +185,13 @@ class Cycler(object):
         if old == new:
             return
         if new in self._keys:
-            raise ValueError("Can't replace %s with %s, %s is already a key" %
-                             (old, new, new))
+            raise ValueError(
+                "Can't replace {old} with {new}, {new} is already a key"
+                .format(old=old, new=new)
+            )
         if old not in self._keys:
-            raise KeyError("Can't replace %s with %s, %s is not a key" %
-                           (old, new, old))
+            raise KeyError("Can't replace {old} with {new}, {old} is not a key"
+                           .format(old=old, new=new))
 
         self._keys.remove(old)
         self._keys.add(new)
@@ -246,7 +248,7 @@ class Cycler(object):
                 yield dict(left)
         else:
             for a, b in self._op(self._left, self._right):
-                out = dict()
+                out = {}
                 out.update(a)
                 out.update(b)
                 yield out
