@@ -16,6 +16,14 @@ PyPI   https://pypi.python.org/pypi/Cycler
 GitHub https://github.com/matplotlib/cycler
 ====== ====================================
 
+Install
+~~~~~~~~~~~~~~
+
+Todo::
+
+    $ git clone https://github.com/matplotlib/cycler
+    $ cd cycler
+    $ python setup.py install
 
 :py:mod:`cycler` API
 ====================
