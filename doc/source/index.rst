@@ -21,7 +21,7 @@ Install
 
 Todo::
 
-    $ git clone https://github.com/matplotlib/cycler
+    $ git clone https://github.com/matplotlib/cycler.git
     $ cd cycler
     $ python setup.py install
 
