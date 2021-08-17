@@ -257,7 +257,7 @@ class Cycler:
         """
         if len(self) != len(other):
             raise ValueError("Can only add equal length cycles, "
-                             "not {} and {}".format(len(self), len(other)))
+                             f"not {len(self)} and {len(other)}")
         return Cycler(self, other, zip)
 
     def __mul__(self, other):
