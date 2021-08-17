@@ -45,10 +45,6 @@ import copy
 from functools import reduce
 from itertools import product, cycle
 from operator import mul, add
-import sys
-
-if sys.version_info < (3,):
-    from itertools import izip as zip
 
 __version__ = '0.10.0'
 

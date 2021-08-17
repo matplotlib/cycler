@@ -272,7 +272,7 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 # texinfo_no_detailmenu = False
 
-intersphinx_mapping = {'python': ('https://docs.python.org/3.4', None),
+intersphinx_mapping = {'python': ('https://docs.python.org/3', None),
                        'matplotlb': ('https://matplotlib.org', None)}
 
 # ################ numpydoc config ####################
