@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # cycler documentation build configuration file, created by
 # sphinx-quickstart on Wed Jul  1 13:32:53 2015.

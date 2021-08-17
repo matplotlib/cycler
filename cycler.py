@@ -40,8 +40,6 @@ Results in::
     {'color': 'b', 'linestyle': '-.'}
 """
 
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 
 import copy
 from functools import reduce
@@ -107,7 +105,7 @@ def concat(left, right):
     return reduce(add, (_cycler(k, _l[k] + _r[k]) for k in left.keys))
 
 
-class Cycler(object):
+class Cycler:
     """
     Composable cycles.
 
@@ -231,7 +229,7 @@ class Cycler(object):
         """
         ret = cls(None)
         ret._left = list({label: v} for v in itr)
-        ret._keys = set([label])
+        ret._keys = {label}
         return ret
 
     def __getitem__(self, key):
@@ -263,7 +261,7 @@ class Cycler(object):
         """
         if len(self) != len(other):
             raise ValueError("Can only add equal length cycles, "
-                             "not {0} and {1}".format(len(self), len(other)))
+                             "not {} and {}".format(len(self), len(other)))
         return Cycler(self, other, zip)
 
     def __mul__(self, other):
@@ -347,7 +345,7 @@ class Cycler(object):
         if self._right is None:
             lab = self.keys.pop()
             itr = list(v[lab] for v in self)
-            return "cycler({lab!r}, {itr!r})".format(lab=lab, itr=itr)
+            return f"cycler({lab!r}, {itr!r})"
         else:
             op = op_map.get(self._op, '?')
             msg = "({left!r} {op} {right!r})"
@@ -358,11 +356,11 @@ class Cycler(object):
         output = "<table>"
         sorted_keys = sorted(self.keys, key=repr)
         for key in sorted_keys:
-            output += "<th>{key!r}</th>".format(key=key)
+            output += f"<th>{key!r}</th>"
         for d in iter(self):
             output += "<tr>"
             for k in sorted_keys:
-                output += "<td>{val!r}</td>".format(val=d[k])
+                output += f"<td>{d[k]!r}</td>"
             output += "</tr>"
         output += "</table>"
         return output
