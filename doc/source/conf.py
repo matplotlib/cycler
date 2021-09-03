@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # cycler documentation build configuration file, created by
 # sphinx-quickstart on Wed Jul  1 13:32:53 2015.
@@ -273,7 +272,7 @@ texinfo_documents = [
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 # texinfo_no_detailmenu = False
 
-intersphinx_mapping = {'python': ('https://docs.python.org/3.4', None),
+intersphinx_mapping = {'python': ('https://docs.python.org/3', None),
                        'matplotlb': ('https://matplotlib.org', None)}
 
 # ################ numpydoc config ####################

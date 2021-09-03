@@ -1,18 +1,10 @@
-from __future__ import (absolute_import, division, print_function)
-
 from collections import defaultdict
 from operator import add, iadd, mul, imul
 from itertools import product, cycle, chain
-import sys
 
 import pytest
 
 from cycler import cycler, Cycler, concat
-
-if sys.version_info < (3,):
-    from itertools import izip as zip
-    range = xrange  # noqa
-    str = unicode  # noqa
 
 
 def _cycler_helper(c, length, keys, values):
