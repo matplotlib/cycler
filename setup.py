@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='cycler',
-      version='0.11.0',
+      version='0.12.0.dev0',
       author='Thomas A Caswell',
       author_email='matplotlib-users@python.org',
       py_modules=['cycler'],
