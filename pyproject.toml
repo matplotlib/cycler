@@ -1,0 +1,33 @@
+[project]
+name = "cycler"
+version = "0.12.0.dev0"
+description = "Composable style cycles"
+authors = [
+    {name = "Thomas A Caswell", email = "matplotlib-users@python.org"},
+]
+readme = "README.rst"
+license = {file = "LICENSE"}
+requires-python = ">=3.7"
+classifiers = [
+    "License :: OSI Approved :: BSD License",
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3 :: Only",
+]
+keywords = ["cycle kwargs"]
+
+[project.urls]
+homepage = "https://matplotlib.org/cycler/"
+repository = "https://github.com/matplotlib/cycler"
+
+[tool.setuptools]
+packages = ["cycler"]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
