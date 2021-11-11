@@ -1,182 +1,155 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>cycler.Cycler &mdash; cycler 0.10.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.10.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="cycler 0.10.0 documentation" href="../index.html" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>cycler.Cycler &#8212; cycler 0.11.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="cycler.concat" href="cycler.concat.html" />
     <link rel="prev" title="cycler.cycler" href="cycler.cycler.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">  
+  </head><body>
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <div class="section" id="cycler-cycler">
+  <section id="cycler-cycler">
 <h1>cycler.Cycler<a class="headerlink" href="#cycler-cycler" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="cycler.Cycler">
-<em class="property">class </em><code class="descclassname">cycler.</code><code class="descname">Cycler</code><span class="sig-paren">(</span><em>left</em>, <em>right=None</em>, <em>op=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Composable cycles</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="cycler.Cycler">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">cycler.</span></span><span class="sig-name descname"><span class="pre">Cycler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cycler.Cycler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Composable cycles.</p>
 <p>This class has compositions methods:</p>
-<dl class="docutils">
-<dt><code class="docutils literal"><span class="pre">+</span></code></dt>
-<dd>for &#8216;inner&#8217; products (zip)</dd>
-<dt><code class="docutils literal"><span class="pre">+=</span></code></dt>
-<dd>in-place <code class="docutils literal"><span class="pre">+</span></code></dd>
-<dt><code class="docutils literal"><span class="pre">*</span></code></dt>
-<dd>for outer products (itertools.product) and integer multiplication</dd>
-<dt><code class="docutils literal"><span class="pre">*=</span></code></dt>
-<dd>in-place <code class="docutils literal"><span class="pre">*</span></code></dd>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">+</span></code></dt><dd><p>for ‘inner’ products (zip)</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">+=</span></code></dt><dd><p>in-place <code class="docutils literal notranslate"><span class="pre">+</span></code></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">*</span></code></dt><dd><p>for outer products (<a class="reference external" href="https://docs.python.org/3/library/itertools.html#itertools.product" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">itertools.product</span></code></a>) and integer multiplication</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">*=</span></code></dt><dd><p>in-place <code class="docutils literal notranslate"><span class="pre">*</span></code></p>
+</dd>
 </dl>
-<p>and supports basic slicing via <code class="docutils literal"><span class="pre">[]</span></code></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>left</strong> : Cycler or None</p>
-<blockquote>
-<div><p>The &#8216;left&#8217; cycler</p>
-</div></blockquote>
-<p><strong>right</strong> : Cycler or None</p>
-<blockquote>
-<div><p>The &#8216;right&#8217; cycler</p>
-</div></blockquote>
-<p><strong>op</strong> : func or None</p>
-<blockquote class="last">
-<div><p>Function which composes the &#8216;left&#8217; and &#8216;right&#8217; cyclers.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="cycler.Cycler.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>left</em>, <em>right=None</em>, <em>op=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler.__init__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Semi-private init</p>
-<p>Do not use this directly, use <a class="reference internal" href="cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-obj docutils literal"><span class="pre">cycler</span></code></a> function instead.</p>
+<p>and supports basic slicing via <code class="docutils literal notranslate"><span class="pre">[]</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>left, right</strong><span class="classifier">Cycler or None</span></dt><dd><p>The ‘left’ and ‘right’ cyclers.</p>
+</dd>
+<dt><strong>op</strong><span class="classifier">func or None</span></dt><dd><p>Function which composes the ‘left’ and ‘right’ cyclers.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="cycler.Cycler.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cycler.Cycler.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Semi-private init.</p>
+<p>Do not use this directly, use <a class="reference internal" href="cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cycler</span></code></a> function instead.</p>
 </dd></dl>
 
 <p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#cycler.Cycler.__init__" title="cycler.Cycler.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a>(left[,&nbsp;right,&nbsp;op])</td>
-<td>Semi-private init</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cycler.Cycler.__init__" title="cycler.Cycler.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(left[, right, op])</p></td>
+<td><p>Semi-private init.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#cycler.Cycler.change_key" title="cycler.Cycler.change_key"><code class="xref py py-obj docutils literal"><span class="pre">change_key</span></code></a>(old,&nbsp;new)</td>
-<td>Change a key in this cycler to a new name.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#cycler.Cycler.by_key" title="cycler.Cycler.by_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">by_key</span></code></a>()</p></td>
+<td><p>Values by key.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#cycler.Cycler.concat" title="cycler.Cycler.concat"><code class="xref py py-obj docutils literal"><span class="pre">concat</span></code></a>(other)</td>
-<td>Concatenate this cycler and an other.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cycler.Cycler.change_key" title="cycler.Cycler.change_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">change_key</span></code></a>(old, new)</p></td>
+<td><p>Change a key in this cycler to a new name.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#cycler.Cycler.simplify" title="cycler.Cycler.simplify"><code class="xref py py-obj docutils literal"><span class="pre">simplify</span></code></a>()</td>
-<td>Simplify the Cycler</td>
+<tr class="row-even"><td><p><a class="reference internal" href="#cycler.Cycler.concat" title="cycler.Cycler.concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat</span></code></a>(right)</p></td>
+<td><p>Concatenate <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a>s, as if chained using <a class="reference external" href="https://docs.python.org/3/library/itertools.html#itertools.chain" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">itertools.chain</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cycler.Cycler.simplify" title="cycler.Cycler.simplify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">simplify</span></code></a>()</p></td>
+<td><p>Simplify the cycler into a sum (but no products) of cyclers.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Attributes</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#cycler.Cycler.keys" title="cycler.Cycler.keys"><code class="xref py py-obj docutils literal"><span class="pre">keys</span></code></a></td>
-<td>The keys this Cycler knows about</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#cycler.Cycler.keys" title="cycler.Cycler.keys"><code class="xref py py-obj docutils literal notranslate"><span class="pre">keys</span></code></a></p></td>
+<td><p>The keys this Cycler knows about.</p></td>
 </tr>
 </tbody>
 </table>
-<dl class="method">
-<dt id="cycler.Cycler.by_key">
-<code class="descname">by_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.by_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler.by_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>Values by key</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cycler.Cycler.by_key">
+<span class="sig-name descname"><span class="pre">by_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.by_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cycler.Cycler.by_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Values by key.</p>
 <p>This returns the transposed values of the cycler.  Iterating
-over a <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> yields dicts with a single value for each key,
-this method returns a <a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#dict" title="(in Python v3.4)"><code class="xref py py-obj docutils literal"><span class="pre">dict</span></code></a> of <a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#list" title="(in Python v3.4)"><code class="xref py py-obj docutils literal"><span class="pre">list</span></code></a> which are the values
+over a <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> yields dicts with a single value for each key,
+this method returns a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> which are the values
 for the given key.</p>
-<p>The returned value can be used to create an equivalent <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a>
-using only <code class="xref py py-obj docutils literal"><span class="pre">+</span></code>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>transpose</strong> : dict</p>
-<blockquote class="last">
-<div><p>dict of lists of the values for each key.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<p>The returned value can be used to create an equivalent <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a>
+using only <code class="xref py py-obj docutils literal notranslate"><span class="pre">+</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>transpose</strong><span class="classifier">dict</span></dt><dd><p>dict of lists of the values for each key.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="cycler.Cycler.change_key">
-<code class="descname">change_key</code><span class="sig-paren">(</span><em>old</em>, <em>new</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.change_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler.change_key" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="cycler.Cycler.change_key">
+<span class="sig-name descname"><span class="pre">change_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.change_key"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cycler.Cycler.change_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change a key in this cycler to a new name.
 Modification is performed in-place.</p>
 <p>Does nothing if the old key is the same as the new key.
 Raises a ValueError if the new key is already a key.
-Raises a KeyError if the old key isn&#8217;t a key.</p>
+Raises a KeyError if the old key isn’t a key.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="cycler.Cycler.concat">
-<code class="descname">concat</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.concat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler.concat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Concatenate this cycler and an other.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="cycler.Cycler.concat">
+<span class="sig-name descname"><span class="pre">concat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">right</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cycler.Cycler.concat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Concatenate <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a>s, as if chained using <a class="reference external" href="https://docs.python.org/3/library/itertools.html#itertools.chain" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">itertools.chain</span></code></a>.</p>
 <p>The keys must match exactly.</p>
-<p>This returns a single Cycler which is equivalent to
-<code class="xref py py-obj docutils literal"><span class="pre">itertools.chain(self,</span> <span class="pre">other)</span></code></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>other</strong> : <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a></p>
-<blockquote>
-<div><p>The <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> to concatenate to this one.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>ret</strong> : <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a></p>
-<blockquote class="last">
-<div><p>The concatenated <a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a></p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><a class="reference internal" href="#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a></dt><dd><p>The concatenated cycler.</p>
+</dd>
+</dl>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">num</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">num</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">let</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;abc&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">num</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">let</span><span class="p">)</span>
 <span class="go">cycler(&#39;a&#39;, [0, 1, 2, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;])</span>
@@ -184,68 +157,53 @@ Raises a KeyError if the old key isn&#8217;t a key.</p>
 </div>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="cycler.Cycler.keys">
-<code class="descname">keys</code><a class="headerlink" href="#cycler.Cycler.keys" title="Permalink to this definition">¶</a></dt>
-<dd><p>The keys this Cycler knows about</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="cycler.Cycler.keys">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">keys</span></span><a class="headerlink" href="#cycler.Cycler.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>The keys this Cycler knows about.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="cycler.Cycler.simplify">
-<code class="descname">simplify</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.simplify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.Cycler.simplify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simplify the Cycler</p>
-<p>Returned as a composition using only sums (no multiplications)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>simple</strong> : Cycler</p>
-<blockquote class="last">
-<div><p>An equivalent cycler using only summation</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="cycler.Cycler.simplify">
+<span class="sig-name descname"><span class="pre">simplify</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#Cycler.simplify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cycler.Cycler.simplify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simplify the cycler into a sum (but no products) of cyclers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>simple</strong><span class="classifier">Cycler</span></dt><dd></dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="cycler.cycler.html" title="previous chapter">cycler.cycler</a></li>
-  </ul></li>
-</ul>
-</div>
+        <div class="sphinxsidebarwrapper">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/generated/cycler.Cycler.txt"
+      <li><a href="../_sources/generated/cycler.Cycler.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -254,11 +212,11 @@ Raises a KeyError if the old key isn&#8217;t a key.</p>
       &copy;2015, Matplotlib Developers.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="../_sources/generated/cycler.Cycler.txt"
+      <a href="../_sources/generated/cycler.Cycler.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

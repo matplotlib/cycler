@@ -1,4 +1,4 @@
-cycler.Cycler
+﻿cycler.Cycler
 =============
 
 .. currentmodule:: cycler
@@ -14,6 +14,7 @@ cycler.Cycler
    .. autosummary::
    
       ~Cycler.__init__
+      ~Cycler.by_key
       ~Cycler.change_key
       ~Cycler.concat
       ~Cycler.simplify

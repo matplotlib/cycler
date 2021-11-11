@@ -1,129 +1,106 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>cycler.cycler &mdash; cycler 0.10.0 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.10.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="cycler 0.10.0 documentation" href="../index.html" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>cycler.cycler &#8212; cycler 0.11.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="cycler.Cycler" href="cycler.Cycler.html" />
     <link rel="prev" title="Composable cycles" href="../index.html" />
    
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">  
+  </head><body>
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <div class="section" id="cycler-cycler">
+  <section id="cycler-cycler">
 <h1>cycler.cycler<a class="headerlink" href="#cycler-cycler" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="cycler.cycler">
-<code class="descclassname">cycler.</code><code class="descname">cycler</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#cycler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cycler.cycler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a new <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> object from a single positional argument,
+<dl class="py function">
+<dt class="sig sig-object py" id="cycler.cycler">
+<span class="sig-prename descclassname"><span class="pre">cycler.</span></span><span class="sig-name descname"><span class="pre">cycler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cycler.html#cycler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#cycler.cycler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> object from a single positional argument,
 a pair of positional arguments, or the combination of keyword arguments.</p>
 <p>cycler(arg)
-cycler(label1=itr1[, label2=iter2[, ...]])
+cycler(label1=itr1[, label2=iter2[, …]])
 cycler(label, itr)</p>
-<p>Form 1 simply copies a given <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> object.</p>
-<p>Form 2 composes a <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> as an inner product of the
+<p>Form 1 simply copies a given <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> object.</p>
+<p>Form 2 composes a <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> as an inner product of the
 pairs of keyword arguments. In other words, all of the
 iterables are cycled simultaneously, as if through zip().</p>
-<p>Form 3 creates a <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> from a label and an iterable.
+<p>Form 3 creates a <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> from a label and an iterable.
 This is useful for when the label cannot be a keyword argument
 (e.g., an integer or a name that has a space in it).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>arg</strong> : Cycler</p>
-<blockquote>
-<div><p>Copy constructor for Cycler (does a shallow copy of iterables).</p>
-</div></blockquote>
-<p><strong>label</strong> : name</p>
-<blockquote>
-<div><p>The property key. In the 2-arg form of the function,
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>arg</strong><span class="classifier">Cycler</span></dt><dd><p>Copy constructor for Cycler (does a shallow copy of iterables).</p>
+</dd>
+<dt><strong>label</strong><span class="classifier">name</span></dt><dd><p>The property key. In the 2-arg form of the function,
 the label can be any hashable object. In the keyword argument
 form of the function, it must be a valid python identifier.</p>
-</div></blockquote>
-<p><strong>itr</strong> : iterable</p>
-<blockquote>
-<div><p>Finite length iterable of the property values.
-Can be a single-property <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> that would
+</dd>
+<dt><strong>itr</strong><span class="classifier">iterable</span></dt><dd><p>Finite length iterable of the property values.
+Can be a single-property <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> that would
 be like a key change, but as a shallow copy.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>cycler</strong> : Cycler</p>
-<blockquote class="last">
-<div><p>New <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> for the given property</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>cycler</strong><span class="classifier">Cycler</span></dt><dd><p>New <a class="reference internal" href="cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> for the given property</p>
+</dd>
+</dl>
+</dd>
+</dl>
 </dd></dl>
 
-</div>
+</section>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="../index.html" title="previous chapter">Composable cycles</a></li>
-      <li>Next: <a href="cycler.Cycler.html" title="next chapter">cycler.Cycler</a></li>
-  </ul></li>
-</ul>
-</div>
+        <div class="sphinxsidebarwrapper">
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/generated/cycler.cycler.txt"
+      <li><a href="../_sources/generated/cycler.cycler.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -132,11 +109,11 @@ be like a key change, but as a shallow copy.</p>
       &copy;2015, Matplotlib Developers.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="../_sources/generated/cycler.cycler.txt"
+      <a href="../_sources/generated/cycler.cycler.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

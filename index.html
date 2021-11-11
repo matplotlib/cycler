@@ -1,106 +1,99 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Composable cycles &mdash; cycler 0.10.0 documentation</title>
-    
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '0.10.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="cycler 0.10.0 documentation" href="#" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Composable cycles &#8212; cycler 0.11.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="cycler.cycler" href="generated/cycler.cycler.html" />
    
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
 
-  </head>
-  <body role="document">  
+  </head><body>
+  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
+          
+
           <div class="body" role="main">
             
-  <div class="section" id="composable-cycles">
+  <section id="composable-cycles">
 <h1>Composable cycles<a class="headerlink" href="#composable-cycles" title="Permalink to this headline">¶</a></h1>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Version:</th><td class="field-body">0.10.0</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">February 16, 2016</td>
-</tr>
-</tbody>
-</table>
-<table border="1" class="docutils">
+<dl class="field-list simple">
+<dt class="field-odd">Version</dt>
+<dd class="field-odd"><p>0.11.0</p>
+</dd>
+<dt class="field-even">Date</dt>
+<dd class="field-even"><p>Nov 10, 2021</p>
+</dd>
+</dl>
+<table class="docutils align-default">
 <colgroup>
-<col width="14%" />
-<col width="86%" />
+<col style="width: 14%" />
+<col style="width: 86%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td>docs</td>
-<td><a class="reference external" href="http://matplotlib.org/cycler">http://matplotlib.org/cycler</a></td>
+<tbody>
+<tr class="row-odd"><td><p>Docs</p></td>
+<td><p><a class="reference external" href="https://matplotlib.org/cycler">https://matplotlib.org/cycler</a></p></td>
 </tr>
-<tr class="row-even"><td>pypi</td>
-<td><a class="reference external" href="https://pypi.python.org/pypi/Cycler">https://pypi.python.org/pypi/Cycler</a></td>
+<tr class="row-even"><td><p>PyPI</p></td>
+<td><p><a class="reference external" href="https://pypi.python.org/pypi/Cycler">https://pypi.python.org/pypi/Cycler</a></p></td>
 </tr>
-<tr class="row-odd"><td>github</td>
-<td><a class="reference external" href="https://github.com/matplotlib/cycler">https://github.com/matplotlib/cycler</a></td>
+<tr class="row-odd"><td><p>GitHub</p></td>
+<td><p><a class="reference external" href="https://github.com/matplotlib/cycler">https://github.com/matplotlib/cycler</a></p></td>
 </tr>
 </tbody>
 </table>
-<div class="section" id="cycler-api">
-<h2><code class="xref py py-mod docutils literal"><span class="pre">cycler</span></code> API<a class="headerlink" href="#cycler-api" title="Permalink to this headline">¶</a></h2>
-<table border="1" class="longtable docutils">
+<section id="cycler-api">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">cycler</span></code> API<a class="headerlink" href="#cycler-api" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="generated/cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-obj docutils literal"><span class="pre">cycler</span></code></a>(*args,&nbsp;**kwargs)</td>
-<td>Create a new <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> object from a single positional argument, a pair of positional arguments, or the combination of keyword arguments.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cycler</span></code></a>(*args, **kwargs)</p></td>
+<td><p>Create a new <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> object from a single positional argument, a pair of positional arguments, or the combination of keyword arguments.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a>(left[,&nbsp;right,&nbsp;op])</td>
-<td>Composable cycles</td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a>(left[, right, op])</p></td>
+<td><p>Composable cycles.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="generated/cycler.concat.html#cycler.concat" title="cycler.concat"><code class="xref py py-obj docutils literal"><span class="pre">concat</span></code></a>(left,&nbsp;right)</td>
-<td>Concatenate two cyclers.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/cycler.concat.html#cycler.concat" title="cycler.concat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concat</span></code></a>(left, right)</p></td>
+<td><p>Concatenate <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a>s, as if chained using <a class="reference external" href="https://docs.python.org/3/library/itertools.html#itertools.chain" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">itertools.chain</span></code></a>.</p></td>
 </tr>
 </tbody>
 </table>
-<p>The public API of <code class="xref py py-mod docutils literal"><span class="pre">cycler</span></code> consists of a class <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a>, a
-factory function <a class="reference internal" href="generated/cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-func docutils literal"><span class="pre">cycler()</span></code></a>, and a concatenation function
-<a class="reference internal" href="generated/cycler.concat.html#cycler.concat" title="cycler.concat"><code class="xref py py-func docutils literal"><span class="pre">concat()</span></code></a>.  The factory function provides a simple interface for
-creating &#8216;base&#8217; <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> objects while the class takes care of the
+<p>The public API of <code class="xref py py-mod docutils literal notranslate"><span class="pre">cycler</span></code> consists of a class <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a>, a
+factory function <a class="reference internal" href="generated/cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-func docutils literal notranslate"><span class="pre">cycler()</span></code></a>, and a concatenation function
+<a class="reference internal" href="generated/cycler.concat.html#cycler.concat" title="cycler.concat"><code class="xref py py-func docutils literal notranslate"><span class="pre">concat()</span></code></a>.  The factory function provides a simple interface for
+creating ‘base’ <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> objects while the class takes care of the
 composition and iteration logic.</p>
-</div>
-<div class="section" id="cycler-usage">
-<h2><a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> Usage<a class="headerlink" href="#cycler-usage" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="base">
+</section>
+<section id="cycler-usage">
+<h2><a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> Usage<a class="headerlink" href="#cycler-usage" title="Permalink to this headline">¶</a></h2>
+<section id="base">
 <h3>Base<a class="headerlink" href="#base" title="Permalink to this headline">¶</a></h3>
-<p>A single entry <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> object can be used to easily
-cycle over a single style.  To create the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> use the <a class="reference internal" href="generated/cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-func docutils literal"><span class="pre">cycler()</span></code></a>
+<p>A single entry <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> object can be used to easily
+cycle over a single style.  To create the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> use the <a class="reference internal" href="generated/cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-func docutils literal notranslate"><span class="pre">cycler()</span></code></a>
 function to link a key/style/kwarg to series of values.  The key must be
-hashable (as it will eventually be used as the key in a <a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#dict" title="(in Python v3.4)"><code class="xref py py-obj docutils literal"><span class="pre">dict</span></code></a>).</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+hashable (as it will eventually be used as the key in a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>).</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="gp">In [2]: </span><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
 
@@ -110,36 +103,36 @@ hashable (as it will eventually be used as the key in a <a class="reference exte
 <span class="gh">Out[4]: </span><span class="go">cycler(&#39;color&#39;, [&#39;r&#39;, &#39;g&#39;, &#39;b&#39;])</span>
 </pre></div>
 </div>
-<p>The <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> knows it&#8217;s length and keys:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="nb">len</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">)</span>
+<p>The <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> knows it’s length and keys:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [5]: </span><span class="nb">len</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">)</span>
 <span class="gh">Out[5]: </span><span class="go">3</span>
 
 <span class="gp">In [6]: </span><span class="n">color_cycle</span><span class="o">.</span><span class="n">keys</span>
-<span class="go">          Out[6]: {&#39;color&#39;}</span>
+<span class="gh">Out[6]: </span><span class="go">{&#39;color&#39;}</span>
 </pre></div>
 </div>
-<p>Iterating over this object will yield a series of <a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#dict" title="(in Python v3.4)"><code class="xref py py-obj docutils literal"><span class="pre">dict</span></code></a> objects keyed on
+<p>Iterating over this object will yield a series of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> objects keyed on
 the label</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">color_cycle</span><span class="p">:</span>
-<span class="gp">   ...: </span>    <span class="k">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [7]: </span><span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">color_cycle</span><span class="p">:</span>
+<span class="gp">   ...: </span>    <span class="nb">print</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
 <span class="gp">   ...: </span>
 <span class="go">{&#39;color&#39;: &#39;r&#39;}</span>
 <span class="go">{&#39;color&#39;: &#39;g&#39;}</span>
 <span class="go">{&#39;color&#39;: &#39;b&#39;}</span>
 </pre></div>
 </div>
-<p><a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> objects can be passed as the argument to <a class="reference internal" href="generated/cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-func docutils literal"><span class="pre">cycler()</span></code></a>
-which returns a new  <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> with a new label, but the same values.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [8]: </span><span class="n">cycler</span><span class="p">(</span><span class="n">ec</span><span class="o">=</span><span class="n">color_cycle</span><span class="p">)</span>
+<p><a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> objects can be passed as the argument to <a class="reference internal" href="generated/cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-func docutils literal notranslate"><span class="pre">cycler()</span></code></a>
+which returns a new  <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> with a new label, but the same values.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="n">cycler</span><span class="p">(</span><span class="n">ec</span><span class="o">=</span><span class="n">color_cycle</span><span class="p">)</span>
 <span class="gh">Out[8]: </span><span class="go">cycler(&#39;ec&#39;, [&#39;r&#39;, &#39;g&#39;, &#39;b&#39;])</span>
 </pre></div>
 </div>
-<p>Iterating over a <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> results in the finite list of entries, to
-get an infinite cycle, call the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> object (a-la a generator)</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [9]: </span><span class="n">cc</span> <span class="o">=</span> <span class="n">color_cycle</span><span class="p">()</span>
+<p>Iterating over a <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> results in the finite list of entries, to
+get an infinite cycle, call the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> object (a-la a generator)</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="n">cc</span> <span class="o">=</span> <span class="n">color_cycle</span><span class="p">()</span>
 
 <span class="gp">In [10]: </span><span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>  <span class="n">cc</span><span class="p">):</span>
-<span class="gp">   ....: </span>    <span class="k">print</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="gp">   ....: </span>    <span class="nb">print</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
 <span class="gp">   ....: </span>
 <span class="go">0 {&#39;color&#39;: &#39;r&#39;}</span>
 <span class="go">1 {&#39;color&#39;: &#39;g&#39;}</span>
@@ -148,33 +141,33 @@ get an infinite cycle, call the <a class="reference internal" href="generated/cy
 <span class="go">4 {&#39;color&#39;: &#39;g&#39;}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="composition">
+</section>
+<section id="composition">
 <h3>Composition<a class="headerlink" href="#composition" title="Permalink to this headline">¶</a></h3>
-<p>A single <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> can just as easily be replaced by a single <code class="docutils literal"><span class="pre">for</span></code>
-loop.  The power of <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> objects is that they can be composed to easily
+<p>A single <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> can just as easily be replaced by a single <code class="docutils literal notranslate"><span class="pre">for</span></code>
+loop.  The power of <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> objects is that they can be composed to easily
 create complex multi-key cycles.</p>
-<div class="section" id="addition">
+<section id="addition">
 <h4>Addition<a class="headerlink" href="#addition" title="Permalink to this headline">¶</a></h4>
-<p>Equal length <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> s with different keys can be added to get the
-&#8216;inner&#8217; product of two cycles</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">lw_cycle</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<p>Equal length <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> s with different keys can be added to get the
+‘inner’ product of two cycles</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [11]: </span><span class="n">lw_cycle</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">lw</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="gp">In [12]: </span><span class="n">wc</span> <span class="o">=</span> <span class="n">lw_cycle</span> <span class="o">+</span> <span class="n">color_cycle</span>
 </pre></div>
 </div>
 <p>The result has the same length and has keys which are the union of the
-two input <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a>&#8216;s.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [13]: </span><span class="nb">len</span><span class="p">(</span><span class="n">wc</span><span class="p">)</span>
+two input <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a>’s.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [13]: </span><span class="nb">len</span><span class="p">(</span><span class="n">wc</span><span class="p">)</span>
 <span class="gh">Out[13]: </span><span class="go">3</span>
 
 <span class="gp">In [14]: </span><span class="n">wc</span><span class="o">.</span><span class="n">keys</span>
-<span class="go">           Out[14]: {&#39;color&#39;, &#39;lw&#39;}</span>
+<span class="gh">Out[14]: </span><span class="go">{&#39;color&#39;, &#39;lw&#39;}</span>
 </pre></div>
 </div>
 <p>and iterating over the result is the zip of the two input cycles</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [15]: </span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">wc</span><span class="p">:</span>
-<span class="gp">   ....: </span>    <span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [15]: </span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">wc</span><span class="p">:</span>
+<span class="gp">   ....: </span>    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="gp">   ....: </span>
 <span class="go">{&#39;lw&#39;: 1, &#39;color&#39;: &#39;r&#39;}</span>
 <span class="go">{&#39;lw&#39;: 2, &#39;color&#39;: &#39;g&#39;}</span>
@@ -182,146 +175,146 @@ two input <a class="reference internal" href="generated/cycler.Cycler.html#cycle
 </pre></div>
 </div>
 <p>As with arithmetic, addition is commutative</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [16]: </span><span class="n">lw_c</span> <span class="o">=</span> <span class="n">lw_cycle</span> <span class="o">+</span> <span class="n">color_cycle</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="n">lw_c</span> <span class="o">=</span> <span class="n">lw_cycle</span> <span class="o">+</span> <span class="n">color_cycle</span>
 
 <span class="gp">In [17]: </span><span class="n">c_lw</span> <span class="o">=</span> <span class="n">color_cycle</span> <span class="o">+</span> <span class="n">lw_cycle</span>
 
 <span class="gp">In [18]: </span><span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">lw_c</span><span class="p">,</span> <span class="n">c_lw</span><span class="p">)):</span>
-<span class="gp">   ....: </span>   <span class="k">print</span><span class="p">(</span><span class="s1">&#39;({j}) A: {A!r} B: {B!r}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">b</span><span class="p">))</span>
+<span class="gp">   ....: </span>   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(</span><span class="si">{j}</span><span class="s1">) A: </span><span class="si">{A!r}</span><span class="s1"> B: </span><span class="si">{B!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">b</span><span class="p">))</span>
 <span class="gp">   ....: </span>
-<span class="go">(0) A: {&#39;lw&#39;: 1, &#39;color&#39;: &#39;r&#39;} B: {&#39;lw&#39;: 1, &#39;color&#39;: &#39;r&#39;}</span>
-<span class="go">(1) A: {&#39;lw&#39;: 2, &#39;color&#39;: &#39;g&#39;} B: {&#39;lw&#39;: 2, &#39;color&#39;: &#39;g&#39;}</span>
-<span class="go">(2) A: {&#39;lw&#39;: 3, &#39;color&#39;: &#39;b&#39;} B: {&#39;lw&#39;: 3, &#39;color&#39;: &#39;b&#39;}</span>
+<span class="go">(0) A: {&#39;lw&#39;: 1, &#39;color&#39;: &#39;r&#39;} B: {&#39;color&#39;: &#39;r&#39;, &#39;lw&#39;: 1}</span>
+<span class="go">(1) A: {&#39;lw&#39;: 2, &#39;color&#39;: &#39;g&#39;} B: {&#39;color&#39;: &#39;g&#39;, &#39;lw&#39;: 2}</span>
+<span class="go">(2) A: {&#39;lw&#39;: 3, &#39;color&#39;: &#39;b&#39;} B: {&#39;color&#39;: &#39;b&#39;, &#39;lw&#39;: 3}</span>
 </pre></div>
 </div>
-<p>For convenience, the <a class="reference internal" href="generated/cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-func docutils literal"><span class="pre">cycler()</span></code></a> function can have multiple
+<p>For convenience, the <a class="reference internal" href="generated/cycler.cycler.html#cycler.cycler" title="cycler.cycler"><code class="xref py py-func docutils literal notranslate"><span class="pre">cycler()</span></code></a> function can have multiple
 key-value pairs and will automatically compose them into a single
-<a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> via addition</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [19]: </span><span class="n">wc</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+<a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> via addition</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [19]: </span><span class="n">wc</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
 
 <span class="gp">In [20]: </span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">wc</span><span class="p">:</span>
-<span class="gp">   ....: </span>    <span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">   ....: </span>    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="gp">   ....: </span>
 <span class="go">{&#39;c&#39;: &#39;r&#39;, &#39;lw&#39;: 0}</span>
 <span class="go">{&#39;c&#39;: &#39;g&#39;, &#39;lw&#39;: 1}</span>
 <span class="go">{&#39;c&#39;: &#39;b&#39;, &#39;lw&#39;: 2}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="multiplication">
+</section>
+<section id="multiplication">
 <h4>Multiplication<a class="headerlink" href="#multiplication" title="Permalink to this headline">¶</a></h4>
-<p>Any pair of <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> can be multiplied</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [21]: </span><span class="n">m_cycle</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">])</span>
+<p>Any pair of <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> can be multiplied</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="n">m_cycle</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">marker</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">])</span>
 
 <span class="gp">In [22]: </span><span class="n">m_c</span> <span class="o">=</span> <span class="n">m_cycle</span> <span class="o">*</span> <span class="n">color_cycle</span>
 </pre></div>
 </div>
-<p>which gives the &#8216;outer product&#8217; of the two cycles (same as
-<code class="xref py py-func docutils literal"><span class="pre">itertools.prod()</span></code> )</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [23]: </span><span class="nb">len</span><span class="p">(</span><span class="n">m_c</span><span class="p">)</span>
+<p>which gives the ‘outer product’ of the two cycles (same as
+<a class="reference external" href="https://docs.python.org/3/library/itertools.html#itertools.product" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">itertools.product()</span></code></a> )</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="nb">len</span><span class="p">(</span><span class="n">m_c</span><span class="p">)</span>
 <span class="gh">Out[23]: </span><span class="go">6</span>
 
 <span class="gp">In [24]: </span><span class="n">m_c</span><span class="o">.</span><span class="n">keys</span>
-<span class="go">           Out[24]: {&#39;color&#39;, &#39;marker&#39;}</span>
+<span class="gh">Out[24]: </span><span class="go">{&#39;color&#39;, &#39;marker&#39;}</span>
 
 <span class="gp">In [25]: </span><span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">m_c</span><span class="p">:</span>
-<span class="gp">   ....: </span>    <span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="gp">   ....: </span>    <span class="nb">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="gp">   ....: </span>
-<span class="go">                                        {&#39;color&#39;: &#39;r&#39;, &#39;marker&#39;: &#39;s&#39;}</span>
-<span class="go">{&#39;color&#39;: &#39;g&#39;, &#39;marker&#39;: &#39;s&#39;}</span>
-<span class="go">{&#39;color&#39;: &#39;b&#39;, &#39;marker&#39;: &#39;s&#39;}</span>
-<span class="go">{&#39;color&#39;: &#39;r&#39;, &#39;marker&#39;: &#39;o&#39;}</span>
-<span class="go">{&#39;color&#39;: &#39;g&#39;, &#39;marker&#39;: &#39;o&#39;}</span>
-<span class="go">{&#39;color&#39;: &#39;b&#39;, &#39;marker&#39;: &#39;o&#39;}</span>
+<span class="go">{&#39;marker&#39;: &#39;s&#39;, &#39;color&#39;: &#39;r&#39;}</span>
+<span class="go">{&#39;marker&#39;: &#39;s&#39;, &#39;color&#39;: &#39;g&#39;}</span>
+<span class="go">{&#39;marker&#39;: &#39;s&#39;, &#39;color&#39;: &#39;b&#39;}</span>
+<span class="go">{&#39;marker&#39;: &#39;o&#39;, &#39;color&#39;: &#39;r&#39;}</span>
+<span class="go">{&#39;marker&#39;: &#39;o&#39;, &#39;color&#39;: &#39;g&#39;}</span>
+<span class="go">{&#39;marker&#39;: &#39;o&#39;, &#39;color&#39;: &#39;b&#39;}</span>
 </pre></div>
 </div>
 <p>Note that unlike addition, multiplication is not commutative (like
 matrices)</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [26]: </span><span class="n">c_m</span> <span class="o">=</span> <span class="n">color_cycle</span> <span class="o">*</span> <span class="n">m_cycle</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [26]: </span><span class="n">c_m</span> <span class="o">=</span> <span class="n">color_cycle</span> <span class="o">*</span> <span class="n">m_cycle</span>
 
 <span class="gp">In [27]: </span><span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">c_m</span><span class="p">,</span> <span class="n">m_c</span><span class="p">)):</span>
-<span class="gp">   ....: </span>   <span class="k">print</span><span class="p">(</span><span class="s1">&#39;({j}) A: {A!r} B: {B!r}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">b</span><span class="p">))</span>
+<span class="gp">   ....: </span>   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(</span><span class="si">{j}</span><span class="s1">) A: </span><span class="si">{A!r}</span><span class="s1"> B: </span><span class="si">{B!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="o">=</span><span class="n">j</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">b</span><span class="p">))</span>
 <span class="gp">   ....: </span>
-<span class="go">(0) A: {&#39;color&#39;: &#39;r&#39;, &#39;marker&#39;: &#39;s&#39;} B: {&#39;color&#39;: &#39;r&#39;, &#39;marker&#39;: &#39;s&#39;}</span>
-<span class="go">(1) A: {&#39;color&#39;: &#39;r&#39;, &#39;marker&#39;: &#39;o&#39;} B: {&#39;color&#39;: &#39;g&#39;, &#39;marker&#39;: &#39;s&#39;}</span>
-<span class="go">(2) A: {&#39;color&#39;: &#39;g&#39;, &#39;marker&#39;: &#39;s&#39;} B: {&#39;color&#39;: &#39;b&#39;, &#39;marker&#39;: &#39;s&#39;}</span>
-<span class="go">(3) A: {&#39;color&#39;: &#39;g&#39;, &#39;marker&#39;: &#39;o&#39;} B: {&#39;color&#39;: &#39;r&#39;, &#39;marker&#39;: &#39;o&#39;}</span>
-<span class="go">(4) A: {&#39;color&#39;: &#39;b&#39;, &#39;marker&#39;: &#39;s&#39;} B: {&#39;color&#39;: &#39;g&#39;, &#39;marker&#39;: &#39;o&#39;}</span>
-<span class="go">(5) A: {&#39;color&#39;: &#39;b&#39;, &#39;marker&#39;: &#39;o&#39;} B: {&#39;color&#39;: &#39;b&#39;, &#39;marker&#39;: &#39;o&#39;}</span>
+<span class="go">(0) A: {&#39;color&#39;: &#39;r&#39;, &#39;marker&#39;: &#39;s&#39;} B: {&#39;marker&#39;: &#39;s&#39;, &#39;color&#39;: &#39;r&#39;}</span>
+<span class="go">(1) A: {&#39;color&#39;: &#39;r&#39;, &#39;marker&#39;: &#39;o&#39;} B: {&#39;marker&#39;: &#39;s&#39;, &#39;color&#39;: &#39;g&#39;}</span>
+<span class="go">(2) A: {&#39;color&#39;: &#39;g&#39;, &#39;marker&#39;: &#39;s&#39;} B: {&#39;marker&#39;: &#39;s&#39;, &#39;color&#39;: &#39;b&#39;}</span>
+<span class="go">(3) A: {&#39;color&#39;: &#39;g&#39;, &#39;marker&#39;: &#39;o&#39;} B: {&#39;marker&#39;: &#39;o&#39;, &#39;color&#39;: &#39;r&#39;}</span>
+<span class="go">(4) A: {&#39;color&#39;: &#39;b&#39;, &#39;marker&#39;: &#39;s&#39;} B: {&#39;marker&#39;: &#39;o&#39;, &#39;color&#39;: &#39;g&#39;}</span>
+<span class="go">(5) A: {&#39;color&#39;: &#39;b&#39;, &#39;marker&#39;: &#39;o&#39;} B: {&#39;marker&#39;: &#39;o&#39;, &#39;color&#39;: &#39;b&#39;}</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="integer-multiplication">
+</section>
+<section id="integer-multiplication">
 <h4>Integer Multiplication<a class="headerlink" href="#integer-multiplication" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> s can also be multiplied by integer values to increase the length.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [28]: </span><span class="n">color_cycle</span> <span class="o">*</span> <span class="mi">2</span>
+<p><a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> s can also be multiplied by integer values to increase the length.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [28]: </span><span class="n">color_cycle</span> <span class="o">*</span> <span class="mi">2</span>
 <span class="gh">Out[28]: </span><span class="go">cycler(&#39;color&#39;, [&#39;r&#39;, &#39;g&#39;, &#39;b&#39;, &#39;r&#39;, &#39;g&#39;, &#39;b&#39;])</span>
 
 <span class="gp">In [29]: </span><span class="mi">2</span> <span class="o">*</span> <span class="n">color_cycle</span>
-<span class="go">                                                         Out[29]: cycler(&#39;color&#39;, [&#39;r&#39;, &#39;g&#39;, &#39;b&#39;, &#39;r&#39;, &#39;g&#39;, &#39;b&#39;])</span>
+<span class="gh">Out[29]: </span><span class="go">cycler(&#39;color&#39;, [&#39;r&#39;, &#39;g&#39;, &#39;b&#39;, &#39;r&#39;, &#39;g&#39;, &#39;b&#39;])</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="concatenation">
+</section>
+<section id="concatenation">
 <h4>Concatenation<a class="headerlink" href="#concatenation" title="Permalink to this headline">¶</a></h4>
-<p><a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> objects can be concatenated either via the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler.concat" title="cycler.Cycler.concat"><code class="xref py py-meth docutils literal"><span class="pre">Cycler.concat()</span></code></a> method</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [30]: </span><span class="n">color_cycle</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">)</span>
+<p><a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> objects can be concatenated either via the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler.concat" title="cycler.Cycler.concat"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Cycler.concat()</span></code></a> method</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [30]: </span><span class="n">color_cycle</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">)</span>
 <span class="gh">Out[30]: </span><span class="go">cycler(&#39;color&#39;, [&#39;r&#39;, &#39;g&#39;, &#39;b&#39;, &#39;r&#39;, &#39;g&#39;, &#39;b&#39;])</span>
 </pre></div>
 </div>
-<p>or the top-level <a class="reference internal" href="generated/cycler.concat.html#cycler.concat" title="cycler.concat"><code class="xref py py-func docutils literal"><span class="pre">concat()</span></code></a> function</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [31]: </span><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">concat</span>
+<p>or the top-level <a class="reference internal" href="generated/cycler.concat.html#cycler.concat" title="cycler.concat"><code class="xref py py-func docutils literal notranslate"><span class="pre">concat()</span></code></a> function</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [31]: </span><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">concat</span>
 
 <span class="gp">In [32]: </span><span class="n">concat</span><span class="p">(</span><span class="n">color_cycle</span><span class="p">,</span> <span class="n">color_cycle</span><span class="p">)</span>
 <span class="gh">Out[32]: </span><span class="go">cycler(&#39;color&#39;, [&#39;r&#39;, &#39;g&#39;, &#39;b&#39;, &#39;r&#39;, &#39;g&#39;, &#39;b&#39;])</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="slicing">
+</section>
+</section>
+<section id="slicing">
 <h3>Slicing<a class="headerlink" href="#slicing" title="Permalink to this headline">¶</a></h3>
-<p>Cycles can be sliced with <a class="reference external" href="https://docs.python.org/3.4/library/functions.html#slice" title="(in Python v3.4)"><code class="xref py py-obj docutils literal"><span class="pre">slice</span></code></a> objects</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [33]: </span><span class="n">color_cycle</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<p>Cycles can be sliced with <a class="reference external" href="https://docs.python.org/3/library/functions.html#slice" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice</span></code></a> objects</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [33]: </span><span class="n">color_cycle</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 <span class="gh">Out[33]: </span><span class="go">cycler(&#39;color&#39;, [&#39;b&#39;, &#39;g&#39;, &#39;r&#39;])</span>
 
 <span class="gp">In [34]: </span><span class="n">color_cycle</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
-<span class="go">                                          Out[34]: cycler(&#39;color&#39;, [&#39;r&#39;, &#39;g&#39;])</span>
+<span class="gh">Out[34]: </span><span class="go">cycler(&#39;color&#39;, [&#39;r&#39;, &#39;g&#39;])</span>
 
 <span class="gp">In [35]: </span><span class="n">color_cycle</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-<span class="go">                                                                               Out[35]: cycler(&#39;color&#39;, [&#39;g&#39;, &#39;b&#39;])</span>
+<span class="gh">Out[35]: </span><span class="go">cycler(&#39;color&#39;, [&#39;g&#39;, &#39;b&#39;])</span>
 </pre></div>
 </div>
-<p>to return a sub-set of the cycle as a new <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a>.</p>
-</div>
-<div class="section" id="inspecting-the-cycler">
-<h3>Inspecting the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a><a class="headerlink" href="#inspecting-the-cycler" title="Permalink to this headline">¶</a></h3>
-<p>To inspect the values of the transposed <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> use
-the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler.by_key" title="cycler.Cycler.by_key"><code class="xref py py-obj docutils literal"><span class="pre">Cycler.by_key</span></code></a> method:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [36]: </span><span class="n">c_m</span><span class="o">.</span><span class="n">by_key</span><span class="p">()</span>
+<p>to return a sub-set of the cycle as a new <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a>.</p>
+</section>
+<section id="inspecting-the-cycler">
+<h3>Inspecting the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a><a class="headerlink" href="#inspecting-the-cycler" title="Permalink to this headline">¶</a></h3>
+<p>To inspect the values of the transposed <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> use
+the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler.by_key" title="cycler.Cycler.by_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler.by_key</span></code></a> method:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [36]: </span><span class="n">c_m</span><span class="o">.</span><span class="n">by_key</span><span class="p">()</span>
 <span class="gh">Out[36]: </span><span class="go"></span>
-<span class="go">{&#39;color&#39;: [&#39;r&#39;, &#39;r&#39;, &#39;g&#39;, &#39;g&#39;, &#39;b&#39;, &#39;b&#39;],</span>
-<span class="go"> &#39;marker&#39;: [&#39;s&#39;, &#39;o&#39;, &#39;s&#39;, &#39;o&#39;, &#39;s&#39;, &#39;o&#39;]}</span>
+<span class="go">{&#39;marker&#39;: [&#39;s&#39;, &#39;o&#39;, &#39;s&#39;, &#39;o&#39;, &#39;s&#39;, &#39;o&#39;],</span>
+<span class="go"> &#39;color&#39;: [&#39;r&#39;, &#39;r&#39;, &#39;g&#39;, &#39;g&#39;, &#39;b&#39;, &#39;b&#39;]}</span>
 </pre></div>
 </div>
-<p>This <a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#dict" title="(in Python v3.4)"><code class="xref py py-obj docutils literal"><span class="pre">dict</span></code></a> can be mutated and used to create a new <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> with
+<p>This <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> can be mutated and used to create a new <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> with
 the updated values</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [37]: </span><span class="n">bk</span> <span class="o">=</span> <span class="n">c_m</span><span class="o">.</span><span class="n">by_key</span><span class="p">()</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [37]: </span><span class="n">bk</span> <span class="o">=</span> <span class="n">c_m</span><span class="o">.</span><span class="n">by_key</span><span class="p">()</span>
 
 <span class="gp">In [38]: </span><span class="n">bk</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;green&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">c_m</span><span class="p">)</span>
 
 <span class="gp">In [39]: </span><span class="n">cycler</span><span class="p">(</span><span class="o">**</span><span class="n">bk</span><span class="p">)</span>
-<span class="gh">Out[39]: </span><span class="go">(cycler(&#39;color&#39;, [&#39;green&#39;, &#39;green&#39;, &#39;green&#39;, &#39;green&#39;, &#39;green&#39;, &#39;green&#39;]) + cycler(&#39;marker&#39;, [&#39;s&#39;, &#39;o&#39;, &#39;s&#39;, &#39;o&#39;, &#39;s&#39;, &#39;o&#39;]))</span>
+<span class="gh">Out[39]: </span><span class="go">(cycler(&#39;marker&#39;, [&#39;s&#39;, &#39;o&#39;, &#39;s&#39;, &#39;o&#39;, &#39;s&#39;, &#39;o&#39;]) + cycler(&#39;color&#39;, [&#39;green&#39;, &#39;green&#39;, &#39;green&#39;, &#39;green&#39;, &#39;green&#39;, &#39;green&#39;]))</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="examples">
+</section>
+<section id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
-<p>We can use <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> instances to cycle over one or more <code class="docutils literal"><span class="pre">kwarg</span></code> to
-<a class="reference external" href="http://matplotlib.org/api/axes_api.html#matplotlib.axes.Axes.plot" title="(in Matplotlib v1.5.1)"><code class="xref py py-obj docutils literal"><span class="pre">plot</span></code></a> :</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+<p>We can use <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> instances to cycle over one or more <code class="docutils literal notranslate"><span class="pre">kwarg</span></code> to
+<a class="reference external" href="https://matplotlib.org/api/_as_gen/matplotlib.axes.Axes.plot.html#matplotlib.axes.Axes.plot" title="(in Matplotlib v3.4.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot</span></code></a> :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">cycle</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">tight_layout</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 
@@ -336,13 +329,13 @@ the updated values</p>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//index-1.py">Source code</a>, <a class="reference external" href=".//index-1.png">png</a>, <a class="reference external" href=".//index-1.hires.png">hires.png</a>, <a class="reference external" href=".//index-1.pdf">pdf</a>)</p>
-<div class="figure">
-<img alt="_images/index-1.png" src="_images/index-1.png" />
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+<figure class="align-default">
+<img alt="_images/index-1.png" class="plot-directive" src="_images/index-1.png" />
+</figure>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
 <span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">cycle</span>
 
-<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">tight_layout</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                                <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 
@@ -362,16 +355,16 @@ the updated values</p>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//index-2.py">Source code</a>, <a class="reference external" href=".//index-2.png">png</a>, <a class="reference external" href=".//index-2.hires.png">hires.png</a>, <a class="reference external" href=".//index-2.pdf">pdf</a>)</p>
-<div class="figure">
-<img alt="_images/index-2.png" src="_images/index-2.png" />
-</div>
-</div>
-<div class="section" id="persistent-cycles">
+<figure class="align-default">
+<img alt="_images/index-2.png" class="plot-directive" src="_images/index-2.png" />
+</figure>
+</section>
+<section id="persistent-cycles">
 <h3>Persistent Cycles<a class="headerlink" href="#persistent-cycles" title="Permalink to this headline">¶</a></h3>
 <p>It can be useful to associate a given label with a style via
 dictionary lookup and to dynamically generate that mapping.  This
-can easily be accomplished using a <a class="reference external" href="https://docs.python.org/3.4/library/collections.html#collections.defaultdict" title="(in Python v3.4)"><code class="xref py py-obj docutils literal"><span class="pre">defaultdict</span></code></a></p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [40]: </span><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span> <span class="k">as</span> <span class="n">cy</span>
+can easily be accomplished using a <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.defaultdict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">defaultdict</span></code></a></p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [40]: </span><span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span> <span class="k">as</span> <span class="n">cy</span>
 
 <span class="gp">In [41]: </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 
@@ -379,109 +372,109 @@ can easily be accomplished using a <a class="reference external" href="https://d
 </pre></div>
 </div>
 <p>To get a finite set of styles</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [43]: </span><span class="n">finite_cy_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">cyl</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [43]: </span><span class="n">finite_cy_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">cyl</span><span class="p">)</span>
 
 <span class="gp">In [44]: </span><span class="n">dd_finite</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">finite_cy_iter</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>or repeating</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [45]: </span><span class="n">loop_cy_iter</span> <span class="o">=</span> <span class="n">cyl</span><span class="p">()</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [45]: </span><span class="n">loop_cy_iter</span> <span class="o">=</span> <span class="n">cyl</span><span class="p">()</span>
 
 <span class="gp">In [46]: </span><span class="n">dd_loop</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">loop_cy_iter</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>This can be helpful when plotting complex data which has both a classification
 and a label</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">finite_cy_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">cyl</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">finite_cy_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">cyl</span><span class="p">)</span>
 <span class="n">styles</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span> <span class="p">:</span> <span class="nb">next</span><span class="p">(</span><span class="n">finite_cy_iter</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">DataSet</span><span class="p">:</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="o">**</span><span class="n">styles</span><span class="p">[</span><span class="n">group</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>which will result in every <code class="docutils literal"><span class="pre">data</span></code> with the same <code class="docutils literal"><span class="pre">group</span></code> being plotted with
+<p>which will result in every <code class="docutils literal notranslate"><span class="pre">data</span></code> with the same <code class="docutils literal notranslate"><span class="pre">group</span></code> being plotted with
 the same style.</p>
-</div>
-<div class="section" id="exceptions">
+</section>
+<section id="exceptions">
 <h3>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h3>
-<p>A <a class="reference external" href="https://docs.python.org/3.4/library/exceptions.html#ValueError" title="(in Python v3.4)"><code class="xref py py-obj docutils literal"><span class="pre">ValueError</span></code></a> is raised if unequal length <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> s are added together</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [47]: </span><span class="n">cycler</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">cycler</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">])</span>
+<p>A <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ValueError</span></code></a> is raised if unequal length <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> s are added together</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [47]: </span><span class="n">cycler</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">cycler</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">])</span>
 <span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-47-97d51404b26d&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">47</span><span class="o">-</span><span class="mi">8</span><span class="n">d89d25d1b2f</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">cycler</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span> <span class="o">+</span> <span class="n">cycler</span><span class="p">(</span><span class="n">ls</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">])</span>
 
-<span class="nn">/home/tcaswell/.virtualenvs/dd35/lib/python3.5/site-packages/cycler.py</span> in <span class="ni">__add__</span><span class="nt">(self, other)</span>
-<span class="g g-Whitespace">    </span><span class="mi">240</span>         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">241</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can only add equal length cycles, &quot;</span>
-<span class="ne">--&gt; </span><span class="mi">242</span>                              <span class="s2">&quot;not {0} and {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span>
-<span class="g g-Whitespace">    </span><span class="mi">243</span>         <span class="k">return</span> <span class="n">Cycler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="nb">zip</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">244</span> 
+<span class="nn">~/code/cycler/venv/lib64/python3.9/site-packages/cycler.py</span> in <span class="ni">__add__</span><span class="nt">(self, other)</span>
+<span class="g g-Whitespace">    </span><span class="mi">257</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">258</span><span class="s2">         if len(self) != len(other):</span>
+<span class="ne">--&gt; </span><span class="mi">259</span><span class="s2">             raise ValueError(&quot;Can only add equal length cycles, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span><span class="s2">                              f&quot;not {len(self)} and {len(other)}&quot;)</span>
+<span class="g g-Whitespace">    </span><span class="mi">261</span><span class="s2">         return Cycler(self, other, zip)</span>
 
 <span class="ne">ValueError</span>: Can only add equal length cycles, not 3 and 2
 </pre></div>
 </div>
 <p>or if two cycles which have overlapping keys are composed</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [48]: </span><span class="n">color_cycle</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [48]: </span><span class="n">color_cycle</span> <span class="o">=</span> <span class="n">cycler</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">])</span>
 
 <span class="gp">In [49]: </span><span class="n">color_cycle</span> <span class="o">+</span> <span class="n">color_cycle</span>
 <span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">&lt;ipython-input-49-df525bb380c1&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">49</span><span class="o">-</span><span class="n">c3f07b28cc3d</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">color_cycle</span> <span class="o">+</span> <span class="n">color_cycle</span>
 
-<span class="nn">/home/tcaswell/.virtualenvs/dd35/lib/python3.5/site-packages/cycler.py</span> in <span class="ni">__add__</span><span class="nt">(self, other)</span>
-<span class="g g-Whitespace">    </span><span class="mi">241</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can only add equal length cycles, &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">242</span>                              <span class="s2">&quot;not {0} and {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="p">)))</span>
-<span class="ne">--&gt; </span><span class="mi">243</span>         <span class="k">return</span> <span class="n">Cycler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="nb">zip</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">244</span> 
-<span class="g g-Whitespace">    </span><span class="mi">245</span>     <span class="k">def</span> <span class="nf">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+<span class="nn">~/code/cycler/venv/lib64/python3.9/site-packages/cycler.py</span> in <span class="ni">__add__</span><span class="nt">(self, other)</span>
+<span class="g g-Whitespace">    </span><span class="mi">259</span>             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can only add equal length cycles, &quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">260</span>                              <span class="sa">f</span><span class="s2">&quot;not </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">261</span>         <span class="k">return</span> <span class="n">Cycler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="nb">zip</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">262</span> 
+<span class="g g-Whitespace">    </span><span class="mi">263</span>     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
 
-<span class="nn">/home/tcaswell/.virtualenvs/dd35/lib/python3.5/site-packages/cycler.py</span> in <span class="ni">__init__</span><span class="nt">(self, left, right, op)</span>
-<span class="g g-Whitespace">    </span><span class="mi">133</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_right</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">134</span> 
-<span class="ne">--&gt; </span><span class="mi">135</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span> <span class="o">=</span> <span class="n">_process_keys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">136</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_op</span> <span class="o">=</span> <span class="n">op</span>
-<span class="g g-Whitespace">    </span><span class="mi">137</span> 
+<span class="nn">~/code/cycler/venv/lib64/python3.9/site-packages/cycler.py</span> in <span class="ni">__init__</span><span class="nt">(self, left, right, op)</span>
+<span class="g g-Whitespace">    </span><span class="mi">157</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_right</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">158</span> 
+<span class="ne">--&gt; </span><span class="mi">159</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_keys</span> <span class="o">=</span> <span class="n">_process_keys</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_left</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_right</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">160</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_op</span> <span class="o">=</span> <span class="n">op</span>
+<span class="g g-Whitespace">    </span><span class="mi">161</span> 
 
-<span class="nn">/home/tcaswell/.virtualenvs/dd35/lib/python3.5/site-packages/cycler.py</span> in <span class="ni">_process_keys</span><span class="nt">(left, right)</span>
-<span class="g g-Whitespace">     </span><span class="mi">71</span>     <span class="n">r_key</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">r_peek</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-<span class="g g-Whitespace">     </span><span class="mi">72</span>     <span class="k">if</span> <span class="n">l_key</span> <span class="o">&amp;</span> <span class="n">r_key</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">73</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can not compose overlapping cycles&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">74</span>     <span class="k">return</span> <span class="n">l_key</span> <span class="o">|</span> <span class="n">r_key</span>
-<span class="g g-Whitespace">     </span><span class="mi">75</span> 
+<span class="nn">~/code/cycler/venv/lib64/python3.9/site-packages/cycler.py</span> in <span class="ni">_process_keys</span><span class="nt">(left, right)</span>
+<span class="g g-Whitespace">     </span><span class="mi">69</span>     <span class="n">r_key</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">r_peek</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="g g-Whitespace">     </span><span class="mi">70</span>     <span class="k">if</span> <span class="n">l_key</span> <span class="o">&amp;</span> <span class="n">r_key</span><span class="p">:</span>
+<span class="ne">---&gt; </span><span class="mi">71</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Can not compose overlapping cycles&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">72</span>     <span class="k">return</span> <span class="n">l_key</span> <span class="o">|</span> <span class="n">r_key</span>
+<span class="g g-Whitespace">     </span><span class="mi">73</span> 
 
 <span class="ne">ValueError</span>: Can not compose overlapping cycles
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="motivation">
+</section>
+</section>
+<section id="motivation">
 <h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
 <p>When plotting more than one line it is common to want to be able to cycle over one
 or more artist styles.  For simple cases than can be done with out too much trouble:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">tight_layout</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">lw</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">])):</span>
    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">),</span>
-           <span class="n">label</span><span class="o">=</span><span class="s1">r&#39;$\phi = {{{0}}} \pi / 4$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+           <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\phi = {{</span><span class="si">{0}</span><span class="s1">}} \pi / 4$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
            <span class="n">lw</span><span class="o">=</span><span class="n">lw</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
            <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">r&#39;$y=\sin(\theta + \phi)$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">r&#39;[arb]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">r&#39;$\theta$ [rad]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$y=\sin(\theta + \phi)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[arb]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$ [rad]&#39;</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//index-3.py">Source code</a>, <a class="reference external" href=".//index-3.png">png</a>, <a class="reference external" href=".//index-3.hires.png">hires.png</a>, <a class="reference external" href=".//index-3.pdf">pdf</a>)</p>
-<div class="figure">
-<img alt="_images/index-3.png" src="_images/index-3.png" />
-</div>
+<figure class="align-default">
+<img alt="_images/index-3.png" class="plot-directive" src="_images/index-3.png" />
+</figure>
 <p>However, if you want to do something more complicated:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">tight_layout</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">tight_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">lw</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">])):</span>
@@ -490,40 +483,41 @@ or more artist styles.  For simple cases than can be done with out too much trou
    <span class="k">else</span><span class="p">:</span>
        <span class="n">ls</span> <span class="o">=</span> <span class="s1">&#39;--&#39;</span>
    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">4</span><span class="p">),</span>
-           <span class="n">label</span><span class="o">=</span><span class="s1">r&#39;$\phi = {{{0}}} \pi / 4$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
+           <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\phi = {{</span><span class="si">{0}</span><span class="s1">}} \pi / 4$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span>
            <span class="n">lw</span><span class="o">=</span><span class="n">lw</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
            <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span>
            <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">r&#39;$y=\sin(\theta + \phi)$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">r&#39;[arb]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">r&#39;$\theta$ [rad]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$y=\sin(\theta + \phi)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[arb]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\theta$ [rad]&#39;</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>(<a class="reference external" href=".//index-4.py">Source code</a>, <a class="reference external" href=".//index-4.png">png</a>, <a class="reference external" href=".//index-4.hires.png">hires.png</a>, <a class="reference external" href=".//index-4.pdf">pdf</a>)</p>
-<div class="figure">
-<img alt="_images/index-4.png" src="_images/index-4.png" />
-</div>
+<figure class="align-default">
+<img alt="_images/index-4.png" class="plot-directive" src="_images/index-4.png" />
+</figure>
 <p>the plotting logic can quickly become very involved.  To address this and allow easy
-cycling over arbitrary <code class="docutils literal"><span class="pre">kwargs</span></code> the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal"><span class="pre">Cycler</span></code></a> class, a composable
+cycling over arbitrary <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> the <a class="reference internal" href="generated/cycler.Cycler.html#cycler.Cycler" title="cycler.Cycler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a> class, a composable
 kwarg iterator, was developed.</p>
-</div>
-</div>
+</section>
+</section>
 
 
           </div>
+          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Table Of Contents</a></h3>
+  <h3><a href="#">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Composable cycles</a><ul>
-<li><a class="reference internal" href="#cycler-api"><code class="docutils literal"><span class="pre">cycler</span></code> API</a></li>
-<li><a class="reference internal" href="#cycler-usage"><code class="docutils literal"><span class="pre">Cycler</span></code> Usage</a><ul>
+<li><a class="reference internal" href="#cycler-api"><code class="xref py py-mod docutils literal notranslate"><span class="pre">cycler</span></code> API</a></li>
+<li><a class="reference internal" href="#cycler-usage"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code> Usage</a><ul>
 <li><a class="reference internal" href="#base">Base</a></li>
 <li><a class="reference internal" href="#composition">Composition</a><ul>
 <li><a class="reference internal" href="#addition">Addition</a></li>
@@ -533,7 +527,7 @@ kwarg iterator, was developed.</p>
 </ul>
 </li>
 <li><a class="reference internal" href="#slicing">Slicing</a></li>
-<li><a class="reference internal" href="#inspecting-the-cycler">Inspecting the <code class="docutils literal"><span class="pre">Cycler</span></code></a></li>
+<li><a class="reference internal" href="#inspecting-the-cycler">Inspecting the <code class="xref py py-obj docutils literal notranslate"><span class="pre">Cycler</span></code></a></li>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 <li><a class="reference internal" href="#persistent-cycles">Persistent Cycles</a></li>
 <li><a class="reference internal" href="#exceptions">Exceptions</a></li>
@@ -543,34 +537,24 @@ kwarg iterator, was developed.</p>
 </ul>
 </li>
 </ul>
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="generated/cycler.cycler.html" title="next chapter">cycler.cycler</a></li>
-  </ul></li>
-</ul>
-</div>
+
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/index.txt"
+      <li><a href="_sources/index.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
+    </div>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+<script>$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -579,11 +563,11 @@ kwarg iterator, was developed.</p>
       &copy;2015, Matplotlib Developers.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="_sources/index.txt"
+      <a href="_sources/index.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 
