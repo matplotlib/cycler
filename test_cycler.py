@@ -153,31 +153,24 @@ def test_fail_getime():
     pytest.raises(ValueError, Cycler.__getitem__, c1, [0, 1])
 
 
-def _repr_tester_helper(rpr_func, cyc, target_repr):
-    test_repr = getattr(cyc, rpr_func)()
-
-    assert str(test_repr) == str(target_repr)
-
-
 def test_repr():
     c = cycler(c='rgb')
     # Using an identifier that would be not valid as a kwarg
     c2 = cycler('3rd', range(3))
 
-    c_sum_rpr = "(cycler('c', ['r', 'g', 'b']) + cycler('3rd', [0, 1, 2]))"
-    c_prod_rpr = "(cycler('c', ['r', 'g', 'b']) * cycler('3rd', [0, 1, 2]))"
+    assert repr(c + c2) == (
+        "(cycler('c', ['r', 'g', 'b']) + cycler('3rd', [0, 1, 2]))")
+    assert repr(c * c2) == (
+        "(cycler('c', ['r', 'g', 'b']) * cycler('3rd', [0, 1, 2]))")
 
-    _repr_tester_helper('__repr__', c + c2, c_sum_rpr)
-    _repr_tester_helper('__repr__', c * c2, c_prod_rpr)
-
-    sum_html = (
+    assert (c + c2)._repr_html_() == (
         "<table>"
         "<th>'3rd'</th><th>'c'</th>"
         "<tr><td>0</td><td>'r'</td></tr>"
         "<tr><td>1</td><td>'g'</td></tr>"
         "<tr><td>2</td><td>'b'</td></tr>"
         "</table>")
-    prod_html = (
+    assert (c * c2)._repr_html_() == (
         "<table>"
         "<th>'3rd'</th><th>'c'</th>"
         "<tr><td>0</td><td>'r'</td></tr>"
@@ -190,9 +183,6 @@ def test_repr():
         "<tr><td>1</td><td>'b'</td></tr>"
         "<tr><td>2</td><td>'b'</td></tr>"
         "</table>")
-
-    _repr_tester_helper('_repr_html_', c + c2, sum_html)
-    _repr_tester_helper('_repr_html_', c * c2, prod_html)
 
 
 def test_call():
@@ -276,27 +266,20 @@ def test_keychange():
     pytest.raises(KeyError, Cycler.change_key, c, 'c', 'foobar')
 
 
-def _eq_test_helper(a, b, res):
-    if res:
-        assert a == b
-    else:
-        assert a != b
-
-
 def test_eq():
     a = cycler(c='rgb')
     b = cycler(c='rgb')
-    _eq_test_helper(a, b, True)
-    _eq_test_helper(a, b[::-1], False)
+    assert a == b
+    assert a != b[::-1]
     c = cycler(lw=range(3))
-    _eq_test_helper(a+c, c+a, True)
-    _eq_test_helper(a+c, c+b, True)
-    _eq_test_helper(a*c, c*a, False)
-    _eq_test_helper(a, c, False)
+    assert a + c == c + a
+    assert a + c == c + b
+    assert a * c != c * a
+    assert a != c
     d = cycler(c='ymk')
-    _eq_test_helper(b, d, False)
+    assert b != d
     e = cycler(c='orange')
-    _eq_test_helper(b, e, False)
+    assert b != e
 
 
 def test_cycler_exceptions():
