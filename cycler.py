@@ -331,9 +331,6 @@ class Cycler:
             return False
         return all(a == b for a, b in zip(self, other))
 
-    def __ne__(self, other):
-        return not (self == other)
-
     __hash__ = None
 
     def __repr__(self):
