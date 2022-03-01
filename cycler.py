@@ -46,7 +46,7 @@ from functools import reduce
 from itertools import product, cycle
 from operator import mul, add
 
-__version__ = '0.10.0'
+__version__ = '0.12.0.dev0'
 
 
 def _process_keys(left, right):
