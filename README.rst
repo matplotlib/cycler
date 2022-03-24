@@ -16,3 +16,6 @@ cycler: composable cycles
 =========================
 
 Docs: https://matplotlib.org/cycler/
+
+.. image:: https://github.com/proarafat/cycler/raw/main/welcome%20To%20Cycler%20Repo.gif
+  :alt: https://github.com/proarafat/cycler/raw/main/welcome%20To%20Cycler%20Repo.gif
