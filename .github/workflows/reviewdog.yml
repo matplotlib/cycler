@@ -30,6 +30,6 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -o pipefail
-          flake8 | \
+          flake8 --max-line-length 88 cycler | \
             reviewdog -f=pep8 -name=flake8 \
               -tee -reporter=github-check -filter-mode nofilter
