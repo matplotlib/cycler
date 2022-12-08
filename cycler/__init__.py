@@ -43,7 +43,7 @@ Results in::
 
 from __future__ import annotations
 
-from collections.abc import Hashable, Iterable, Callable
+from collections.abc import Hashable, Iterable
 import copy
 from functools import reduce
 from itertools import product, cycle
@@ -201,15 +201,11 @@ class Cycler(Generic[K, V]):
             return
         if new in self._keys:
             raise ValueError(
-                "Can't replace {old} with {new}, {new} is already a key".format(
-                    old=old, new=new
-                )
+                f"Can't replace {old} with {new}, {new} is already a key"
             )
         if old not in self._keys:
             raise KeyError(
-                "Can't replace {old} with {new}, {old} is not a key".format(
-                    old=old, new=new
-                )
+                f"Can't replace {old} with {new}, {old} is not a key"
             )
 
         self._keys.remove(old)
@@ -310,7 +306,9 @@ class Cycler(Generic[K, V]):
             return Cycler(self, other, product)
         elif isinstance(other, int):
             trans = self.by_key()
-            return reduce(add, (_cycler(k, v * other) for k, v in trans.items()))
+            return reduce(
+                add, (_cycler(k, v * other) for k, v in trans.items())
+            )
         else:
             return NotImplemented
 
