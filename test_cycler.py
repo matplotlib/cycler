@@ -2,7 +2,7 @@ from collections import defaultdict
 from operator import add, iadd, mul, imul
 from itertools import product, cycle, chain
 
-import pytest
+import pytest  # type: ignore
 
 from cycler import cycler, Cycler, concat
 
