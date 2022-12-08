@@ -1,10 +1,11 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name='cycler',
       version='0.12.0.dev0',
       author='Thomas A Caswell',
       author_email='matplotlib-users@python.org',
-      py_modules=['cycler'],
+      packages=find_packages(),
+      package_data = {"cycler": ["py.typed"]},
       description='Composable style cycles',
       url='https://github.com/matplotlib/cycler',
       platforms='Cross platform (Linux, macOS, Windows)',

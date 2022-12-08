@@ -41,15 +41,21 @@ Results in::
 """
 
 
+from __future__ import annotations
+
+from collections.abc import Hashable, Iterable, Callable
 import copy
 from functools import reduce
 from itertools import product, cycle
 from operator import mul, add
+from typing import TypeVar, Generic, Generator, Any, overload
 
 __version__ = '0.12.0.dev0'
 
+K = TypeVar("K", bound=Hashable)
+V = TypeVar("V")
 
-def _process_keys(left, right):
+def _process_keys(left: Cycler[K, V]|Iterable[dict[K,V]]|None, right: Cycler[K, V]|Iterable[dict[K,V]]|None) -> set[K]:
     """
     Helper function to compose cycler keys.
 
@@ -63,16 +69,16 @@ def _process_keys(left, right):
     keys : set
         The keys in the composition of the two cyclers.
     """
-    l_peek = next(iter(left)) if left is not None else {}
-    r_peek = next(iter(right)) if right is not None else {}
-    l_key = set(l_peek.keys())
-    r_key = set(r_peek.keys())
+    l_peek: dict[K, V] = next(iter(left)) if left is not None else {}
+    r_peek: dict[K, V] = next(iter(right)) if right is not None else {}
+    l_key: set[K] = set(l_peek.keys())
+    r_key: set[K] = set(r_peek.keys())
     if l_key & r_key:
         raise ValueError("Can not compose overlapping cycles")
     return l_key | r_key
 
 
-def concat(left, right):
+def concat(left: Cycler[K, V], right: Cycler[K, V]) -> Cycler[K, V]:
     r"""
     Concatenate `Cycler`\s, as if chained using `itertools.chain`.
 
@@ -100,8 +106,7 @@ def concat(left, right):
     _r = right.by_key()
     return reduce(add, (_cycler(k, _l[k] + _r[k]) for k in left.keys))
 
-
-class Cycler:
+class Cycler(Generic[K, V]):
     """
     Composable cycles.
 
@@ -132,14 +137,14 @@ class Cycler:
     def __call__(self):
         return cycle(self)
 
-    def __init__(self, left, right=None, op=None):
+    def __init__(self, left: Cycler[K, V] | Iterable[dict[K,V]] | None, right: Cycler[K, V] | Iterable[dict[K,V]] | None=None, op: Any=None):
         """
         Semi-private init.
 
         Do not use this directly, use `cycler` function instead.
         """
         if isinstance(left, Cycler):
-            self._left = Cycler(left._left, left._right, left._op)
+            self._left: Cycler[K, V] | list[dict[K,V]] | None = Cycler(left._left, left._right, left._op)
         elif left is not None:
             # Need to copy the dictionary or else that will be a residual
             # mutable that could lead to strange errors
@@ -148,7 +153,7 @@ class Cycler:
             self._left = None
 
         if isinstance(right, Cycler):
-            self._right = Cycler(right._left, right._right, right._op)
+            self._right: Cycler[K, V] | list[dict[K,V]] | None = Cycler(right._left, right._right, right._op)
         elif right is not None:
             # Need to copy the dictionary or else that will be a residual
             # mutable that could lead to strange errors
@@ -156,18 +161,18 @@ class Cycler:
         else:
             self._right = None
 
-        self._keys = _process_keys(self._left, self._right)
-        self._op = op
+        self._keys: set[K] = _process_keys(self._left, self._right)
+        self._op: Any = op
 
     def __contains__(self, k):
         return k in self._keys
 
     @property
-    def keys(self):
+    def keys(self) -> set[K]:
         """The keys this Cycler knows about."""
         return set(self._keys)
 
-    def change_key(self, old, new):
+    def change_key(self, old: K, new: K) -> None:
         """
         Change a key in this cycler to a new name.
         Modification is performed in-place.
@@ -190,11 +195,12 @@ class Cycler:
         self._keys.remove(old)
         self._keys.add(new)
 
-        if self._right is not None and old in self._right.keys:
+        if self._right is not None and isinstance(self._right, Cycler) and old in self._right.keys:
             self._right.change_key(old, new)
 
         # self._left should always be non-None
         # if self._keys is non-empty.
+        elif self._left is None: pass
         elif isinstance(self._left, Cycler):
             self._left.change_key(old, new)
         else:
@@ -204,7 +210,7 @@ class Cycler:
             self._left = [{new: entry[old]} for entry in self._left]
 
     @classmethod
-    def _from_iter(cls, label, itr):
+    def _from_iter(cls, label: K, itr: Iterable[V]) -> Cycler[K, V]:
         """
         Class method to create 'base' Cycler objects
         that do not have a 'right' or 'op' and for which
@@ -212,7 +218,7 @@ class Cycler:
 
         Parameters
         ----------
-        label : str
+        label : hashable
             The property key.
 
         itr : iterable
@@ -223,12 +229,12 @@ class Cycler:
         `Cycler`
             New 'base' cycler.
         """
-        ret = cls(None)
+        ret: Cycler[K, V] = cls(None)
         ret._left = list({label: v} for v in itr)
         ret._keys = {label}
         return ret
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: slice) -> Cycler[K, V]:
         # TODO : maybe add numpy style fancy slicing
         if isinstance(key, slice):
             trans = self.by_key()
@@ -236,18 +242,21 @@ class Cycler:
         else:
             raise ValueError("Can only use slices with Cycler.__getitem__")
 
-    def __iter__(self):
-        if self._right is None:
-            for left in self._left:
-                yield dict(left)
+    def __iter__(self) -> Generator[dict[K, V], None, None]:
+        if self._right is None or self._left is None:
+            if self._left is not None:
+                for left in self._left:
+                    yield dict(left)
         else:
+            if self._op is None:
+                raise TypeError("Operation cannot be None when both left and right are defined")
             for a, b in self._op(self._left, self._right):
                 out = {}
                 out.update(a)
                 out.update(b)
                 yield out
 
-    def __add__(self, other):
+    def __add__(self, other: Cycler[K, V]) -> Cycler[K, V]:
         """
         Pair-wise combine two equal length cyclers (zip).
 
@@ -260,7 +269,7 @@ class Cycler:
                              f"not {len(self)} and {len(other)}")
         return Cycler(self, other, zip)
 
-    def __mul__(self, other):
+    def __mul__(self, other: Cycler[K, V] | int) -> Cycler[K, V]:
         """
         Outer product of two cyclers (`itertools.product`) or integer
         multiplication.
@@ -277,18 +286,22 @@ class Cycler:
         else:
             return NotImplemented
 
-    def __rmul__(self, other):
+    def __rmul__(self, other: Cycler[K, V]) -> Cycler[K, V]:
         return self * other
 
-    def __len__(self):
+    def __len__(self) -> int:
         op_dict = {zip: min, product: mul}
+        if self._left is None:
+            if self._left is None:
+                return 0
+            return 0
         if self._right is None:
             return len(self._left)
         l_len = len(self._left)
         r_len = len(self._right)
-        return op_dict[self._op](l_len, r_len)
+        return op_dict[self._op](l_len, r_len)  # type: ignore
 
-    def __iadd__(self, other):
+    def __iadd__(self, other: Cycler[K, V]) -> Cycler[K, V]:
         """
         In-place pair-wise combine two equal length cyclers (zip).
 
@@ -306,7 +319,7 @@ class Cycler:
         self._right = Cycler(other._left, other._right, other._op)
         return self
 
-    def __imul__(self, other):
+    def __imul__(self, other: Cycler[K,V]|int) -> Cycler[K, V]:
         """
         In-place outer product of two cyclers (`itertools.product`).
 
@@ -324,16 +337,18 @@ class Cycler:
         self._right = Cycler(other._left, other._right, other._op)
         return self
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Cycler):
+            return False
         if len(self) != len(other):
             return False
         if self.keys ^ other.keys:
             return False
         return all(a == b for a, b in zip(self, other))
 
-    __hash__ = None
+    __hash__ = None  # type: ignore
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         op_map = {zip: '+', product: '*'}
         if self._right is None:
             lab = self.keys.pop()
@@ -344,7 +359,7 @@ class Cycler:
             msg = "({left!r} {op} {right!r})"
             return msg.format(left=self._left, op=op, right=self._right)
 
-    def _repr_html_(self):
+    def _repr_html_(self) -> str:
         # an table showing the value of each key through a full cycle
         output = "<table>"
         sorted_keys = sorted(self.keys, key=repr)
@@ -358,7 +373,7 @@ class Cycler:
         output += "</table>"
         return output
 
-    def by_key(self):
+    def by_key(self) -> dict[K, list[V]]:
         """
         Values by key.
 
@@ -380,7 +395,7 @@ class Cycler:
         # and if we care.
 
         keys = self.keys
-        out = {k: list() for k in keys}
+        out: dict[K, list[V]] = {k: list() for k in keys}
 
         for d in self:
             for k in keys:
@@ -390,7 +405,7 @@ class Cycler:
     # for back compatibility
     _transpose = by_key
 
-    def simplify(self):
+    def simplify(self) -> Cycler[K, V]:
         """
         Simplify the cycler into a sum (but no products) of cyclers.
 
@@ -408,7 +423,12 @@ class Cycler:
 
     concat = concat
 
-
+@overload
+def cycler(args: Cycler[K, V]) -> Cycler[K, V]: ...
+@overload
+def cycler(**kwargs: Iterable[V]) -> Cycler[str, V]: ...
+@overload
+def cycler(label: K, itr: Iterable[V]) -> Cycler[K, V]: ...
 def cycler(*args, **kwargs):
     """
     Create a new `Cycler` object from a single positional argument,
@@ -468,7 +488,7 @@ def cycler(*args, **kwargs):
     raise TypeError("Must have at least a positional OR keyword arguments")
 
 
-def _cycler(label, itr):
+def _cycler(label: K, itr: Iterable[V]) -> Cycler[K, V]:
     """
     Create a new `Cycler` object from a property name and iterable of values.
 
