@@ -43,21 +43,24 @@ Results in::
 
 from __future__ import annotations
 
-from collections.abc import Hashable, Iterable
+from collections.abc import Hashable, Iterable, Generator
 import copy
 from functools import reduce
 from itertools import product, cycle
 from operator import mul, add
-from typing import TypeVar, Generic, Generator, Any, overload
+# Dict, List, Union required for runtime cast calls
+from typing import TypeVar, Generic, Callable, Union, Dict, List, Any, overload, cast
 
 __version__ = "0.12.0.dev0"
 
 K = TypeVar("K", bound=Hashable)
+L = TypeVar("L", bound=Hashable)
 V = TypeVar("V")
+U = TypeVar("U")
 
 
 def _process_keys(
-    left: Cycler[K, V] | Iterable[dict[K, V]] | None,
+    left: Cycler[K, V] | Iterable[dict[K, V]],
     right: Cycler[K, V] | Iterable[dict[K, V]] | None,
 ) -> set[K]:
     """
@@ -73,7 +76,7 @@ def _process_keys(
     keys : set
         The keys in the composition of the two cyclers.
     """
-    l_peek: dict[K, V] = next(iter(left)) if left is not None else {}
+    l_peek: dict[K, V] = next(iter(left)) if left != [] else {}
     r_peek: dict[K, V] = next(iter(right)) if right is not None else {}
     l_key: set[K] = set(l_peek.keys())
     r_key: set[K] = set(r_peek.keys())
@@ -82,7 +85,7 @@ def _process_keys(
     return l_key | r_key
 
 
-def concat(left: Cycler[K, V], right: Cycler[K, V]) -> Cycler[K, V]:
+def concat(left: Cycler[K, V], right: Cycler[K, U]) -> Cycler[K, V | U]:
     r"""
     Concatenate `Cycler`\s, as if chained using `itertools.chain`.
 
@@ -108,8 +111,8 @@ def concat(left: Cycler[K, V], right: Cycler[K, V]) -> Cycler[K, V]:
                 both=left.keys & right.keys, just_one=left.keys ^ right.keys
             )
         )
-    _l = left.by_key()
-    _r = right.by_key()
+    _l = cast(Dict[K, List[Union[V, U]]], left.by_key())
+    _r = cast(Dict[K, List[Union[V, U]]], right.by_key())
     return reduce(add, (_cycler(k, _l[k] + _r[k]) for k in left.keys))
 
 
@@ -156,7 +159,7 @@ class Cycler(Generic[K, V]):
         Do not use this directly, use `cycler` function instead.
         """
         if isinstance(left, Cycler):
-            self._left: Cycler[K, V] | list[dict[K, V]] | None = Cycler(
+            self._left: Cycler[K, V] | list[dict[K, V]] = Cycler(
                 left._left, left._right, left._op
             )
         elif left is not None:
@@ -164,7 +167,7 @@ class Cycler(Generic[K, V]):
             # mutable that could lead to strange errors
             self._left = [copy.copy(v) for v in left]
         else:
-            self._left = None
+            self._left = []
 
         if isinstance(right, Cycler):
             self._right: Cycler[K, V] | list[dict[K, V]] | None = Cycler(
@@ -220,8 +223,6 @@ class Cycler(Generic[K, V]):
 
         # self._left should always be non-None
         # if self._keys is non-empty.
-        elif self._left is None:
-            pass
         elif isinstance(self._left, Cycler):
             self._left.change_key(old, new)
         else:
@@ -264,10 +265,9 @@ class Cycler(Generic[K, V]):
             raise ValueError("Can only use slices with Cycler.__getitem__")
 
     def __iter__(self) -> Generator[dict[K, V], None, None]:
-        if self._right is None or self._left is None:
-            if self._left is not None:
-                for left in self._left:
-                    yield dict(left)
+        if self._right is None:
+            for left in self._left:
+                yield dict(left)
         else:
             if self._op is None:
                 raise TypeError(
@@ -279,7 +279,7 @@ class Cycler(Generic[K, V]):
                 out.update(b)
                 yield out
 
-    def __add__(self, other: Cycler[K, V]) -> Cycler[K, V]:
+    def __add__(self, other: Cycler[L, U]) -> Cycler[K | L, V | U]:
         """
         Pair-wise combine two equal length cyclers (zip).
 
@@ -291,9 +291,21 @@ class Cycler(Generic[K, V]):
             raise ValueError(
                 f"Can only add equal length cycles, not {len(self)} and {len(other)}"
             )
-        return Cycler(self, other, zip)
+        return Cycler(
+            cast(Cycler[Union[K, L], Union[V, U]], self),
+            cast(Cycler[Union[K, L], Union[V, U]], other),
+            zip
+        )
 
-    def __mul__(self, other: Cycler[K, V] | int) -> Cycler[K, V]:
+    @overload
+    def __mul__(self, other: Cycler[L, U]) -> Cycler[K | L, V | U]:
+        ...
+
+    @overload
+    def __mul__(self, other: int) -> Cycler[K, V]:
+        ...
+
+    def __mul__(self, other):
         """
         Outer product of two cyclers (`itertools.product`) or integer
         multiplication.
@@ -303,7 +315,11 @@ class Cycler(Generic[K, V]):
         other : Cycler or int
         """
         if isinstance(other, Cycler):
-            return Cycler(self, other, product)
+            return Cycler(
+                cast(Cycler[Union[K, L], Union[V, U]], self),
+                cast(Cycler[Union[K, L], Union[V, U]], other),
+                product
+            )
         elif isinstance(other, int):
             trans = self.by_key()
             return reduce(
@@ -312,22 +328,28 @@ class Cycler(Generic[K, V]):
         else:
             return NotImplemented
 
-    def __rmul__(self, other: Cycler[K, V]) -> Cycler[K, V]:
+    @overload
+    def __rmul__(self, other: Cycler[L, U]) -> Cycler[K | L, V | U]:
+        ...
+
+    @overload
+    def __rmul__(self, other: int) -> Cycler[K, V]:
+        ...
+
+    def __rmul__(self, other):
         return self * other
 
     def __len__(self) -> int:
-        op_dict = {zip: min, product: mul}
-        if self._left is None:
-            if self._left is None:
-                return 0
-            return 0
+        op_dict: dict[Callable, Callable[[int, int], int]] = {zip: min, product: mul}
         if self._right is None:
             return len(self._left)
         l_len = len(self._left)
         r_len = len(self._right)
-        return op_dict[self._op](l_len, r_len)  # type: ignore
+        return op_dict[self._op](l_len, r_len)
 
-    def __iadd__(self, other: Cycler[K, V]) -> Cycler[K, V]:
+    # iadd and imul do not exapand the the type as the returns must be consistent with
+    # self, thus they flag as inconsistent with add/mul
+    def __iadd__(self, other: Cycler[K, V]) -> Cycler[K, V]:  # type: ignore[misc]
         """
         In-place pair-wise combine two equal length cyclers (zip).
 
@@ -345,7 +367,7 @@ class Cycler(Generic[K, V]):
         self._right = Cycler(other._left, other._right, other._op)
         return self
 
-    def __imul__(self, other: Cycler[K, V] | int) -> Cycler[K, V]:
+    def __imul__(self, other: Cycler[K, V] | int) -> Cycler[K, V]:  # type: ignore[misc]
         """
         In-place outer product of two cyclers (`itertools.product`).
 
@@ -451,7 +473,7 @@ class Cycler(Generic[K, V]):
 
 
 @overload
-def cycler(args: Cycler[K, V]) -> Cycler[K, V]:
+def cycler(arg: Cycler[K, V]) -> Cycler[K, V]:
     ...
 
 
@@ -505,7 +527,7 @@ def cycler(*args, **kwargs):
     """
     if args and kwargs:
         raise TypeError(
-            "cyl() can only accept positional OR keyword arguments -- not both."
+            "cycler() can only accept positional OR keyword arguments -- not both."
         )
 
     if len(args) == 1:
