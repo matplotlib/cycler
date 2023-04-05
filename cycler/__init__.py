@@ -150,7 +150,7 @@ class Cycler(Generic[K, V]):
     def __init__(
         self,
         left: Cycler[K, V] | Iterable[dict[K, V]] | None,
-        right: Cycler[K, V] | Iterable[dict[K, V]] | None = None,
+        right: Cycler[K, V] | None = None,
         op: Any = None,
     ):
         """
@@ -170,13 +170,9 @@ class Cycler(Generic[K, V]):
             self._left = []
 
         if isinstance(right, Cycler):
-            self._right: Cycler[K, V] | list[dict[K, V]] | None = Cycler(
+            self._right: Cycler[K, V] | None = Cycler(
                 right._left, right._right, right._op
             )
-        elif right is not None:
-            # Need to copy the dictionary or else that will be a residual
-            # mutable that could lead to strange errors
-            self._right = [copy.copy(v) for v in right]
         else:
             self._right = None
 
@@ -214,11 +210,7 @@ class Cycler(Generic[K, V]):
         self._keys.remove(old)
         self._keys.add(new)
 
-        if (
-            self._right is not None
-            and isinstance(self._right, Cycler)
-            and old in self._right.keys
-        ):
+        if self._right is not None and old in self._right.keys:
             self._right.change_key(old, new)
 
         # self._left should always be non-None
