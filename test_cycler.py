@@ -2,7 +2,7 @@ from collections import defaultdict
 from operator import add, iadd, mul, imul
 from itertools import product, cycle, chain
 
-import pytest
+import pytest  # type: ignore
 
 from cycler import cycler, Cycler, concat
 
@@ -289,10 +289,10 @@ def test_cycler_exceptions():
     pytest.raises(TypeError, cycler, 'c', 'rgb', 'lw', range(3))
 
 
-def test_starange_init():
+def test_strange_init():
     c = cycler('r', 'rgb')
     c2 = cycler('lw', range(3))
-    cy = Cycler(list(c), list(c2), zip)
+    cy = Cycler(list(c), c2, zip)
     assert cy == c + c2
 
 
