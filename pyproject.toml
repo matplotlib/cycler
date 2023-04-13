@@ -25,6 +25,19 @@ keywords = ["cycle kwargs"]
 homepage = "https://matplotlib.org/cycler/"
 repository = "https://github.com/matplotlib/cycler"
 
+[project.optional-dependencies]
+docs = [
+    "ipython",
+    "matplotlib",
+    "numpydoc",
+    "sphinx",
+]
+tests = [
+    "pytest",
+    "pytest-cov",
+    "pytest-xdist",
+]
+
 [tool.setuptools]
 packages = ["cycler"]
 
