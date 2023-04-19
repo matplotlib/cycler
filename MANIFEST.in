@@ -1,5 +1,0 @@
-include test_cycler.py
-include LICENSE
-recursive-include doc Makefile make.bat *.rst *.py
-exclude appveyor.yml
-recursive-exclude .github *
