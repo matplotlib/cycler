@@ -67,7 +67,7 @@ commands:
             # Set epoch to date of latest tag.
             export SOURCE_DATE_EPOCH="$(git log -1 --format=%at $(git describe --abbrev=0))"
             mkdir -p logs
-            make html O="-T -j4 -w /tmp/sphinxerrorswarnings.log"
+            make html SPHINXOPTS="-T -j4 -w /tmp/sphinxerrorswarnings.log"
             rm -r build/html/_sources
           working_directory: doc
       - save_cache:
