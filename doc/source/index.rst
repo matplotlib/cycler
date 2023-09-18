@@ -40,10 +40,10 @@ composition and iteration logic.
 Base
 ----
 
-A single entry `Cycler` object can be used to easily
-cycle over a single style.  To create the `Cycler` use the :py:func:`cycler`
-function to link a key/style/kwarg to series of values.  The key must be
-hashable (as it will eventually be used as the key in a :obj:`dict`).
+A single entry `Cycler` object can be used to easily cycle over a single style.
+To create the `Cycler` use the :py:func:`cycler` function to link a
+key/style/keyword argument to series of values. The key must be hashable (as it
+will eventually be used as the key in a :obj:`dict`).
 
 .. ipython:: python
 
@@ -53,7 +53,7 @@ hashable (as it will eventually be used as the key in a :obj:`dict`).
    color_cycle = cycler(color=['r', 'g', 'b'])
    color_cycle
 
-The `Cycler` knows it's length and keys:
+The `Cycler` knows its length and keys:
 
 .. ipython:: python
 
@@ -97,7 +97,7 @@ create complex multi-key cycles.
 Addition
 ~~~~~~~~
 
-Equal length `Cycler` s with different keys can be added to get the
+Equal length `Cycler`\s with different keys can be added to get the
 'inner' product of two cycles
 
 .. ipython:: python
@@ -180,7 +180,7 @@ matrices)
 Integer Multiplication
 ~~~~~~~~~~~~~~~~~~~~~~
 
-`Cycler` s can also be multiplied by integer values to increase the length.
+`Cycler`\s can also be multiplied by integer values to increase the length.
 
 .. ipython:: python
 
@@ -331,8 +331,7 @@ the same style.
 Exceptions
 ----------
 
-
-A :obj:`ValueError` is raised if unequal length `Cycler` s are added together
+A :obj:`ValueError` is raised if unequal length `Cycler`\s are added together
 
 .. ipython:: python
    :okexcept:
@@ -401,6 +400,6 @@ However, if you want to do something more complicated:
 
    ax.legend(loc=0)
 
-the plotting logic can quickly become very involved.  To address this and allow easy
-cycling over arbitrary ``kwargs`` the `Cycler` class, a composable
-kwarg iterator, was developed.
+the plotting logic can quickly become very involved.  To address this and allow
+easy cycling over arbitrary ``kwargs`` the `Cycler` class, a composable keyword
+argument iterator, was developed.
