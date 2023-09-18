@@ -1,4 +1,4 @@
-|PyPi|_ |Conda|_ |Supported Python versions|_ |Github Actions|_ |Codecov|_
+|PyPi|_ |Conda|_ |Supported Python versions|_ |GitHub Actions|_ |Codecov|_
 
 .. |PyPi| image:: https://img.shields.io/pypi/v/cycler.svg?style=flat
 .. _PyPi: https://pypi.python.org/pypi/cycler
@@ -9,8 +9,8 @@
 .. |Supported Python versions| image:: https://img.shields.io/pypi/pyversions/cycler.svg
 .. _Supported Python versions: https://pypi.python.org/pypi/cycler
 
-.. |Github Actions| iamge:: https://github.com/matplotlib/cycler/actions/workflows/tests.yml/badge.svg
-.. _Github Actions: https://github.com/matplotlib/cycler/actions
+.. |GitHub Actions| image:: https://github.com/matplotlib/cycler/actions/workflows/tests.yml/badge.svg
+.. _GitHub Actions: https://github.com/matplotlib/cycler/actions
 
 .. |Codecov| image:: https://codecov.io/github/matplotlib/cycler/badge.svg?branch=main&service=github
 .. _Codecov: https://codecov.io/github/matplotlib/cycler?branch=main
