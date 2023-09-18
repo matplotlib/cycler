@@ -1,0 +1,57 @@
+---
+
+name: Release
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  build:
+    name: Build Release Packages
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
+
+      - name: Set up Python
+        id: setup
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install build tools
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade build
+
+      - name: Build packages
+        run: python -m build
+
+      - name: Save built packages as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: packages-${{ runner.os }}-${{ steps.setup.outputs.python-version }}
+          path: dist/
+          if-no-files-found: error
+          retention-days: 5
+
+  publish:
+    name: Upload release to PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write
+    steps:
+      - name: Download packages
+        uses: actions/download-artifact@v3
+
+      - name: Consolidate packages for upload
+        run: |
+          mkdir dist
+          cp packages-*/* dist/
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@b7f401de30cb6434a1e19f805ff006643653240e # v1.8.10
