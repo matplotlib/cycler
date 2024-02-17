@@ -29,7 +29,9 @@ repository = "https://github.com/matplotlib/cycler"
 docs = [
     "ipython",
     "matplotlib",
+    "mpl-sphinx-theme",
     "numpydoc",
+    "pydata-sphinx-theme==0.13.3",
     "sphinx",
 ]
 tests = [
