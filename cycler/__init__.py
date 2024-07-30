@@ -81,8 +81,8 @@ def _process_keys(
     r_peek: dict[K, V] = next(iter(right)) if right is not None else {}
     l_key: set[K] = set(l_peek.keys())
     r_key: set[K] = set(r_peek.keys())
-    if l_key & r_key:
-        raise ValueError(f"Cannot compose overlapping cycles, duplicate key(s): {l_key & r_key}")
+    if common_keys := l_key & r_key:
+        raise ValueError(f"Cannot compose overlapping cycles, duplicate key(s): {common_keys}")
 
     return l_key | r_key
 
