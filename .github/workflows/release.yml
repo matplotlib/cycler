@@ -30,7 +30,7 @@ jobs:
         run: python -m build
 
       - name: Save built packages as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882  # v4.4.3
         with:
           name: packages-${{ runner.os }}-${{ steps.setup.outputs.python-version }}
           path: dist/
@@ -46,12 +46,14 @@ jobs:
       id-token: write
     steps:
       - name: Download packages
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16  # v4.1.8
+        with:
+          pattern: packages-*
+          path: dist
+          merge-multiple: true
 
-      - name: Consolidate packages for upload
-        run: |
-          mkdir dist
-          cp packages-*/* dist/
+      - name: Print out packages
+        run: ls dist
 
       - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@b7f401de30cb6434a1e19f805ff006643653240e # v1.8.10
+        uses: pypa/gh-action-pypi-publish@15c56dba361d8335944d31a2ecd17d700fc7bcbc  # v1.12.2
