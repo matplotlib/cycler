@@ -355,6 +355,10 @@ class Cycler(Generic[K, V]):
         """
         if not isinstance(other, Cycler):
             raise TypeError("Cannot += with a non-Cycler object")
+        if len(self) != len(other):
+            raise ValueError(
+                f"Can only add equal length cycles, not {len(self)} and {len(other)}"
+            )
         # True shallow copy of self is fine since this is in-place
         old_self = copy.copy(self)
         self._keys = _process_keys(old_self, other)
