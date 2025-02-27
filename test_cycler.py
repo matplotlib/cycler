@@ -65,12 +65,22 @@ def test_prod():
     _cycler_helper(c3 * c1, 45, ['lw', 'c'], target)
 
 
-def test_inplace():
+def test_inplace_add():
     c1 = cycler(c='rgb')
     c2 = cycler(lw=range(3))
     c2 += c1
     _cycler_helper(c2, 3, ['c', 'lw'], [list('rgb'), range(3)])
 
+
+def test_inplace_add_len_mismatch():
+    # miss-matched add lengths
+    c1 = cycler(c='rgb')
+    c3 = cycler(lw=range(15))
+    with pytest.raises(ValueError):
+        c1 += c3
+
+
+def test_inplace_mul():
     c3 = cycler(c='rgb')
     c4 = cycler(lw=range(3))
     c3 *= c4
