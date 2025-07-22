@@ -10,7 +10,7 @@ jobs:
     name: Run CircleCI artifacts redirector
     steps:
       - name: GitHub Action step
-        uses: larsoner/circleci-artifacts-redirector-action@master
+        uses: scientific-python/circleci-artifacts-redirector-action@7eafdb60666f57706a5525a2f5eb76224dc8779b  # v1.1.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           artifact-path: 0/doc/build/html/index.html
@@ -27,15 +27,19 @@ jobs:
     name: Post warnings/errors as review
     steps:
       - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
       - name: Fetch result artifacts
         id: fetch-artifacts
         run: |
-          python .circleci/fetch_doc_logs.py "${{ github.event.target_url }}"
+          python .circleci/fetch_doc_logs.py "${GITHUB_EVENT_TARGET_URL}"
+        env:
+          GITHUB_EVENT_TARGET_URL: ${{ github.event.target_url }}
 
       - name: Set up reviewdog
         if: "${{ steps.fetch-artifacts.outputs.count != 0 }}"
-        uses: reviewdog/action-setup@v1
+        uses: reviewdog/action-setup@e04ffabe3898a0af8d0fb1af00c188831c4b5893 # v1.3.2
         with:
           reviewdog_version: latest
 

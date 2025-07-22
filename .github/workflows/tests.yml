@@ -1,6 +1,8 @@
 ---
 
 name: Tests
+permissions:
+  contents: read
 
 on:
   push:
@@ -22,6 +24,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
@@ -42,4 +45,4 @@ jobs:
           pytest -raR -n auto --cov --cov-report=
 
       - name: Upload code coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@ab904c41d6ece82784817410c45d8b8c02684457 # v3.1.6
