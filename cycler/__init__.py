@@ -78,7 +78,9 @@ def _process_keys(
         The keys in the composition of the two cyclers.
     """
     l_key: set[K] = left.keys if isinstance(left, Cycler) else set(next(iter(left), {}))
-    r_key: set[K] = right.keys if right is not None else set()
+    r_key: set[K] = set()
+    if right is not None:
+        r_key = right.keys if isinstance(right, Cycler) else set(next(iter(right), {}))
     if common_keys := l_key & r_key:
         raise ValueError(
             f"Cannot compose overlapping cycles, duplicate key(s): {common_keys}"
