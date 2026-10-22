@@ -77,10 +77,8 @@ def _process_keys(
     keys : set
         The keys in the composition of the two cyclers.
     """
-    l_peek: dict[K, V] = next(iter(left)) if left != [] else {}
-    r_peek: dict[K, V] = next(iter(right)) if right is not None else {}
-    l_key: set[K] = set(l_peek.keys())
-    r_key: set[K] = set(r_peek.keys())
+    l_key: set[K] = left.keys if isinstance(left, Cycler) else set(next(iter(left), {}))
+    r_key: set[K] = right.keys if right is not None else set()
     if common_keys := l_key & r_key:
         raise ValueError(
             f"Cannot compose overlapping cycles, duplicate key(s): {common_keys}"
@@ -166,6 +164,7 @@ class Cycler(Generic[K, V]):
             self._left: Cycler[K, V] | list[dict[K, V]] = Cycler(
                 left._left, left._right, left._op
             )
+            self._left._keys = left.keys
         elif left is not None:
             # Need to copy the dictionary or else that will be a residual
             # mutable that could lead to strange errors
@@ -177,6 +176,7 @@ class Cycler(Generic[K, V]):
             self._right: Cycler[K, V] | None = Cycler(
                 right._left, right._right, right._op
             )
+            self._right._keys = right.keys
         else:
             self._right = None
 
@@ -369,12 +369,18 @@ class Cycler(Generic[K, V]):
 
     def __imul__(self, other: Cycler[K, V] | int) -> Cycler[K, V]:  # type: ignore[misc]
         """
-        In-place outer product of two cyclers (`itertools.product`).
+        In-place outer product of two cyclers or integer multiplication.
 
         Parameters
         ----------
-        other : Cycler
+        other : Cycler or int
         """
+        if isinstance(other, int):
+            multiplied = self * other
+            self._left = multiplied._left
+            self._right = multiplied._right
+            self._op = multiplied._op
+            return self
         if not isinstance(other, Cycler):
             raise TypeError("Cannot *= with a non-Cycler object")
         # True shallow copy of self is fine since this is in-place

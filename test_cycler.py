@@ -80,6 +80,38 @@ def test_inplace_add_len_mismatch():
         c1 += c3
 
 
+@pytest.mark.parametrize('factor', [-2, 0, 1, 2, 3])
+@pytest.mark.parametrize('make_cycle', [
+    lambda: cycler(c='rb'),
+    lambda: cycler(c='rb') + cycler(lw=[1, 2]),
+    lambda: cycler(c='rb') * cycler(lw=[1, 2]),
+], ids=['base', 'sum', 'product'])
+def test_inplace_integer_mul(make_cycle, factor):
+    c = make_cycle()
+    alias = c
+    expected = c * factor
+    c *= factor
+    assert c is alias
+    _cycles_equal(c, expected)
+    assert c.keys == expected.keys
+    assert c.by_key() == expected.by_key()
+    assert repr(c) == repr(expected)
+
+
+@pytest.mark.parametrize('factor', [-2, 0])
+@pytest.mark.parametrize('make_cycle', [
+    lambda: cycler(c='rb'),
+    lambda: cycler(c='rb') + cycler(lw=[1, 2]),
+    lambda: cycler(c='rb') * cycler(lw=[1, 2]),
+], ids=['base', 'sum', 'product'])
+def test_integer_mul_empty_preserves_keys(make_cycle, factor):
+    c = make_cycle()
+    result = c * factor
+    assert list(result) == []
+    assert len(result) == 0
+    assert result.keys == c.keys
+
+
 def test_inplace_mul():
     c3 = cycler(c='rgb')
     c4 = cycler(lw=range(3))
