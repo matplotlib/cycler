@@ -50,3 +50,6 @@ cycler = ["py.typed"]
 [build-system]
 requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["test_cycler.py"]
